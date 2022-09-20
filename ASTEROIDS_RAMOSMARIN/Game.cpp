@@ -41,7 +41,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 
 void CheckInput(Ship& spaceShip, Vector2 normalizedDirection)
 {
-	if (IsMouseButtonDown(1))
+	if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 	{
 		spaceShip.speed.x += normalizedDirection.x;
 		spaceShip.speed.y += normalizedDirection.y;
