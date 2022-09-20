@@ -39,11 +39,17 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 	}
 }
 
+void CheckInput(Ship& spaceShip)
+{
+
+}
+
 void RunGame()
 {
 	Initialize();
 
 	SetTargetFPS(60);
+	HideCursor();
 
 	bool playing_game = true;
 	bool exitWindow = false;
@@ -58,6 +64,12 @@ void RunGame()
 	CreateShip(spaceShip);
 	CreateAsteroid(asteroid1);
 
+	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
+
+	float arcTan = vectorDirection.y / vectorDirection.x;
+
+	float angle = arcTan * 180 / PI;
+
 	while (!WindowShouldClose() || !playing_game)
 	{
 		BeginDrawing();
@@ -70,13 +82,14 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
-			GameCollisions(spaceShip, asteroid1);
+			spaceShip.rotation = angle;
 
-			spaceShip.position.x += spaceShip.speed.x * GetFrameTime();
+			GameCollisions(spaceShip, asteroid1);
 
 			DrawFPS(10, 10);
 			DrawShip(spaceShip);
 			DrawAsteroid(asteroid1);
+			DrawLineEx({ GetScreenWidth() / 2.0f , GetScreenHeight() / 2.0f }, { mousePosition.x, mousePosition.y }, 3, WHITE);
 
 			break;
 
