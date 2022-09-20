@@ -9,6 +9,7 @@ struct Ship
 	float rotation;
 	float radius;
 	int lifes;
+	Color color;
 };
 
 Ship CreateShip(Ship& spaceShip);

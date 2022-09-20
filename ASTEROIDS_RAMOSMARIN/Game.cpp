@@ -3,6 +3,7 @@
 #include <ctime>
 #include "Ship.h"
 #include "Asteroid.h"
+#include <math.h>
 
 static void Initialize()
 {
@@ -14,14 +15,28 @@ static void Close()
 	CloseWindow();
 }
 
-//bool CollisionCircleCircle()
-//{
-//
-//}
-
-void GameCollisions()
+bool CollisionCircleCircle(Ship& spaceShip, Asteroid& asteroid1)
 {
+	float distX = spaceShip.position.x - asteroid1.position.x;
+	float distY = spaceShip.position.y - asteroid1.position.y;
+	float distance = sqrt((distX * distX) + (distY * distY));
 
+	if (distance <= spaceShip.radius + asteroid1.radius)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
+{
+	if (CollisionCircleCircle(spaceShip, asteroid1))
+	{
+		spaceShip.color = RED;
+	}
 }
 
 void RunGame()
@@ -54,6 +69,10 @@ void RunGame()
 		case GameScreen::GAMETITLE:
 
 			mousePosition = GetMousePosition();
+
+			GameCollisions(spaceShip, asteroid1);
+
+			spaceShip.position.x += spaceShip.speed.x * GetFrameTime();
 
 			DrawFPS(10, 10);
 			DrawShip(spaceShip);
