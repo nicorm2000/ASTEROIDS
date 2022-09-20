@@ -57,13 +57,15 @@ void RunGame()
 
 	SetTargetFPS(60);
 
+	HideCursor();
+
 	bool playing_game = true;
 	bool exitWindow = false;
 	bool isPaused = false;
 
 	Vector2 mousePosition = GetMousePosition();
 
-	GameScreen gameState = GameScreen::GAMETITLE;
+	GameScreen gameState = GameScreen::GAME;
 
 	Ship spaceShip;
 	Asteroid asteroid1;
@@ -91,7 +93,13 @@ void RunGame()
 		case GameScreen::GAMETITLE:
 
 			mousePosition = GetMousePosition();
-			
+
+			break;
+
+		case GameScreen::GAME:
+
+			mousePosition = GetMousePosition();
+
 			vectorDirection = { mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
 
 			arcTan = atan(vectorDirection.y / vectorDirection.x);
@@ -108,17 +116,11 @@ void RunGame()
 			CheckInput(spaceShip, normalizedDirection);
 
 			DrawFPS(10, 10);
+			DrawLineEx({ spaceShip.position.x , spaceShip.position.y }, { mousePosition.x, mousePosition.y }, 3, WHITE);
 			DrawShip(spaceShip, angle);
 			DrawAsteroid(asteroid1);
-			DrawLineEx({ spaceShip.position.x , spaceShip.position.y }, { mousePosition.x, mousePosition.y }, 3, WHITE);
-			DrawText(TextFormat("Angle %02.02f", angle), 10, 50, 20, WHITE);
-			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 90, 20, WHITE);
-
-			break;
-
-		case GameScreen::GAME:
-
-			mousePosition = GetMousePosition();
+			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
+			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 50, 20, WHITE);
 
 			break;
 
