@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include <ctime>
 #include "Ship.h"
+#include "Asteroid.h"
 
 static void Initialize()
 {
@@ -38,7 +39,9 @@ void RunGame()
 	GameScreen gameState = GameScreen::GAMETITLE;
 
 	Ship spaceShip;
+	Asteroid asteroid1;
 	CreateShip(spaceShip);
+	CreateAsteroid(asteroid1);
 
 	while (!WindowShouldClose() || !playing_game)
 	{
@@ -54,6 +57,7 @@ void RunGame()
 
 			DrawFPS(10, 10);
 			DrawShip(spaceShip);
+			DrawAsteroid(asteroid1);
 
 			break;
 
