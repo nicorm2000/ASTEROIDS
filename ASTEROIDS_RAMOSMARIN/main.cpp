@@ -1,7 +1,18 @@
-#include<iostream>
 #include"raylib.h"
 
 int main()
 {
-	std::cout << "Hola";
+	int screenHeight = 768;
+	int screenWidth = 1024;
+
+	bool playing_game = true;
+	Vector2 mousePosition {};
+
+	while (!WindowShouldClose())
+	{
+		mousePosition = GetMousePosition();
+
+	}
+
+	CloseWindow();
 }
