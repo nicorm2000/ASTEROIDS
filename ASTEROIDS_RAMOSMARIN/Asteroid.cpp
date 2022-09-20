@@ -2,8 +2,8 @@
 
 Asteroid CreateAsteroid(Asteroid& asteroid)
 {
-	asteroid.size.x = 10;
-	asteroid.size.y = 10;
+	asteroid.size.x = 20;
+	asteroid.size.y = 20;
 	asteroid.position.x = 800;
 	asteroid.position.y = 384;
 	asteroid.radius = 20;

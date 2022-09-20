@@ -14,4 +14,4 @@ struct Ship
 
 Ship CreateShip(Ship& spaceShip);
 
-void DrawShip(Ship& spaceShip);
+void DrawShip(Ship& spaceShip, float angle);

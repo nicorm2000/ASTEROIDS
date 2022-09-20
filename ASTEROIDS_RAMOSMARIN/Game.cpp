@@ -73,7 +73,7 @@ void RunGame()
 
 	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
 
-	float arcTan = vectorDirection.y / vectorDirection.x;
+	float arcTan = atan(vectorDirection.y / vectorDirection.x);
 
 	float angle = arcTan * 180 / PI;
 
@@ -95,7 +95,7 @@ void RunGame()
 			
 			vectorDirection = { mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
 
-			arcTan = vectorDirection.y / vectorDirection.x;
+			arcTan = atan(vectorDirection.y / vectorDirection.x);
 
 			angle = arcTan * 180 / PI;
 
@@ -109,9 +109,11 @@ void RunGame()
 			CheckInput(spaceShip, normalizedDirection);
 
 			DrawFPS(10, 10);
-			DrawShip(spaceShip);
+			DrawShip(spaceShip, angle);
 			DrawAsteroid(asteroid1);
 			DrawLineEx({ spaceShip.position.x , spaceShip.position.y }, { mousePosition.x, mousePosition.y }, 3, WHITE);
+			DrawText(TextFormat("Angle %02.02f", angle), 10, 50, 20, WHITE);
+			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 90, 20, WHITE);
 
 			break;
 
