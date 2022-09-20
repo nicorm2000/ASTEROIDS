@@ -56,7 +56,6 @@ void RunGame()
 	Initialize();
 
 	SetTargetFPS(60);
-	HideCursor();
 
 	bool playing_game = true;
 	bool exitWindow = false;
