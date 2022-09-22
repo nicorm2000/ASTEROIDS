@@ -10,6 +10,7 @@ struct Asteroid
 	float radius;
 	int variants;
 	Color color;
+	bool isActive;
 };
 
 Asteroid CreateAsteroid(Asteroid& asteroid);

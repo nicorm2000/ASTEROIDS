@@ -36,7 +36,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 {
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
-		asteroid1.color = RED;
+		asteroid1.isActive = false;
 	}
 }
 
@@ -56,25 +56,41 @@ void windowTp(Ship& spaceShip, Asteroid& asteroid1, Texture2D shipTexture)
 {
 	//ship teleports to other side
 	if (spaceShip.position.x > GetScreenWidth() + shipTexture.width)
+	{
 		spaceShip.position.x = -5;
+	}
 	if (spaceShip.position.x < 0 - shipTexture.width)
+	{
 		spaceShip.position.x = GetScreenWidth() + 5;
+	}
 
 	if (spaceShip.position.y > GetScreenHeight() + shipTexture.height)
+	{
 		spaceShip.position.y = -5;
+	}
 	if (spaceShip.position.y < 0 - shipTexture.height)
+	{
 		spaceShip.position.y = GetScreenHeight() + 5;
+	}
 
 	//asteroid teleports to other side
 	if (asteroid1.position.x > GetScreenWidth() + asteroid1.size.x)
+	{
 		asteroid1.position.x = -5;
+	}
 	if (asteroid1.position.x < 0 - asteroid1.size.x)
+	{
 		asteroid1.position.x = GetScreenWidth() + 5;
+	}
 
 	if (asteroid1.position.y > GetScreenHeight() + asteroid1.size.y)
+	{
 		asteroid1.position.y = -5;
+	}
 	if (asteroid1.position.y < 0 - asteroid1.size.y)
+	{
 		asteroid1.position.y = GetScreenHeight() + 5;
+	}
 }
 
 void RunGame()
@@ -96,10 +112,16 @@ void RunGame()
 	Texture2D shipTexture = LoadTexture("../resources/player.png");
 
 	Ship spaceShip;
-	Asteroid asteroid1;
-	CreateShip(spaceShip, shipTexture);
-	CreateAsteroid(asteroid1);
 
+	Asteroid bigArray[10];
+
+	for (int i = 0; i < 9; i++)
+	{
+		CreateAsteroid(bigArray[i]);
+	}
+
+	CreateShip(spaceShip, shipTexture);
+	
 	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
 
 	float arcTan = atan(vectorDirection.y / vectorDirection.x);
@@ -109,6 +131,8 @@ void RunGame()
 	float vectorModule = sqrt(pow(vectorDirection.x, 2)  + pow(vectorDirection.y, 2));
 
 	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
+
+	bool asteroidIsActive = true;
 
 	while (!WindowShouldClose() || !playing_game)
 	{
@@ -143,22 +167,32 @@ void RunGame()
 
 			normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
 
-			asteroid1.position.x += asteroid1.speed.x * GetFrameTime();
-			asteroid1.position.y += asteroid1.speed.y * GetFrameTime();
-
 			//ship update values
 			spaceShip.rotation = angle;
 			spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
 			spaceShip.source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
 			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height };
-
-			GameCollisions(spaceShip, asteroid1);
+			for (int i = 0; i < 9; i++)
+			{
+				GameCollisions(spaceShip, bigArray[i]);
+				windowTp(spaceShip, bigArray[i], shipTexture);
+				if (bigArray[i].speed.x != 0 && bigArray[i].speed.y != 0)
+				{
+					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
+					bigArray[i].position.y += bigArray[i].speed.y * GetFrameTime();
+				}
+			}
 			CheckInput(spaceShip, normalizedDirection);
-			windowTp(spaceShip, asteroid1, shipTexture);
 
 			DrawFPS(10, 10);
 			DrawShip(spaceShip, angle, shipTexture);
-			DrawAsteroid(asteroid1);
+			for (int i = 0; i < 9; i++)
+			{
+				if (bigArray[i].isActive)
+				{
+					DrawAsteroid(bigArray[i]);
+				}
+			}
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 50, 20, WHITE);
 
