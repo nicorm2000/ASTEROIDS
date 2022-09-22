@@ -1,9 +1,10 @@
 #include "Game.h"
 #include "raylib.h"
 #include <ctime>
-#include "Ship.h"
-#include "Asteroid.h"
 #include <math.h>
+
+#include "Objects/Ship.h"
+#include "Objects/Asteroid.h"
 
 static void Initialize()
 {

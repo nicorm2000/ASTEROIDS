@@ -1,4 +1,4 @@
-#include "Game.h"
+#include "GameLogic/Game.h"
 
 int main()
 {
