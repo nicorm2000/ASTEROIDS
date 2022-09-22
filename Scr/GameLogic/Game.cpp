@@ -37,10 +37,18 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		asteroid1.isActive = false;
-		spaceShip.position.x = GetScreenWidth() / 2;
-		spaceShip.position.y = GetScreenHeight() / 2;
-		spaceShip.speed.x = 0;
-		spaceShip.speed.y = 0;
+		spaceShip.lifes--;
+		if (spaceShip.lifes > 0)
+		{
+			spaceShip.position.x = GetScreenWidth() / 2;
+			spaceShip.position.y = GetScreenHeight() / 2;
+			spaceShip.speed.x = 0;
+			spaceShip.speed.y = 0;
+		}
+		else if(spaceShip.lifes <= 0)
+		{
+			spaceShip.isActive = false;
+		}
 	}
 }
 
@@ -120,7 +128,7 @@ void RunGame()
 
 	Asteroid bigArray[10];
 
-	for (int i = 0; i < 9; i++)
+	for (int i = 0; i < 10; i++)
 	{
 		CreateAsteroid(bigArray[i]);
 	}
@@ -178,7 +186,7 @@ void RunGame()
 			spaceShip.source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
 			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height };
 			
-			for (int i = 0; i < 9; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				GameCollisions(spaceShip, bigArray[i]);
 				windowTp(spaceShip, bigArray[i], shipTexture);
@@ -195,8 +203,11 @@ void RunGame()
 			CheckInput(spaceShip, normalizedDirection);
 
 			DrawFPS(10, 10);
-			DrawShip(spaceShip, angle, shipTexture);
-			for (int i = 0; i < 9; i++)
+			if (spaceShip.isActive)
+			{
+				DrawShip(spaceShip, angle, shipTexture);
+			}
+			for (int i = 0; i < 10; i++)
 			{
 				if (bigArray[i].isActive)
 				{
@@ -205,6 +216,7 @@ void RunGame()
 			}
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 50, 20, WHITE);
+			DrawText(TextFormat("Lifes %i", spaceShip.lifes), 10, 90, 20, WHITE);
 
 			break;
 

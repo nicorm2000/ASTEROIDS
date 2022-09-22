@@ -10,6 +10,8 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.speed.x = 0;
 	spaceShip.rotation = 0;
 	spaceShip.color = WHITE;
+	spaceShip.lifes = 3;
+	spaceShip.isActive = true;
 	return spaceShip;
 }
 

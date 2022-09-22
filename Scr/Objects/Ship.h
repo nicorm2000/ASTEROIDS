@@ -13,6 +13,7 @@ struct Ship
 	Rectangle source;
 	Rectangle dest;
 	Color color;
+	bool isActive;
 };
 
 Ship CreateShip(Ship& spaceShip);
