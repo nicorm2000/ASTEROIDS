@@ -9,6 +9,7 @@ struct Asteroid
 	float rotation;
 	float radius;
 	int variants;
+	Color color;
 };
 
 Asteroid CreateAsteroid(Asteroid& asteroid);

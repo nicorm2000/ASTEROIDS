@@ -36,7 +36,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 {
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
-		spaceShip.color = RED;
+		asteroid1.color = RED;
 	}
 }
 
@@ -124,7 +124,6 @@ void RunGame()
 			CheckInput(spaceShip, normalizedDirection);
 
 			DrawFPS(10, 10);
-			DrawLineEx({ spaceShip.position.x , spaceShip.position.y }, { mousePosition.x, mousePosition.y }, 3, WHITE);
 			DrawShip(spaceShip, angle, shipTexture);
 			DrawAsteroid(asteroid1);
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);

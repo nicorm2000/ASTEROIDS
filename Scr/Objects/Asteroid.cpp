@@ -8,10 +8,11 @@ Asteroid CreateAsteroid(Asteroid& asteroid)
 	asteroid.position.y = 384;
 	asteroid.radius = 20;
 	asteroid.speed.x = 10;
+	asteroid.color = WHITE;
 	return asteroid;
 }
 
 void DrawAsteroid(Asteroid& asteroid)
 {
-	DrawCircle((int)asteroid.position.x, (int)asteroid.position.y, asteroid.radius, WHITE);
+	DrawCircle((int)asteroid.position.x, (int)asteroid.position.y, asteroid.radius, asteroid.color);
 }
