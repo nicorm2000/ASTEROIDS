@@ -15,6 +15,6 @@ struct Ship
 	Color color;
 };
 
-Ship CreateShip(Ship& spaceShip, Texture2D shipTexture);
+Ship CreateShip(Ship& spaceShip);
 
 void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture);

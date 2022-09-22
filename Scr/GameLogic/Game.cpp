@@ -37,6 +37,10 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		asteroid1.isActive = false;
+		spaceShip.position.x = GetScreenWidth() / 2;
+		spaceShip.position.y = GetScreenHeight() / 2;
+		spaceShip.speed.x = 0;
+		spaceShip.speed.y = 0;
 	}
 }
 
@@ -110,6 +114,7 @@ void RunGame()
 	GameScreen gameState = GameScreen::GAME;
 
 	Texture2D shipTexture = LoadTexture("../resources/player.png");
+	Texture2D asteroidBigTexture = LoadTexture("../resources/planet.png");
 
 	Ship spaceShip;
 
@@ -120,7 +125,7 @@ void RunGame()
 		CreateAsteroid(bigArray[i]);
 	}
 
-	CreateShip(spaceShip, shipTexture);
+	CreateShip(spaceShip);
 	
 	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
 
@@ -172,6 +177,7 @@ void RunGame()
 			spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
 			spaceShip.source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
 			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height };
+			
 			for (int i = 0; i < 9; i++)
 			{
 				GameCollisions(spaceShip, bigArray[i]);
@@ -181,6 +187,10 @@ void RunGame()
 					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
 					bigArray[i].position.y += bigArray[i].speed.y * GetFrameTime();
 				}
+
+				bigArray[i].origin = { (float)bigArray[i].size.x / 2, (float)bigArray[i].size.y / 2 };
+				bigArray[i].source = { 0, 0, (float)asteroidBigTexture.width, (float)asteroidBigTexture.height };
+				bigArray[i].dest = { bigArray[i].position.x - 40, bigArray[i].position.y - 40, (float)asteroidBigTexture.width,  (float)asteroidBigTexture.height };
 			}
 			CheckInput(spaceShip, normalizedDirection);
 
@@ -190,7 +200,7 @@ void RunGame()
 			{
 				if (bigArray[i].isActive)
 				{
-					DrawAsteroid(bigArray[i]);
+					DrawAsteroid(bigArray[i], asteroidBigTexture);
 				}
 			}
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);

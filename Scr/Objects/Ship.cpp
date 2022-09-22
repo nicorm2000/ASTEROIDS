@@ -1,6 +1,6 @@
 #include "Ship.h"
 
-Ship CreateShip(Ship& spaceShip, Texture2D shipTexture)
+Ship CreateShip(Ship& spaceShip)
 {
 	spaceShip.size.x = 20;
 	spaceShip.size.y = 20;
