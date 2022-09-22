@@ -52,6 +52,20 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection)
 	spaceShip.position.y += spaceShip.speed.y * GetFrameTime();
 }
 
+void windowTp(Ship& spaceShip, Texture2D shipTexture)
+{
+	//ship teleports to other side
+	if (spaceShip.position.x > GetScreenWidth() + shipTexture.width)
+		spaceShip.position.x = -5;
+	if (spaceShip.position.x < 0 - shipTexture.width)
+		spaceShip.position.x = GetScreenWidth() + 5;
+
+	if (spaceShip.position.y > GetScreenHeight() + shipTexture.height)
+		spaceShip.position.y = -5;
+	if (spaceShip.position.y < 0 - shipTexture.height)
+		spaceShip.position.y = GetScreenHeight() + 5;
+}
+
 void RunGame()
 {
 	Initialize();
@@ -122,6 +136,7 @@ void RunGame()
 
 			GameCollisions(spaceShip, asteroid1);
 			CheckInput(spaceShip, normalizedDirection);
+			windowTp(spaceShip, shipTexture);
 
 			DrawFPS(10, 10);
 			DrawShip(spaceShip, angle, shipTexture);
