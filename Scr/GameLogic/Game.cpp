@@ -83,6 +83,8 @@ void RunGame()
 
 	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
 
+	Texture2D shipTexture = LoadTexture("../resources/player.png");
+
 	while (!WindowShouldClose() || !playing_game)
 	{
 		BeginDrawing();
@@ -106,6 +108,11 @@ void RunGame()
 			arcTan = atan(vectorDirection.y / vectorDirection.x);
 
 			angle = arcTan * 180 / PI;
+			
+			if (vectorDirection.x < 0)
+			{
+				angle += 180;
+			}
 
 			vectorModule = sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2));
 
@@ -118,7 +125,7 @@ void RunGame()
 
 			DrawFPS(10, 10);
 			DrawLineEx({ spaceShip.position.x , spaceShip.position.y }, { mousePosition.x, mousePosition.y }, 3, WHITE);
-			DrawShip(spaceShip, angle);
+			DrawShip(spaceShip, angle, shipTexture);
 			DrawAsteroid(asteroid1);
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 50, 20, WHITE);
@@ -146,6 +153,8 @@ void RunGame()
 
 		EndDrawing();
 	}
+
+	UnloadTexture(shipTexture);
 
 	Close();
 }

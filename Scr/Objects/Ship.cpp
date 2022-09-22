@@ -13,10 +13,11 @@ Ship CreateShip(Ship& spaceShip)
 	return spaceShip;
 }
 
-void DrawShip(Ship& spaceShip, float angle)
+void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture)
 {
 	//DrawCircle((int)spaceShip.position.x, (int)spaceShip.position.y, spaceShip.radius, spaceShip.color);
-	Rectangle ship = { (int)spaceShip.position.x, (int)spaceShip.position.y, spaceShip.size.x, spaceShip.size.y };
+	Rectangle ship = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
 	Vector2 shipOrigin = { (int)spaceShip.size.x / 2, (int)spaceShip.size.y / 2 };
-	DrawRectanglePro(ship, shipOrigin, angle, spaceShip.color);
+	//DrawRectanglePro(ship, shipOrigin, angle, spaceShip.color);
+	DrawTexturePro(shipTexture, ship, { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height }, shipOrigin, angle, WHITE);
 }

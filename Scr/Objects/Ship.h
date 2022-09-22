@@ -14,4 +14,4 @@ struct Ship
 
 Ship CreateShip(Ship& spaceShip);
 
-void DrawShip(Ship& spaceShip, float angle);
+void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture);
