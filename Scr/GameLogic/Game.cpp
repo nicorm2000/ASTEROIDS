@@ -52,7 +52,7 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection)
 	spaceShip.position.y += spaceShip.speed.y * GetFrameTime();
 }
 
-void windowTp(Ship& spaceShip, Texture2D shipTexture)
+void windowTp(Ship& spaceShip, Asteroid& asteroid1, Texture2D shipTexture)
 {
 	//ship teleports to other side
 	if (spaceShip.position.x > GetScreenWidth() + shipTexture.width)
@@ -64,6 +64,17 @@ void windowTp(Ship& spaceShip, Texture2D shipTexture)
 		spaceShip.position.y = -5;
 	if (spaceShip.position.y < 0 - shipTexture.height)
 		spaceShip.position.y = GetScreenHeight() + 5;
+
+	//asteroid teleports to other side
+	if (asteroid1.position.x > GetScreenWidth() + asteroid1.size.x)
+		asteroid1.position.x = -5;
+	if (asteroid1.position.x < 0 - asteroid1.size.x)
+		asteroid1.position.x = GetScreenWidth() + 5;
+
+	if (asteroid1.position.y > GetScreenHeight() + asteroid1.size.y)
+		asteroid1.position.y = -5;
+	if (asteroid1.position.y < 0 - asteroid1.size.y)
+		asteroid1.position.y = GetScreenHeight() + 5;
 }
 
 void RunGame()
@@ -82,9 +93,11 @@ void RunGame()
 
 	GameScreen gameState = GameScreen::GAME;
 
+	Texture2D shipTexture = LoadTexture("../resources/player.png");
+
 	Ship spaceShip;
 	Asteroid asteroid1;
-	CreateShip(spaceShip);
+	CreateShip(spaceShip, shipTexture);
 	CreateAsteroid(asteroid1);
 
 	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
@@ -96,8 +109,6 @@ void RunGame()
 	float vectorModule = sqrt(pow(vectorDirection.x, 2)  + pow(vectorDirection.y, 2));
 
 	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
-
-	Texture2D shipTexture = LoadTexture("../resources/player.png");
 
 	while (!WindowShouldClose() || !playing_game)
 	{
@@ -132,11 +143,18 @@ void RunGame()
 
 			normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
 
+			asteroid1.position.x += asteroid1.speed.x * GetFrameTime();
+			asteroid1.position.y += asteroid1.speed.y * GetFrameTime();
+
+			//ship update values
 			spaceShip.rotation = angle;
+			spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
+			spaceShip.source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
+			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height };
 
 			GameCollisions(spaceShip, asteroid1);
 			CheckInput(spaceShip, normalizedDirection);
-			windowTp(spaceShip, shipTexture);
+			windowTp(spaceShip, asteroid1, shipTexture);
 
 			DrawFPS(10, 10);
 			DrawShip(spaceShip, angle, shipTexture);

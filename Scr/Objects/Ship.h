@@ -6,12 +6,15 @@ struct Ship
 	Vector2 size {};
 	Vector2 speed {};
 	Vector2 position {};
+	Vector2 origin{};
 	float rotation;
 	float radius;
 	int lifes;
+	Rectangle source;
+	Rectangle dest;
 	Color color;
 };
 
-Ship CreateShip(Ship& spaceShip);
+Ship CreateShip(Ship& spaceShip, Texture2D shipTexture);
 
 void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture);

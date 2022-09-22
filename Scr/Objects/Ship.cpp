@@ -1,6 +1,6 @@
 #include "Ship.h"
 
-Ship CreateShip(Ship& spaceShip)
+Ship CreateShip(Ship& spaceShip, Texture2D shipTexture)
 {
 	spaceShip.size.x = 20;
 	spaceShip.size.y = 20;
@@ -15,7 +15,5 @@ Ship CreateShip(Ship& spaceShip)
 
 void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture)
 {
-	Rectangle ship = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
-	Vector2 shipOrigin = { (int)spaceShip.size.x / 2, (int)spaceShip.size.y / 2 };
-	DrawTexturePro(shipTexture, ship, { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height }, shipOrigin, angle, WHITE);
+	DrawTexturePro(shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
 }
