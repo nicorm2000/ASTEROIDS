@@ -37,7 +37,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		asteroid1.isActive = false;
-		spaceShip.lifes--;
+		/*spaceShip.lifes--;
 		if (spaceShip.lifes > 0)
 		{
 			spaceShip.position.x = GetScreenWidth() / 2;
@@ -48,7 +48,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 		else if(spaceShip.lifes <= 0)
 		{
 			spaceShip.isActive = false;
-		}
+		}*/
 	}
 }
 
@@ -121,8 +121,11 @@ void RunGame()
 
 	GameScreen gameState = GameScreen::GAME;
 
-	Texture2D shipTexture = LoadTexture("../resources/player.png");
-	Texture2D asteroidBigTexture = LoadTexture("../resources/planet.png");
+	Texture2D backGround = LoadTexture("../resources/background.png");
+	Texture2D shipTexture = LoadTexture("../resources/candyship.png");
+	Texture2D asteroidBigTexture = LoadTexture("../resources/enemy1.png");
+	Texture2D button1 = LoadTexture("../resources/button.png");
+	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 
 	Ship spaceShip;
 
@@ -195,14 +198,23 @@ void RunGame()
 					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
 					bigArray[i].position.y += bigArray[i].speed.y * GetFrameTime();
 				}
+				else
+				{
+					bigArray[i].speed.x = GetRandomValue(-100, 100);
+					bigArray[i].speed.y = GetRandomValue(-100, 100);
+
+					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
+					bigArray[i].position.y += bigArray[i].speed.y * GetFrameTime();
+				}
 
 				bigArray[i].origin = { (float)bigArray[i].size.x / 2, (float)bigArray[i].size.y / 2 };
 				bigArray[i].source = { 0, 0, (float)asteroidBigTexture.width, (float)asteroidBigTexture.height };
 				bigArray[i].dest = { bigArray[i].position.x - 40, bigArray[i].position.y - 40, (float)asteroidBigTexture.width,  (float)asteroidBigTexture.height };
 			}
+
 			CheckInput(spaceShip, normalizedDirection);
 
-			DrawFPS(10, 10);
+			DrawTexture(backGround, 0, 0, WHITE);
 			if (spaceShip.isActive)
 			{
 				DrawShip(spaceShip, angle, shipTexture);
@@ -215,8 +227,8 @@ void RunGame()
 				}
 			}
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
-			DrawText(TextFormat("Rotation %02.02f", spaceShip.rotation), 10, 50, 20, WHITE);
-			DrawText(TextFormat("Lifes %i", spaceShip.lifes), 10, 90, 20, WHITE);
+
+			DrawTextEx(titleFont, "AstroCandy", {200,100}, 100, 10, BLACK);
 
 			break;
 

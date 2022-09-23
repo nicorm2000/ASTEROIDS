@@ -6,7 +6,7 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.size.y = 20;
 	spaceShip.position.x = GetScreenWidth() / 2.0f;
 	spaceShip.position.y = GetScreenHeight() / 2.0f;
-	spaceShip.radius = 10;
+	spaceShip.radius = 13;
 	spaceShip.speed.x = 0;
 	spaceShip.rotation = 0;
 	spaceShip.color = WHITE;
@@ -17,5 +17,6 @@ Ship CreateShip(Ship& spaceShip)
 
 void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture)
 {
+	DrawCircleLines(spaceShip.position.x, spaceShip.position.y, spaceShip.radius, spaceShip.color);
 	DrawTexturePro(shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
 }

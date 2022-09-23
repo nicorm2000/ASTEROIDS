@@ -20,5 +20,5 @@ void DrawAsteroid(Asteroid& asteroid, Texture2D asteroidBigTexture)
 {
 	//hitbox
 	DrawCircleLines(asteroid.position.x, asteroid.position.y, asteroid.radius, asteroid.color);
-	DrawTexturePro(asteroidBigTexture, asteroid.source, asteroid.dest, asteroid.origin, 0, WHITE);
+	DrawTextureTiled(asteroidBigTexture, asteroid.source, asteroid.dest, asteroid.origin, 0, 1, WHITE);
 }
