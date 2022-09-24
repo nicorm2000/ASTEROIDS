@@ -14,8 +14,9 @@ struct Ship
 	Rectangle dest;
 	Color color;
 	bool isActive;
+	Texture2D shipTexture;
 };
 
 Ship CreateShip(Ship& spaceShip);
 
-void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture);
+void DrawShip(Ship& spaceShip, float angle);

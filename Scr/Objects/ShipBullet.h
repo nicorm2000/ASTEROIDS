@@ -1,6 +1,6 @@
 #pragma once
-#include"raylib.h"
-#include"Objects/Ship.h"
+#include "raylib.h"
+#include "Objects/Ship.h"
 
 struct ShipBullets
 {
@@ -14,4 +14,4 @@ struct ShipBullets
 
 ShipBullets CreateShipBullet(ShipBullets& shipBullets);
 
-void DrawShipBullet(ShipBullets shipBullets);
+void DrawShipBullet(ShipBullets shipBullet, Ship spaceShip);

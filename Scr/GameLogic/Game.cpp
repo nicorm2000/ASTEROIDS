@@ -7,7 +7,7 @@
 #include "Objects/Asteroid.h"
 #include "Objects/ShipBullet.h"
 
-const int maxShipBullets = 15;
+const int maxShipBullets = 100;
 ShipBullets shipBullet;
 ShipBullets maximumShipBullets[maxShipBullets];
 
@@ -88,23 +88,23 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 	}
 }
 
-void windowTp(Ship& spaceShip, Asteroid& asteroid1, Texture2D shipTexture)
+void windowTp(Ship& spaceShip, Asteroid& asteroid1)
 {
 	//ship teleports to other side
-	if (spaceShip.position.x > GetScreenWidth() + shipTexture.width)
+	if (spaceShip.position.x > GetScreenWidth() + spaceShip.shipTexture.width)
 	{
 		spaceShip.position.x = -5;
 	}
-	if (spaceShip.position.x < 0 - shipTexture.width)
+	if (spaceShip.position.x < 0 - spaceShip.shipTexture.width)
 	{
 		spaceShip.position.x = GetScreenWidth() + 5;
 	}
 
-	if (spaceShip.position.y > GetScreenHeight() + shipTexture.height)
+	if (spaceShip.position.y > GetScreenHeight() + spaceShip.shipTexture.height)
 	{
 		spaceShip.position.y = -5;
 	}
-	if (spaceShip.position.y < 0 - shipTexture.height)
+	if (spaceShip.position.y < 0 - spaceShip.shipTexture.height)
 	{
 		spaceShip.position.y = GetScreenHeight() + 5;
 	}
@@ -169,7 +169,6 @@ void RunGame()
 	GameScreen gameState = GameScreen::GAME;
 
 	Texture2D backGround = LoadTexture("../resources/background.png");
-	Texture2D shipTexture = LoadTexture("../resources/candyship.png");
 	Texture2D asteroidBigTexture = LoadTexture("../resources/enemy1.png");
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
@@ -238,13 +237,13 @@ void RunGame()
 			//ship update values
 			spaceShip.rotation = angle;
 			spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
-			spaceShip.source = { 0, 0, (float)shipTexture.width, (float)shipTexture.height };
-			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)shipTexture.width,  (float)shipTexture.height };
+			spaceShip.source = { 0, 0, (float)spaceShip.shipTexture.width, (float)spaceShip.shipTexture.height };
+			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
 			
 			for (int i = 0; i < 10; i++)
 			{
 				GameCollisions(spaceShip, bigArray[i]);
-				windowTp(spaceShip, bigArray[i], shipTexture);
+				windowTp(spaceShip, bigArray[i]);
 				if (bigArray[i].speed.x != 0 && bigArray[i].speed.y != 0)
 				{
 					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
@@ -285,12 +284,12 @@ void RunGame()
 
 			for (int i = 0; i < maxShipBullets; i++)
 			{
-				DrawShipBullet(maximumShipBullets[i]);
+				DrawShipBullet(maximumShipBullets[i], spaceShip);
 			}
 
 			if (spaceShip.isActive)
 			{
-				DrawShip(spaceShip, angle, shipTexture);
+				DrawShip(spaceShip, angle);
 			}
 			for (int i = 0; i < 10; i++)
 			{
@@ -328,7 +327,7 @@ void RunGame()
 	}
 
 	UnloadTexture(backGround);
-	UnloadTexture(shipTexture);
+	UnloadTexture(spaceShip.shipTexture);
 	UnloadTexture(asteroidBigTexture);
 	UnloadTexture(button1);
 

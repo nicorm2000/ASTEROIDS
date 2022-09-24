@@ -14,4 +14,4 @@ struct ShipBullets
 
 ShipBullets CreateShipBullet(ShipBullets& shipBullets);
 
-void DrawShipBullet(ShipBullets shipBullet);
+void DrawShipBullet(ShipBullets shipBullet, Ship spaceShip);

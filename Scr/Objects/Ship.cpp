@@ -12,11 +12,12 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.color = WHITE;
 	spaceShip.lifes = 3;
 	spaceShip.isActive = true;
+	spaceShip.shipTexture = LoadTexture("../resources/candyship.png");
 	return spaceShip;
 }
 
-void DrawShip(Ship& spaceShip, float angle, Texture2D shipTexture)
+void DrawShip(Ship& spaceShip, float angle)
 {
 	DrawCircleLines(spaceShip.position.x, spaceShip.position.y, spaceShip.radius, spaceShip.color);
-	DrawTexturePro(shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
+	DrawTexturePro(spaceShip.shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
 }
