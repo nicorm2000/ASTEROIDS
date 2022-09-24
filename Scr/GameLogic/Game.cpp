@@ -1,10 +1,15 @@
 #include "Game.h"
 #include "raylib.h"
 #include <ctime>
-#include <math.h>
+#include "raymath.h"
 
 #include "Objects/Ship.h"
 #include "Objects/Asteroid.h"
+#include "Objects/ShipBullet.h"
+
+const int maxShipBullets = 15;
+ShipBullets shipBullet;
+ShipBullets maximumShipBullets[maxShipBullets];
 
 static void Initialize()
 {
@@ -49,10 +54,11 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 		{
 			spaceShip.isActive = false;
 		}*/
+
 	}
 }
 
-void CheckInput(Ship& spaceShip, Vector2 normalizedDirection)
+void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition)
 {
 	if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 	{
@@ -67,11 +73,16 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection)
 	{
 		for (int i = 0; i < maxShipBullets; i++)
 		{
-			if (!shipBullet[i].isMoving)
+			if (!maximumShipBullets[i].isMoving)
 			{
-				shipBullet.isMoving = true;
+				maximumShipBullets[i].isMoving = true;
 
-				
+				maximumShipBullets[i].direction.x = mousePosition.x - maximumShipBullets[i].position.x;
+				maximumShipBullets[i].direction.y = mousePosition.y - maximumShipBullets[i].position.y;
+
+				maximumShipBullets[i].direction = Vector2Normalize(maximumShipBullets[i].direction);
+
+				break;
 			}
 		}
 	}
@@ -116,6 +127,29 @@ void windowTp(Ship& spaceShip, Asteroid& asteroid1, Texture2D shipTexture)
 	{
 		asteroid1.position.y = GetScreenHeight() + 5;
 	}
+
+	for (int i = 0; i < maxShipBullets; i++)
+	{
+		if (maximumShipBullets[i].isMoving)
+		{
+			if (maximumShipBullets[i].position.x < 0)
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+			if (maximumShipBullets[i].position.x >= GetScreenWidth())
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+			if (maximumShipBullets[i].position.y < 0)
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+			if (maximumShipBullets[i].position.y >= GetScreenHeight())
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+		}
+	}
 }
 
 void RunGame()
@@ -147,6 +181,11 @@ void RunGame()
 	for (int i = 0; i < 10; i++)
 	{
 		CreateAsteroid(bigArray[i]);
+	}
+
+	for (int i = 0; i < maxShipBullets; i++)
+	{
+		CreateShipBullet(maximumShipBullets[i]);
 	}
 
 	CreateShip(spaceShip);
@@ -225,9 +264,30 @@ void RunGame()
 				bigArray[i].dest = { bigArray[i].position.x - 40, bigArray[i].position.y - 40, (float)asteroidBigTexture.width,  (float)asteroidBigTexture.height };
 			}
 
-			CheckInput(spaceShip, normalizedDirection);
+			for (int i = 0; i < maxShipBullets; i++)
+			{
+				if (maximumShipBullets[i].isMoving == false)
+				{
+					maximumShipBullets[i].position.x = spaceShip.position.x - spaceShip.size.x / 2;
+					maximumShipBullets[i].position.y = spaceShip.position.y - spaceShip.size.y / 2;
+				}
+
+				if (maximumShipBullets[i].isMoving)
+				{
+					maximumShipBullets[i].position.x += maximumShipBullets[i].direction.x * maximumShipBullets[i].speed * GetFrameTime();
+					maximumShipBullets[i].position.y += maximumShipBullets[i].direction.y * maximumShipBullets[i].speed * GetFrameTime();
+				}
+			}
+
+			CheckInput(spaceShip, normalizedDirection, mousePosition);
 
 			DrawTexture(backGround, 0, 0, WHITE);
+
+			for (int i = 0; i < maxShipBullets; i++)
+			{
+				DrawShipBullet(maximumShipBullets[i]);
+			}
+
 			if (spaceShip.isActive)
 			{
 				DrawShip(spaceShip, angle, shipTexture);
