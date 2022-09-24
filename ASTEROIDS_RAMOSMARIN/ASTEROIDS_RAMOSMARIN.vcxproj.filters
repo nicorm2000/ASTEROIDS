@@ -25,6 +25,9 @@
       <Filter>GameLogic</Filter>
     </ClCompile>
     <ClCompile Include="..\Scr\main.cpp" />
+    <ClCompile Include="ShipBullet.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Scr\Objects\Asteroid.h">
@@ -35,6 +38,9 @@
     </ClInclude>
     <ClInclude Include="..\Scr\GameLogic\Game.h">
       <Filter>GameLogic</Filter>
+    </ClInclude>
+    <ClInclude Include="ShipBullet.h">
+      <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

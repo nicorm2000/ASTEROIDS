@@ -62,6 +62,19 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection)
 
 	spaceShip.position.x += spaceShip.speed.x * GetFrameTime();
 	spaceShip.position.y += spaceShip.speed.y * GetFrameTime();
+
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	{
+		for (int i = 0; i < maxShipBullets; i++)
+		{
+			if (!shipBullet[i].isMoving)
+			{
+				shipBullet.isMoving = true;
+
+				
+			}
+		}
+	}
 }
 
 void windowTp(Ship& spaceShip, Asteroid& asteroid1, Texture2D shipTexture)
@@ -254,7 +267,10 @@ void RunGame()
 		EndDrawing();
 	}
 
+	UnloadTexture(backGround);
 	UnloadTexture(shipTexture);
+	UnloadTexture(asteroidBigTexture);
+	UnloadTexture(button1);
 
 	Close();
 }

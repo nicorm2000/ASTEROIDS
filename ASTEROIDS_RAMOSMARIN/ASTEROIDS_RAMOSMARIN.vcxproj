@@ -153,11 +153,13 @@
     <ClCompile Include="..\Scr\main.cpp" />
     <ClCompile Include="..\Scr\Objects\Asteroid.cpp" />
     <ClCompile Include="..\Scr\Objects\Ship.cpp" />
+    <ClCompile Include="ShipBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Scr\GameLogic\Game.h" />
     <ClInclude Include="..\Scr\Objects\Asteroid.h" />
     <ClInclude Include="..\Scr\Objects\Ship.h" />
+    <ClInclude Include="ShipBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="..\Scr\resources\asteroid1.png" />
