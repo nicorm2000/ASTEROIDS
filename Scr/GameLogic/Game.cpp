@@ -211,12 +211,18 @@ void RunGame()
 
 	Vector2 mousePosition = GetMousePosition();
 
-	GameScreen gameState = GameScreen::GAME;
+	GameScreen gameState = GameScreen::GAMETITLE;
 
 	Texture2D backGround = LoadTexture("../resources/background.png");
+	Texture2D gameTitle = LoadTexture("../resources/gametitle.png");
 	Texture2D asteroidBigTexture = LoadTexture("../resources/enemy1.png");
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
+
+	//ButtonsAndUI play = { 0, 0, 0, 0, 0 };
+	//ButtonsAndUI howToPlay;
+	//ButtonsAndUI credits;
+	//ButtonsAndUI exit;
 
 	Ship spaceShip;
 
@@ -248,7 +254,41 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
+			/*if (CheckCollisionPointRec(mousePosition, play.))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					gameState = GameScreen::GAME;
+				}
+			}
 
+			if (CheckCollisionPointRec(mousePosition, howToPlay.RectBut))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					gameState = GameScreen::HOWTOPLAY;
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, credits.RectBut))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					gameState = GameScreen::CREDITS;
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, exit.RectBut))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					gameState = GameScreen::EXIT;
+				}
+			}*/
+
+			DrawTexture(backGround, 0, 0, WHITE);
+			DrawTextureEx(gameTitle, { 150, -50 }, 0, 0.6, WHITE);
+			//DrawTextEx(titleFont, "AstroCandy", { 200,100 }, 100, 10, BLACK);
 
 			break;
 
