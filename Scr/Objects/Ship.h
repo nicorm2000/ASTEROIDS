@@ -7,6 +7,7 @@ struct Ship
 	Vector2 speed {};
 	Vector2 position {};
 	Vector2 origin{};
+	Vector2 normalizeDir{};
 	float rotation;
 	float radius;
 	int lifes;

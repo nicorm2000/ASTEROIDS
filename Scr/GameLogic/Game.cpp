@@ -37,8 +37,29 @@ bool CollisionCircleCircle(Ship& spaceShip, Asteroid& asteroid1)
 	}
 }
 
+bool CollisionCircleCircleBullet(ShipBullets& shipBullet, Asteroid& asteroid1)
+{
+	float distX = shipBullet.position.x - asteroid1.position.x;
+	float distY = shipBullet.position.y - asteroid1.position.y;
+	float distance = sqrt((distX * distX) + (distY * distY));
+
+	if (distance <= shipBullet.radius + asteroid1.radius)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 {
+	if (CollisionCircleCircleBullet(maximumShipBullets[maxShipBullets], asteroid1))
+	{
+		asteroid1.isActive = false;
+	}
+
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		asteroid1.isActive = false;
@@ -54,7 +75,6 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 		{
 			spaceShip.isActive = false;
 		}*/
-
 	}
 }
 
@@ -152,6 +172,31 @@ void windowTp(Ship& spaceShip, Asteroid& asteroid1)
 	}
 }
 
+void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
+{
+	//ship update values
+	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
+
+	float arcTan = atan(vectorDirection.y / vectorDirection.x);
+
+	float angle = arcTan * 180 / PI;
+
+	if (vectorDirection.x < 0)
+	{
+		angle += 180;
+	}
+
+	float vectorModule = sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2));
+
+	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
+
+	spaceShip.normalizeDir = normalizedDirection;
+	spaceShip.rotation = angle;
+	spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
+	spaceShip.source = { 0, 0, (float)spaceShip.shipTexture.width, (float)spaceShip.shipTexture.height };
+	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
+}
+
 void RunGame()
 {
 	Initialize();
@@ -182,24 +227,14 @@ void RunGame()
 		CreateAsteroid(bigArray[i]);
 	}
 
-	for (int i = 0; i < maxShipBullets; i++)
+	for (int i = 0; i < maxShipBullets + 1; i++)
 	{
 		CreateShipBullet(maximumShipBullets[i]);
 	}
 
 	CreateShip(spaceShip);
 	
-	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
 
-	float arcTan = atan(vectorDirection.y / vectorDirection.x);
-
-	float angle = arcTan * 180 / PI;
-
-	float vectorModule = sqrt(pow(vectorDirection.x, 2)  + pow(vectorDirection.y, 2));
-
-	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
-
-	bool asteroidIsActive = true;
 
 	while (!WindowShouldClose() || !playing_game)
 	{
@@ -213,33 +248,16 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
+
+
 			break;
 
 		case GameScreen::GAME:
 
 			mousePosition = GetMousePosition();
 
-			vectorDirection = { mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
+			ShipMovement(mousePosition, spaceShip);
 
-			arcTan = atan(vectorDirection.y / vectorDirection.x);
-
-			angle = arcTan * 180 / PI;
-			
-			if (vectorDirection.x < 0)
-			{
-				angle += 180;
-			}
-
-			vectorModule = sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2));
-
-			normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
-
-			//ship update values
-			spaceShip.rotation = angle;
-			spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
-			spaceShip.source = { 0, 0, (float)spaceShip.shipTexture.width, (float)spaceShip.shipTexture.height };
-			spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
-			
 			for (int i = 0; i < 10; i++)
 			{
 				GameCollisions(spaceShip, bigArray[i]);
@@ -278,7 +296,7 @@ void RunGame()
 				}
 			}
 
-			CheckInput(spaceShip, normalizedDirection, mousePosition);
+			CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition);
 
 			DrawTexture(backGround, 0, 0, WHITE);
 
@@ -289,7 +307,7 @@ void RunGame()
 
 			if (spaceShip.isActive)
 			{
-				DrawShip(spaceShip, angle);
+				DrawShip(spaceShip, spaceShip.rotation);
 			}
 			for (int i = 0; i < 10; i++)
 			{
@@ -308,11 +326,15 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
+
+
 			break;
 
 		case GameScreen::CREDITS:
 
 			mousePosition = GetMousePosition();
+
+
 
 			break;
 
