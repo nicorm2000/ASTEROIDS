@@ -285,10 +285,11 @@ void RunGame()
 	Texture2D exitTitle = LoadTexture("../resources/exitbutton.png");
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
+	//GenTextureMipmaps(&titleFont.texture);
+	//SetTextureFilter(titleFont.texture, TEXTURE_FILTER_ANISOTROPIC_16X);
 
 	Ship spaceShip;
 	EnemyShip enemyShip;
-
 
 	for (int i = 0; i < 40; i++)
 	{
