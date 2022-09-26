@@ -2,6 +2,7 @@
 #include "raylib.h"
 #include <ctime>
 #include "raymath.h"
+#include <iostream>
 
 #include "Objects/Ship.h"
 #include "Objects/Asteroid.h"
@@ -11,6 +12,7 @@
 const int maxShipBullets = 100;
 ShipBullets shipBullet;
 ShipBullets maximumShipBullets[maxShipBullets];
+Asteroid bigArray[10];
 
 static void Initialize()
 {
@@ -93,9 +95,16 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 {
-	if (CollisionCircleCircleBullet(maximumShipBullets[maxShipBullets], asteroid1))
+	for (int i = 0; i <= 10; i++)
 	{
-		asteroid1.isActive = false;
+		for (int j = 0; i <= maxShipBullets; j++)
+		{
+			if (CollisionCircleCircleBullet(maximumShipBullets[maxShipBullets], bigArray[i]))
+			{
+				bigArray[i].isActive = false;
+				std::cout << "SI" << std::endl;
+			}
+		}
 	}
 
 	if (CollisionCircleCircle(spaceShip, asteroid1))
@@ -146,7 +155,7 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 	}
 }
 
-void windowTp(Ship& spaceShip, Asteroid& asteroid1)
+void windowTp(Ship& spaceShip, Asteroid& asteroid1, EnemyShip& enemyShip)
 {
 	//ship teleports to other side
 	if (spaceShip.position.x > GetScreenWidth() + spaceShip.shipTexture.width)
@@ -208,6 +217,25 @@ void windowTp(Ship& spaceShip, Asteroid& asteroid1)
 			}
 		}
 	}
+
+	//enemyShip teleports to other side
+	if (enemyShip.position.x > GetScreenWidth() + enemyShip.size.x)
+	{
+		enemyShip.position.x = -5;
+	}
+	if (enemyShip.position.x < 0 - enemyShip.size.x)
+	{
+		enemyShip.position.x = GetScreenWidth() + 5;
+	}
+
+	if (enemyShip.position.y > GetScreenHeight() + enemyShip.size.y)
+	{
+		enemyShip.position.y = -5;
+	}
+	if (enemyShip.position.y < 0 - enemyShip.size.y)
+	{
+		enemyShip.position.y = GetScreenHeight() + 5;
+	}
 }
 
 void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
@@ -268,7 +296,6 @@ void RunGame()
 
 	Ship spaceShip;
 	EnemyShip enemyShip;
-	Asteroid bigArray[10];
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -281,8 +308,7 @@ void RunGame()
 	}
 
 	CreateShip(spaceShip);
-	
-
+	CreateEnemyShip(enemyShip);
 
 	while (playingGame && !WindowShouldClose())
 	{
@@ -344,10 +370,15 @@ void RunGame()
 
 			ShipMovement(mousePosition, spaceShip);
 
+			enemyShip.source = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width, (float)enemyShip.enemyTexture.height };
+			enemyShip.dest = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width,  (float)enemyShip.enemyTexture.height };
+			enemyShip.origin = { (float)enemyShip.position.x / 2.0f, (float)enemyShip.position.y / 2.0f };
+			//enemyShip.position.x += enemyShip.speed.x * GetFrameTime();
+
 			for (int i = 0; i < 10; i++)
 			{
 				GameCollisions(spaceShip, bigArray[i]);
-				windowTp(spaceShip, bigArray[i]);
+				windowTp(spaceShip, bigArray[i], enemyShip);
 				if (bigArray[i].speed.x != 0 && bigArray[i].speed.y != 0)
 				{
 					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
@@ -390,10 +421,13 @@ void RunGame()
 			{
 				DrawShipBullet(maximumShipBullets[i], spaceShip);
 			}
-
 			if (spaceShip.isActive)
 			{
 				DrawShip(spaceShip, spaceShip.rotation);
+			}
+			if (enemyShip.isActive)
+			{
+				DrawEnemyShip(enemyShip);
 			}
 			for (int i = 0; i < 10; i++)
 			{
