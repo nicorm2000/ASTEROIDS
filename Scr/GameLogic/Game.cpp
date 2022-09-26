@@ -205,10 +205,10 @@ void RunGame()
 
 	HideCursor();
 
-	bool playing_game = true;
+	bool playingGame = true;
 	bool exitWindow = false;
 	bool isPaused = false;
-
+	
 	Vector2 mousePosition = GetMousePosition();
 
 	GameScreen gameState = GameScreen::GAMETITLE;
@@ -246,7 +246,7 @@ void RunGame()
 	
 
 
-	while (!WindowShouldClose() || !playing_game)
+	while (playingGame)
 	{
 		BeginDrawing();
 
@@ -265,16 +265,16 @@ void RunGame()
 					gameState = GameScreen::GAME;
 				}
 			}
-			/*
-			if (CheckCollisionPointRec(mousePosition, howToPlay.RectBut))
+			
+			if (CheckCollisionPointRec(mousePosition, { 355, 418, 377, 80 }))
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
 					gameState = GameScreen::HOWTOPLAY;
 				}
 			}
-
-			if (CheckCollisionPointRec(mousePosition, credits.RectBut))
+			
+			if (CheckCollisionPointRec(mousePosition, { 402, 530, 253, 82 }))
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
@@ -282,23 +282,21 @@ void RunGame()
 				}
 			}
 
-			if (CheckCollisionPointRec(mousePosition, exit.RectBut))
+			if (CheckCollisionPointRec(mousePosition, { 435, 655, 165, 98 }))
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
 					gameState = GameScreen::EXIT;
 				}
-			}*/
+			}
 
 			DrawTexture(backGround, 0, 0, WHITE);
 			DrawTextureEx(gameTitle, { 75, -130 }, 0, 0.7, WHITE);
-			DrawRectangleLines(410, 255, 237, 130, BLACK);
 			DrawTextureEx(playTitle, { 400, 250 }, 0, 0.2, WHITE);
 			DrawTextureEx(howToPlayTitle, { 350, 350 }, 0, 0.3, WHITE);
 			DrawTextureEx(creditsTitle, { 400, 500 }, 0, 0.2, WHITE);
-			DrawTextureEx(exitTitle, { 400, 650 }, 0, 0.15, WHITE);
+			DrawTextureEx(exitTitle, { 420, 650 }, 0, 0.15, WHITE);
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
-			//DrawTextEx(titleFont, "AstroCandy", { 200,100 }, 100, 10, BLACK);
 
 			break;
 
@@ -390,7 +388,7 @@ void RunGame()
 
 		case GameScreen::EXIT:
 
-			WindowShouldClose();
+			playingGame = false;
 
 			break;
 		}
