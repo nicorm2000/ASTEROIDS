@@ -53,6 +53,22 @@ bool CollisionCircleCircleBullet(ShipBullets& shipBullet, Asteroid& asteroid1)
 	}
 }
 
+bool CollisionCircleCircleEnemyShip(ShipBullets& shipBullet, Asteroid& asteroid1)
+{
+	float distX = shipBullet.position.x - asteroid1.position.x;
+	float distY = shipBullet.position.y - asteroid1.position.y;
+	float distance = sqrt((distX * distX) + (distY * distY));
+
+	if (distance <= shipBullet.radius + asteroid1.radius)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1)
 {
 	if (CollisionCircleCircleBullet(maximumShipBullets[maxShipBullets], asteroid1))
@@ -223,7 +239,7 @@ void RunGame()
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 
-	//ButtonsAndUI play = { 0, 0, 0, 0, {410, 255, 237, 130} };
+	//Buttons play = { 0, 0, 0, 0, {410, 255, 237, 130} };
 	//ButtonsAndUI howToPlay;
 	//ButtonsAndUI credits;
 	//ButtonsAndUI exit;
@@ -246,7 +262,7 @@ void RunGame()
 	
 
 
-	while (playingGame)
+	while (playingGame && !WindowShouldClose())
 	{
 		BeginDrawing();
 

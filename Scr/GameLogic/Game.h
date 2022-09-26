@@ -9,12 +9,9 @@ enum class GameScreen
 	EXIT
 };
 
-//struct ButtonsAndUI
+//struct Buttons
 //{
-//	Vector2 size{};
-//	const char* name;
-//	int width;
-//	Rectangle RectButton{};
+//	Rectangle RectBut{};
 //	Texture2D TextureButton;
 //};
 
