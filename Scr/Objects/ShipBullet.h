@@ -9,6 +9,7 @@ struct ShipBullets
 	float radius;
 	float speed;
 	bool isMoving;
+	bool isActive;
 	Texture2D bulletTexture;
 };
 
