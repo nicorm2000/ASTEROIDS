@@ -94,7 +94,7 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 {
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 40; i++)
 	{
 		for (int j = 0; j < maxShipBullets; j++)
 		{
@@ -290,19 +290,19 @@ void RunGame()
 	EnemyShip enemyShip;
 
 
-	for (int i = 0; i < 15; i++)
+	for (int i = 0; i < 40; i++)
 	{
-		if (i < 5)
+		if (i < 10)
 		{
 			asteroidArray[i].asteroidSize = BIG;
 			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
 		}
-		else if (i >= 5 && i < 10)
+		else if (i >= 10 && i < 25)
 		{
 			asteroidArray[i].asteroidSize = MEDIUM;
 			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
 		}
-		else if (i >= 10)
+		else if (i >= 25)
 		{
 			asteroidArray[i].asteroidSize = SMALL;
 			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
@@ -437,21 +437,21 @@ void RunGame()
 				DrawEnemyShip(enemyShip);
 			}
 
-			for (int i = 0; i < 5; i++)
+			for (int i = 0; i < 10; i++)
 			{
 				if (asteroidArray[i].isActive)
 				{
 					DrawAsteroid(asteroidArray[i], BIG);
 				}
 			}
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 25; i++)
 			{
 				if (asteroidArray[i].isActive)
 				{
 					DrawAsteroid(asteroidArray[i], MEDIUM);
 				}
 			}
-			for (int i = 0; i < 15; i++)
+			for (int i = 0; i < 40; i++)
 			{
 				if (asteroidArray[i].isActive)
 				{

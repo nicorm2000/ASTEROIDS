@@ -50,19 +50,19 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 void DrawAsteroid(Asteroid& asteroid, Size asteroidSize)
 {
 	//hitbox
-	if (SMALL)
+	if (asteroid.asteroidSize ==  SMALL)
 	{
-		DrawCircle(asteroid.position.x + 20, asteroid.position.y + 20, asteroid.radius, asteroid.color);
-		DrawTexture(asteroid.asteroidTexture, asteroid.position.x, asteroid.position.y, asteroid.color);
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
+		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
-	else if (MEDIUM)
+	else if (asteroid.asteroidSize == MEDIUM)
 	{
-		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, asteroid.color);
-		DrawTexture(asteroid.asteroidTexture, asteroid.position.x, asteroid.position.y, asteroid.color);
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
+		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
-	else if (BIG)
+	else if (asteroid.asteroidSize == BIG)
 	{
-		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, asteroid.color);
-		DrawTexture(asteroid.asteroidTexture, asteroid.position.x, asteroid.position.y, asteroid.color);
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
+		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
 }
