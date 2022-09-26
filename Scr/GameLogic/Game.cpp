@@ -94,7 +94,7 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 15; i++)
 	{
 		for (int j = 0; j < maxShipBullets; j++)
 		{
@@ -286,30 +286,27 @@ void RunGame()
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 
-	//Buttons play = { 0, 0, 0, 0, {410, 255, 237, 130} };
-	//ButtonsAndUI howToPlay;
-	//ButtonsAndUI credits;
-	//ButtonsAndUI exit;
-
 	Ship spaceShip;
 	EnemyShip enemyShip;
 
-	for (int i = 0; i < 5; i++)
-	{
-		asteroidArray[i].AsteroidSize = BIG;
-		CreateAsteroid(asteroidArray[i], asteroidArray[i].AsteroidSize);
-	}
-
-	for (int i = 0; i < 10; i++)
-	{
-		asteroidArray[i].AsteroidSize = MEDIUM;
-		CreateAsteroid(asteroidArray[i], asteroidArray[i].AsteroidSize);
-	}
 
 	for (int i = 0; i < 15; i++)
 	{
-		asteroidArray[i].AsteroidSize = SMALL;
-		CreateAsteroid(asteroidArray[i], asteroidArray[i].AsteroidSize);
+		if (i < 5)
+		{
+			asteroidArray[i].asteroidSize = BIG;
+			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
+		}
+		else if (i >= 5 && i < 10)
+		{
+			asteroidArray[i].asteroidSize = MEDIUM;
+			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
+		}
+		else if (i >= 10)
+		{
+			asteroidArray[i].asteroidSize = SMALL;
+			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
+		}
 	}
 
 	for (int i = 0; i < maxShipBullets + 1; i++)
@@ -385,7 +382,7 @@ void RunGame()
 			enemyShip.origin = { (float)enemyShip.position.x / 2.0f, (float)enemyShip.position.y / 2.0f };
 			enemyShip.position.x += enemyShip.speed.x * GetFrameTime();
 
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 15; i++)
 			{
 				GameCollisions(spaceShip, asteroidArray[i], enemyShip);
 				windowTp(spaceShip, asteroidArray[i], enemyShip);
@@ -402,10 +399,6 @@ void RunGame()
 					asteroidArray[i].position.x += asteroidArray[i].speed.x * GetFrameTime();
 					asteroidArray[i].position.y += asteroidArray[i].speed.y * GetFrameTime();
 				}
-
-				asteroidArray[i].origin = { (float)asteroidArray[i].size.x / 2, (float)asteroidArray[i].size.y / 2 };
-				asteroidArray[i].source = { 0, 0, (float)asteroidArray[i].asteroidTexture.width, (float)asteroidArray[i].asteroidTexture.height };
-				asteroidArray[i].dest = { asteroidArray[i].position.x - 40, asteroidArray[i].position.y - 40, (float)asteroidArray[i].asteroidTexture.width,  (float)asteroidArray[i].asteroidTexture.height };
 			}
 
 			for (int i = 0; i < maxShipBullets; i++)
@@ -438,17 +431,34 @@ void RunGame()
 			{
 				DrawShip(spaceShip, spaceShip.rotation);
 			}
+
 			if (enemyShip.isActive)
 			{
 				DrawEnemyShip(enemyShip);
+			}
+
+			for (int i = 0; i < 5; i++)
+			{
+				if (asteroidArray[i].isActive)
+				{
+					DrawAsteroid(asteroidArray[i], BIG);
+				}
+			}
+			for (int i = 0; i < 10; i++)
+			{
+				if (asteroidArray[i].isActive)
+				{
+					DrawAsteroid(asteroidArray[i], MEDIUM);
+				}
 			}
 			for (int i = 0; i < 15; i++)
 			{
 				if (asteroidArray[i].isActive)
 				{
-					DrawAsteroid(asteroidArray[i], asteroidArray[i].asteroidTexture);
+					DrawAsteroid(asteroidArray[i], SMALL);
 				}
 			}
+
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 
 			break;

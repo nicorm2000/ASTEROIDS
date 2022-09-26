@@ -13,7 +13,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.radius = 50;
 		asteroid.speed.x = GetRandomValue(-100, 100);
 		asteroid.speed.y = GetRandomValue(-100, 100);
-		asteroid.color = RED;
+		asteroid.color = WHITE;
 		asteroid.isActive = true;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy1.png");
 		return asteroid;
@@ -26,7 +26,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.radius = 35;
 		asteroid.speed.x = GetRandomValue(-100, 100);
 		asteroid.speed.y = GetRandomValue(-100, 100);
-		asteroid.color = RED;
+		asteroid.color = WHITE;
 		asteroid.isActive = true;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy2.png");
 		return asteroid;
@@ -39,7 +39,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.radius = 20;
 		asteroid.speed.x = GetRandomValue(-100, 100);
 		asteroid.speed.y = GetRandomValue(-100, 100);
-		asteroid.color = RED;
+		asteroid.color = WHITE;
 		asteroid.isActive = true;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy3.png");
 		return asteroid;
@@ -47,9 +47,22 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 	}
 }
 
-void DrawAsteroid(Asteroid& asteroid, Texture2D asteroidBigTexture)
+void DrawAsteroid(Asteroid& asteroid, Size asteroidSize)
 {
 	//hitbox
-	DrawCircleLines(asteroid.position.x, asteroid.position.y, asteroid.radius, asteroid.color);
-	DrawTextureTiled(asteroidBigTexture, asteroid.source, asteroid.dest, asteroid.origin, 0, 1, WHITE);
+	if (SMALL)
+	{
+		DrawCircle(asteroid.position.x + 20, asteroid.position.y + 20, asteroid.radius, asteroid.color);
+		DrawTexture(asteroid.asteroidTexture, asteroid.position.x, asteroid.position.y, asteroid.color);
+	}
+	else if (MEDIUM)
+	{
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, asteroid.color);
+		DrawTexture(asteroid.asteroidTexture, asteroid.position.x, asteroid.position.y, asteroid.color);
+	}
+	else if (BIG)
+	{
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, asteroid.color);
+		DrawTexture(asteroid.asteroidTexture, asteroid.position.x, asteroid.position.y, asteroid.color);
+	}
 }

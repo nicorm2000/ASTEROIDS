@@ -21,10 +21,10 @@ struct Asteroid
 	Rectangle source;
 	Rectangle dest;
 	bool isActive;
-	Size AsteroidSize;
+	Size asteroidSize;
 	Texture2D asteroidTexture;
 };
 
 Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize);
 
-void DrawAsteroid(Asteroid& asteroid, Texture2D asteroidBigTexture);
+void DrawAsteroid(Asteroid& asteroid, Size asteroidSize);
