@@ -25,10 +25,10 @@
       <Filter>GameLogic</Filter>
     </ClCompile>
     <ClCompile Include="..\Scr\main.cpp" />
-    <ClCompile Include="EnemyShip.cpp">
+    <ClCompile Include="..\Scr\Objects\ShipBullet.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\Scr\Objects\ShipBullet.cpp">
+    <ClCompile Include="..\Scr\Objects\EnemyShip.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -42,10 +42,10 @@
     <ClInclude Include="..\Scr\GameLogic\Game.h">
       <Filter>GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyShip.h">
+    <ClInclude Include="..\Scr\Objects\ShipBullet.h">
       <Filter>Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\Scr\Objects\ShipBullet.h">
+    <ClInclude Include="..\Scr\Objects\EnemyShip.h">
       <Filter>Objects</Filter>
     </ClInclude>
   </ItemGroup>

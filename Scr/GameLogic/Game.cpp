@@ -6,6 +6,7 @@
 #include "Objects/Ship.h"
 #include "Objects/Asteroid.h"
 #include "Objects/ShipBullet.h"
+#include "Objects/EnemyShip.h"
 
 const int maxShipBullets = 100;
 ShipBullets shipBullet;
@@ -53,13 +54,34 @@ bool CollisionCircleCircleBullet(ShipBullets& shipBullet, Asteroid& asteroid1)
 	}
 }
 
-bool CollisionCircleCircleEnemyShip(ShipBullets& shipBullet, Asteroid& asteroid1)
+bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 {
-	float distX = shipBullet.position.x - asteroid1.position.x;
-	float distY = shipBullet.position.y - asteroid1.position.y;
+	float testX = spaceShip.position.x;
+	float testY = spaceShip.position.y;
+
+	if (spaceShip.position.x < enemyShip.position.x)
+	{
+		testX = enemyShip.position.x;
+	}
+	else if (spaceShip.position.x > enemyShip.position.x + enemyShip.size.x)
+	{
+		testX = enemyShip.position.x + enemyShip.size.x;
+	}
+
+	if (spaceShip.position.y < enemyShip.position.y)
+	{
+		testY = enemyShip.position.y;
+	}
+	else if (spaceShip.position.y > enemyShip.position.y + enemyShip.size.y)
+	{
+		testY = enemyShip.position.y + enemyShip.size.y;
+	}
+
+	float distX = spaceShip.position.x - testX;
+	float distY = spaceShip.position.y - testY;
 	float distance = sqrt((distX * distX) + (distY * distY));
 
-	if (distance <= shipBullet.radius + asteroid1.radius)
+	if (distance <= spaceShip.radius)
 	{
 		return true;
 	}
@@ -245,7 +267,7 @@ void RunGame()
 	//ButtonsAndUI exit;
 
 	Ship spaceShip;
-
+	EnemyShip enemyShip;
 	Asteroid bigArray[10];
 
 	for (int i = 0; i < 10; i++)
