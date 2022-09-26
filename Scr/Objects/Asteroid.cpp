@@ -12,7 +12,6 @@ Asteroid CreateAsteroid(Asteroid& asteroid)
 	asteroid.speed.y = GetRandomValue(-100, 100);
 	asteroid.color = WHITE;
 	asteroid.isActive = true;
-	asteroid.rotation = GetRandomValue(0, 359);
 	return asteroid;
 }
 

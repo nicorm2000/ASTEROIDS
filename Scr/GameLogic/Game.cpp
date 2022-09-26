@@ -382,8 +382,6 @@ void RunGame()
 			}
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 
-			DrawTextEx(titleFont, "AstroCandy", {200,100}, 100, 10, BLACK);
-
 			break;
 
 		case GameScreen::HOWTOPLAY:

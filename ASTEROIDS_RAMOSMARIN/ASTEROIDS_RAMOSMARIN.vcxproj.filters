@@ -25,7 +25,10 @@
       <Filter>GameLogic</Filter>
     </ClCompile>
     <ClCompile Include="..\Scr\main.cpp" />
-    <ClCompile Include="ShipBullet.cpp">
+    <ClCompile Include="EnemyShip.cpp">
+      <Filter>Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Scr\Objects\ShipBullet.cpp">
       <Filter>Objects</Filter>
     </ClCompile>
   </ItemGroup>
@@ -39,16 +42,11 @@
     <ClInclude Include="..\Scr\GameLogic\Game.h">
       <Filter>GameLogic</Filter>
     </ClInclude>
-    <ClInclude Include="ShipBullet.h">
+    <ClInclude Include="EnemyShip.h">
       <Filter>Objects</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Scr\resources\asteroid1.png">
-      <Filter>Resources</Filter>
-    </Image>
-    <Image Include="..\Scr\resources\player.png">
-      <Filter>Resources</Filter>
-    </Image>
+    <ClInclude Include="..\Scr\Objects\ShipBullet.h">
+      <Filter>Objects</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -153,17 +153,15 @@
     <ClCompile Include="..\Scr\main.cpp" />
     <ClCompile Include="..\Scr\Objects\Asteroid.cpp" />
     <ClCompile Include="..\Scr\Objects\Ship.cpp" />
-    <ClCompile Include="ShipBullet.cpp" />
+    <ClCompile Include="..\Scr\Objects\ShipBullet.cpp" />
+    <ClCompile Include="EnemyShip.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Scr\GameLogic\Game.h" />
     <ClInclude Include="..\Scr\Objects\Asteroid.h" />
     <ClInclude Include="..\Scr\Objects\Ship.h" />
-    <ClInclude Include="ShipBullet.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\Scr\resources\asteroid1.png" />
-    <Image Include="..\Scr\resources\player.png" />
+    <ClInclude Include="..\Scr\Objects\ShipBullet.h" />
+    <ClInclude Include="EnemyShip.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
