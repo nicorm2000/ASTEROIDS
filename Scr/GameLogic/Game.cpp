@@ -215,11 +215,15 @@ void RunGame()
 
 	Texture2D backGround = LoadTexture("../resources/background.png");
 	Texture2D gameTitle = LoadTexture("../resources/gametitle.png");
+	Texture2D playTitle = LoadTexture("../resources/playbutton.png");
+	Texture2D howToPlayTitle = LoadTexture("../resources/howtoplaybutton.png");
+	Texture2D creditsTitle = LoadTexture("../resources/creditsbutton.png");
+	Texture2D exitTitle = LoadTexture("../resources/exitbutton.png");
 	Texture2D asteroidBigTexture = LoadTexture("../resources/enemy1.png");
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 
-	//ButtonsAndUI play = { 0, 0, 0, 0, 0 };
+	//ButtonsAndUI play = { 0, 0, 0, 0, {410, 255, 237, 130} };
 	//ButtonsAndUI howToPlay;
 	//ButtonsAndUI credits;
 	//ButtonsAndUI exit;
@@ -254,14 +258,14 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
-			/*if (CheckCollisionPointRec(mousePosition, play.))
+			if (CheckCollisionPointRec(mousePosition, { 410, 255, 237, 130 }))
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
 					gameState = GameScreen::GAME;
 				}
 			}
-
+			/*
 			if (CheckCollisionPointRec(mousePosition, howToPlay.RectBut))
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -287,7 +291,13 @@ void RunGame()
 			}*/
 
 			DrawTexture(backGround, 0, 0, WHITE);
-			DrawTextureEx(gameTitle, { 150, -50 }, 0, 0.6, WHITE);
+			DrawTextureEx(gameTitle, { 75, -130 }, 0, 0.7, WHITE);
+			DrawRectangleLines(410, 255, 237, 130, BLACK);
+			DrawTextureEx(playTitle, { 400, 250 }, 0, 0.2, WHITE);
+			DrawTextureEx(howToPlayTitle, { 350, 350 }, 0, 0.3, WHITE);
+			DrawTextureEx(creditsTitle, { 400, 500 }, 0, 0.2, WHITE);
+			DrawTextureEx(exitTitle, { 400, 650 }, 0, 0.15, WHITE);
+			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 			//DrawTextEx(titleFont, "AstroCandy", { 200,100 }, 100, 10, BLACK);
 
 			break;
