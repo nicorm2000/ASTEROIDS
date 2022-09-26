@@ -11,7 +11,7 @@
 const int maxShipBullets = 100;
 ShipBullets shipBullet;
 ShipBullets maximumShipBullets[maxShipBullets];
-Asteroid bigArray[10];
+Asteroid asteroidArray[15];
 
 static void Initialize()
 {
@@ -94,11 +94,14 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 {
-	for (int i = 0; i <= 10; i++)
+	for (int i = 0; i < 10; i++)
 	{
-		if (CollisionCircleCircleBullet(maximumShipBullets[0], bigArray[i]))
+		for (int j = 0; j < maxShipBullets; j++)
 		{
-			bigArray[i].isActive = false;
+			if (CollisionCircleCircleBullet(maximumShipBullets[j], asteroidArray[i]))
+			{
+				asteroidArray[i].isActive = false;
+			}
 		}
 	}
 
@@ -280,7 +283,6 @@ void RunGame()
 	Texture2D howToPlayTitle = LoadTexture("../resources/howtoplaybutton.png");
 	Texture2D creditsTitle = LoadTexture("../resources/creditsbutton.png");
 	Texture2D exitTitle = LoadTexture("../resources/exitbutton.png");
-	Texture2D asteroidBigTexture = LoadTexture("../resources/enemy1.png");
 	Texture2D button1 = LoadTexture("../resources/button.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 
@@ -292,9 +294,22 @@ void RunGame()
 	Ship spaceShip;
 	EnemyShip enemyShip;
 
+	for (int i = 0; i < 5; i++)
+	{
+		asteroidArray[i].AsteroidSize = BIG;
+		CreateAsteroid(asteroidArray[i], asteroidArray[i].AsteroidSize);
+	}
+
 	for (int i = 0; i < 10; i++)
 	{
-		CreateAsteroid(bigArray[i]);
+		asteroidArray[i].AsteroidSize = MEDIUM;
+		CreateAsteroid(asteroidArray[i], asteroidArray[i].AsteroidSize);
+	}
+
+	for (int i = 0; i < 15; i++)
+	{
+		asteroidArray[i].AsteroidSize = SMALL;
+		CreateAsteroid(asteroidArray[i], asteroidArray[i].AsteroidSize);
 	}
 
 	for (int i = 0; i < maxShipBullets + 1; i++)
@@ -372,25 +387,25 @@ void RunGame()
 
 			for (int i = 0; i < 10; i++)
 			{
-				GameCollisions(spaceShip, bigArray[i], enemyShip);
-				windowTp(spaceShip, bigArray[i], enemyShip);
-				if (bigArray[i].speed.x != 0 && bigArray[i].speed.y != 0)
+				GameCollisions(spaceShip, asteroidArray[i], enemyShip);
+				windowTp(spaceShip, asteroidArray[i], enemyShip);
+				if (asteroidArray[i].speed.x != 0 && asteroidArray[i].speed.y != 0)
 				{
-					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
-					bigArray[i].position.y += bigArray[i].speed.y * GetFrameTime();
+					asteroidArray[i].position.x += asteroidArray[i].speed.x * GetFrameTime();
+					asteroidArray[i].position.y += asteroidArray[i].speed.y * GetFrameTime();
 				}
 				else
 				{
-					bigArray[i].speed.x = GetRandomValue(-100, 100);
-					bigArray[i].speed.y = GetRandomValue(-100, 100);
+					asteroidArray[i].speed.x = GetRandomValue(-100, 100);
+					asteroidArray[i].speed.y = GetRandomValue(-100, 100);
 
-					bigArray[i].position.x += bigArray[i].speed.x * GetFrameTime();
-					bigArray[i].position.y += bigArray[i].speed.y * GetFrameTime();
+					asteroidArray[i].position.x += asteroidArray[i].speed.x * GetFrameTime();
+					asteroidArray[i].position.y += asteroidArray[i].speed.y * GetFrameTime();
 				}
 
-				bigArray[i].origin = { (float)bigArray[i].size.x / 2, (float)bigArray[i].size.y / 2 };
-				bigArray[i].source = { 0, 0, (float)asteroidBigTexture.width, (float)asteroidBigTexture.height };
-				bigArray[i].dest = { bigArray[i].position.x - 40, bigArray[i].position.y - 40, (float)asteroidBigTexture.width,  (float)asteroidBigTexture.height };
+				asteroidArray[i].origin = { (float)asteroidArray[i].size.x / 2, (float)asteroidArray[i].size.y / 2 };
+				asteroidArray[i].source = { 0, 0, (float)asteroidArray[i].asteroidTexture.width, (float)asteroidArray[i].asteroidTexture.height };
+				asteroidArray[i].dest = { asteroidArray[i].position.x - 40, asteroidArray[i].position.y - 40, (float)asteroidArray[i].asteroidTexture.width,  (float)asteroidArray[i].asteroidTexture.height };
 			}
 
 			for (int i = 0; i < maxShipBullets; i++)
@@ -427,11 +442,11 @@ void RunGame()
 			{
 				DrawEnemyShip(enemyShip);
 			}
-			for (int i = 0; i < 10; i++)
+			for (int i = 0; i < 15; i++)
 			{
-				if (bigArray[i].isActive)
+				if (asteroidArray[i].isActive)
 				{
-					DrawAsteroid(bigArray[i], asteroidBigTexture);
+					DrawAsteroid(asteroidArray[i], asteroidArray[i].asteroidTexture);
 				}
 			}
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
@@ -466,8 +481,11 @@ void RunGame()
 
 	UnloadTexture(backGround);
 	UnloadTexture(spaceShip.shipTexture);
-	UnloadTexture(asteroidBigTexture);
 	UnloadTexture(button1);
+	for (int i = 0; i < 15; i++)
+	{
+		UnloadTexture(asteroidArray[i].asteroidTexture);
+	}
 
 	Close();
 }
