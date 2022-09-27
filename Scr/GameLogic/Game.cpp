@@ -273,8 +273,6 @@ void RunGame()
 {
 	Initialize();
 
-	SetTargetFPS(60);
-
 	HideCursor();
 
 	bool playingGame = true;
@@ -285,7 +283,8 @@ void RunGame()
 
 	GameScreen gameState = GameScreen::GAMETITLE;
 
-	Texture2D backGround = LoadTexture("../resources/background.png");
+	Texture2D backGround = LoadTexture("../resources/backgroundtiled.png");
+	Texture2D menuBackGround = LoadTexture("../resources/menubgbig.png");
 	Texture2D gameTitle = LoadTexture("../resources/gametitle.png");
 	Texture2D playTitle = LoadTexture("../resources/playbutton.png");
 	Texture2D howToPlayTitle = LoadTexture("../resources/howtoplaybutton.png");
@@ -306,7 +305,7 @@ void RunGame()
 			asteroidArray[i].asteroidSize = BIG;
 			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
 		}
-		else if (i >= 5 && i < asteroidMediumAmount)
+		else if (i >= asteroidBigAmount && i < asteroidMediumAmount)
 		{
 			asteroidArray[i].asteroidSize = MEDIUM;
 			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
@@ -370,12 +369,13 @@ void RunGame()
 				}
 			}
 
-			DrawTexture(backGround, 0, 0, WHITE);
+			DrawTexture(menuBackGround, 0, 0, WHITE);
 			DrawTextureEx(gameTitle, { 75, -130 }, 0, 0.7, WHITE);
 			DrawTextureEx(playTitle, { 400, 250 }, 0, 0.2, WHITE);
 			DrawTextureEx(howToPlayTitle, { 350, 350 }, 0, 0.3, WHITE);
 			DrawTextureEx(creditsTitle, { 400, 500 }, 0, 0.2, WHITE);
 			DrawTextureEx(exitTitle, { 420, 650 }, 0, 0.15, WHITE);
+			
 			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 
 			break;
@@ -428,6 +428,53 @@ void RunGame()
 			CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition);
 
 			DrawTexture(backGround, 0, 0, WHITE);
+			DrawTexture(backGround, 0, 128, WHITE);
+			DrawTexture(backGround, 0, 256, WHITE);
+			DrawTexture(backGround, 0, 384, WHITE);
+			DrawTexture(backGround, 0, 512, WHITE);
+			DrawTexture(backGround, 0, 640, WHITE);
+			DrawTexture(backGround, 128, 0, WHITE);
+			DrawTexture(backGround, 128, 128, WHITE);
+			DrawTexture(backGround, 128, 256, WHITE);
+			DrawTexture(backGround, 128, 384, WHITE);
+			DrawTexture(backGround, 128, 512, WHITE);
+			DrawTexture(backGround, 128, 640, WHITE);
+			DrawTexture(backGround, 256, 0, WHITE);
+			DrawTexture(backGround, 256, 128, WHITE);
+			DrawTexture(backGround, 256, 256, WHITE);
+			DrawTexture(backGround, 256, 384, WHITE);
+			DrawTexture(backGround, 256, 512, WHITE);
+			DrawTexture(backGround, 256, 640, WHITE);
+			DrawTexture(backGround, 384, 0, WHITE);
+			DrawTexture(backGround, 384, 128, WHITE);
+			DrawTexture(backGround, 384, 256, WHITE);
+			DrawTexture(backGround, 384, 384, WHITE);
+			DrawTexture(backGround, 384, 512, WHITE);
+			DrawTexture(backGround, 384, 640, WHITE);
+			DrawTexture(backGround, 512, 0, WHITE);
+			DrawTexture(backGround, 512, 128, WHITE);
+			DrawTexture(backGround, 512, 256, WHITE);
+			DrawTexture(backGround, 512, 384, WHITE);
+			DrawTexture(backGround, 512, 512, WHITE);
+			DrawTexture(backGround, 512, 640, WHITE);
+			DrawTexture(backGround, 640, 0, WHITE);
+			DrawTexture(backGround, 640, 128, WHITE);
+			DrawTexture(backGround, 640, 256, WHITE);
+			DrawTexture(backGround, 640, 384, WHITE);
+			DrawTexture(backGround, 640, 512, WHITE);
+			DrawTexture(backGround, 640, 640, WHITE);
+			DrawTexture(backGround, 768, 0, WHITE);
+			DrawTexture(backGround, 768, 128, WHITE);
+			DrawTexture(backGround, 768, 256, WHITE);
+			DrawTexture(backGround, 768, 384, WHITE);
+			DrawTexture(backGround, 768, 512, WHITE);
+			DrawTexture(backGround, 768, 640, WHITE);
+			DrawTexture(backGround, 896, 0, WHITE);
+			DrawTexture(backGround, 896, 128, WHITE);
+			DrawTexture(backGround, 896, 256, WHITE);
+			DrawTexture(backGround, 896, 384, WHITE);
+			DrawTexture(backGround, 896, 512, WHITE);
+			DrawTexture(backGround, 896, 640, WHITE);
 			
 			for (int i = 0; i < maxShipBullets; i++)
 			{
