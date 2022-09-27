@@ -14,6 +14,7 @@ struct Asteroid
 	Vector2 speed{};
 	Vector2 position{};
 	Vector2 origin{};
+	Vector2 asteroidDirection{};
 	float rotation;
 	float radius;
 	int variants;

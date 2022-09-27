@@ -16,6 +16,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.color = WHITE;
 		asteroid.isActive = true;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy1.png");
+		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
 		break;
 	case MEDIUM:
@@ -29,6 +30,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.color = WHITE;
 		asteroid.isActive = true;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy2.png");
+		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
 		break;
 	case SMALL:
@@ -42,6 +44,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.color = WHITE;
 		asteroid.isActive = true;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy3.png");
+		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
 		break;
 	}
