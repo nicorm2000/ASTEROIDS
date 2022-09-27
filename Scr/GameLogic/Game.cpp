@@ -333,6 +333,8 @@ void RunGame()
 
 	HideCursor();
 
+	SetExitKey(KEY_NULL);
+
 	bool playingGame = true;
 	bool exitWindow = false;
 	bool isPaused = false;
