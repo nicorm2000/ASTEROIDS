@@ -20,6 +20,9 @@ Asteroid asteroidArray[asteroidAmount];
 Asteroid asteroidBigArray[asteroidBigAmount];
 Asteroid asteroidMediumArray[asteroidMediumAmount];
 Asteroid asteroidSmallArray[asteroidSmallAmount];
+int asteroidBigCount = 0;
+int asteroidMediumCount = 0;
+int asteroidSmallCount = 0;
 
 static void Initialize()
 {
@@ -106,9 +109,12 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 	{
 		for (int j = 0; j < maxShipBullets; j++)
 		{
-			if (CollisionCircleCircleBullet(maximumShipBullets[j], asteroidArray[i]))
+			if (maximumShipBullets[j].isActive)
 			{
-				asteroidArray[i].isActive = false;
+				if (CollisionCircleCircleBullet(maximumShipBullets[j], asteroidArray[i]))
+				{
+					asteroidArray[i].isActive = false;
+				}
 			}
 		}
 	}
@@ -269,6 +275,58 @@ void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
 	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
 }
 
+//void DrawBackgroundGame(Texture2D backGround)
+//{
+//	DrawTexture(backGround, 0, 0, WHITE);
+//	DrawTexture(backGround, 0, 128, WHITE);
+//	DrawTexture(backGround, 0, 256, WHITE);
+//	DrawTexture(backGround, 0, 384, WHITE);
+//	DrawTexture(backGround, 0, 512, WHITE);
+//	DrawTexture(backGround, 0, 640, WHITE);
+//	DrawTexture(backGround, 128, 0, WHITE);
+//	DrawTexture(backGround, 128, 128, WHITE);
+//	DrawTexture(backGround, 128, 256, WHITE);
+//	DrawTexture(backGround, 128, 384, WHITE);
+//	DrawTexture(backGround, 128, 512, WHITE);
+//	DrawTexture(backGround, 128, 640, WHITE);
+//	DrawTexture(backGround, 256, 0, WHITE);
+//	DrawTexture(backGround, 256, 128, WHITE);
+//	DrawTexture(backGround, 256, 256, WHITE);
+//	DrawTexture(backGround, 256, 384, WHITE);
+//	DrawTexture(backGround, 256, 512, WHITE);
+//	DrawTexture(backGround, 256, 640, WHITE);
+//	DrawTexture(backGround, 384, 0, WHITE);
+//	DrawTexture(backGround, 384, 128, WHITE);
+//	DrawTexture(backGround, 384, 256, WHITE);
+//	DrawTexture(backGround, 384, 384, WHITE);
+//	DrawTexture(backGround, 384, 512, WHITE);
+//	DrawTexture(backGround, 384, 640, WHITE);
+//	DrawTexture(backGround, 512, 0, WHITE);
+//	DrawTexture(backGround, 512, 128, WHITE);
+//	DrawTexture(backGround, 512, 256, WHITE);
+//	DrawTexture(backGround, 512, 384, WHITE);
+//	DrawTexture(backGround, 512, 512, WHITE);
+//	DrawTexture(backGround, 512, 640, WHITE);
+//	DrawTexture(backGround, 640, 0, WHITE);
+//	DrawTexture(backGround, 640, 128, WHITE);
+//	DrawTexture(backGround, 640, 256, WHITE);
+//	DrawTexture(backGround, 640, 384, WHITE);
+//	DrawTexture(backGround, 640, 512, WHITE);
+//	DrawTexture(backGround, 640, 640, WHITE);
+//	DrawTexture(backGround, 768, 0, WHITE);
+//	DrawTexture(backGround, 768, 128, WHITE);
+//	DrawTexture(backGround, 768, 256, WHITE);
+//	DrawTexture(backGround, 768, 384, WHITE);
+//	DrawTexture(backGround, 768, 512, WHITE);
+//	DrawTexture(backGround, 768, 640, WHITE);
+//	DrawTexture(backGround, 896, 0, WHITE);
+//	DrawTexture(backGround, 896, 128, WHITE);
+//	DrawTexture(backGround, 896, 256, WHITE);
+//	DrawTexture(backGround, 896, 384, WHITE);
+//	DrawTexture(backGround, 896, 512, WHITE);
+//	DrawTexture(backGround, 896, 640, WHITE);
+//}
+
 void RunGame()
 {
 	Initialize();
@@ -284,6 +342,7 @@ void RunGame()
 	GameScreen gameState = GameScreen::GAMETITLE;
 
 	Texture2D backGround = LoadTexture("../resources/backgroundtiled.png");
+	Texture2D exitButton = LoadTexture("../resources/xbutton.png");
 	Texture2D menuBackGround = LoadTexture("../resources/menubgbig.png");
 	Texture2D gameTitle = LoadTexture("../resources/gametitle.png");
 	Texture2D playTitle = LoadTexture("../resources/playbutton.png");
@@ -427,54 +486,7 @@ void RunGame()
 
 			CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition);
 
-			DrawTexture(backGround, 0, 0, WHITE);
-			DrawTexture(backGround, 0, 128, WHITE);
-			DrawTexture(backGround, 0, 256, WHITE);
-			DrawTexture(backGround, 0, 384, WHITE);
-			DrawTexture(backGround, 0, 512, WHITE);
-			DrawTexture(backGround, 0, 640, WHITE);
-			DrawTexture(backGround, 128, 0, WHITE);
-			DrawTexture(backGround, 128, 128, WHITE);
-			DrawTexture(backGround, 128, 256, WHITE);
-			DrawTexture(backGround, 128, 384, WHITE);
-			DrawTexture(backGround, 128, 512, WHITE);
-			DrawTexture(backGround, 128, 640, WHITE);
-			DrawTexture(backGround, 256, 0, WHITE);
-			DrawTexture(backGround, 256, 128, WHITE);
-			DrawTexture(backGround, 256, 256, WHITE);
-			DrawTexture(backGround, 256, 384, WHITE);
-			DrawTexture(backGround, 256, 512, WHITE);
-			DrawTexture(backGround, 256, 640, WHITE);
-			DrawTexture(backGround, 384, 0, WHITE);
-			DrawTexture(backGround, 384, 128, WHITE);
-			DrawTexture(backGround, 384, 256, WHITE);
-			DrawTexture(backGround, 384, 384, WHITE);
-			DrawTexture(backGround, 384, 512, WHITE);
-			DrawTexture(backGround, 384, 640, WHITE);
-			DrawTexture(backGround, 512, 0, WHITE);
-			DrawTexture(backGround, 512, 128, WHITE);
-			DrawTexture(backGround, 512, 256, WHITE);
-			DrawTexture(backGround, 512, 384, WHITE);
-			DrawTexture(backGround, 512, 512, WHITE);
-			DrawTexture(backGround, 512, 640, WHITE);
-			DrawTexture(backGround, 640, 0, WHITE);
-			DrawTexture(backGround, 640, 128, WHITE);
-			DrawTexture(backGround, 640, 256, WHITE);
-			DrawTexture(backGround, 640, 384, WHITE);
-			DrawTexture(backGround, 640, 512, WHITE);
-			DrawTexture(backGround, 640, 640, WHITE);
-			DrawTexture(backGround, 768, 0, WHITE);
-			DrawTexture(backGround, 768, 128, WHITE);
-			DrawTexture(backGround, 768, 256, WHITE);
-			DrawTexture(backGround, 768, 384, WHITE);
-			DrawTexture(backGround, 768, 512, WHITE);
-			DrawTexture(backGround, 768, 640, WHITE);
-			DrawTexture(backGround, 896, 0, WHITE);
-			DrawTexture(backGround, 896, 128, WHITE);
-			DrawTexture(backGround, 896, 256, WHITE);
-			DrawTexture(backGround, 896, 384, WHITE);
-			DrawTexture(backGround, 896, 512, WHITE);
-			DrawTexture(backGround, 896, 640, WHITE);
+			DrawTexture(menuBackGround, 0, 0, WHITE);
 			
 			for (int i = 0; i < maxShipBullets; i++)
 			{
@@ -523,7 +535,18 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
+			if (CheckCollisionPointRec(mousePosition, { 20, 23, 70, 65 }))
+			{
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+				{
+					gameState = GameScreen::GAMETITLE;
+				}
+			}
 
+			DrawTexture(menuBackGround, 0, 0, WHITE);
+			DrawTextureEx(exitButton, { -10, 20 }, 0, 0.1, WHITE);
+
+			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 
 			break;
 
@@ -531,7 +554,18 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
+			if (CheckCollisionPointRec(mousePosition, { 20, 23, 70, 65 }))
+			{
+				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+				{
+					gameState = GameScreen::GAMETITLE;
+				}
+			}
 
+			DrawTexture(menuBackGround, 0, 0, WHITE);
+			DrawTextureEx(exitButton, { -10, 20 }, 0, 0.1, WHITE);
+
+			DrawCircle(mousePosition.x, mousePosition.y, 5, GREEN);
 
 			break;
 
