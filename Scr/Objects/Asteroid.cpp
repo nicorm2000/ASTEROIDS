@@ -5,7 +5,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 {
 	switch (asteroidSize)
 	{
-	case BIG:
+	case Size::BIG:
 		asteroid.size.x = 20;
 		asteroid.size.y = 20;
 		asteroid.position.x = GetRandomValue(0, 1024);
@@ -19,7 +19,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
 		break;
-	case MEDIUM:
+	case Size::MEDIUM:
 		asteroid.size.x = 20;
 		asteroid.size.y = 20;
 		asteroid.position.x = GetRandomValue(0, 1024);
@@ -33,7 +33,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
 		break;
-	case SMALL:
+	case Size::SMALL:
 		asteroid.size.x = 20;
 		asteroid.size.y = 20;
 		asteroid.position.x = GetRandomValue(0, 1024);
@@ -53,17 +53,17 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 void DrawAsteroid(Asteroid& asteroid, Size asteroidSize)
 {
 	//hitbox
-	if (asteroid.asteroidSize ==  SMALL)
+	if (asteroid.asteroidSize == Size::SMALL)
 	{
 		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
 		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
-	else if (asteroid.asteroidSize == MEDIUM)
+	else if (asteroid.asteroidSize == Size::MEDIUM)
 	{
 		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
 		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
-	else if (asteroid.asteroidSize == BIG)
+	else if (asteroid.asteroidSize == Size::BIG)
 	{
 		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
 		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);

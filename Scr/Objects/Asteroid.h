@@ -1,7 +1,7 @@
 #pragma once
 #include "raylib.h"
 
-enum Size
+enum class Size
 {
 	BIG,
 	MEDIUM,
