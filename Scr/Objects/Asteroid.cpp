@@ -28,7 +28,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.speed.x = GetRandomValue(-100, 100);
 		asteroid.speed.y = GetRandomValue(-100, 100);
 		asteroid.color = WHITE;
-		asteroid.isActive = true;
+		asteroid.isActive = false;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy2.png");
 		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
@@ -42,7 +42,7 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize)
 		asteroid.speed.x = GetRandomValue(-100, 100);
 		asteroid.speed.y = GetRandomValue(-100, 100);
 		asteroid.color = WHITE;
-		asteroid.isActive = true;
+		asteroid.isActive = false;
 		asteroid.asteroidTexture = LoadTexture("../resources/enemy3.png");
 		asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
 		return asteroid;
