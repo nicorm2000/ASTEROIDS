@@ -605,6 +605,7 @@ void RunGame()
 		EndDrawing();
 	}
 
+
 	UnloadTexture(backGround);
 	UnloadTexture(spaceShip.shipTexture);
 	UnloadTexture(button1);
