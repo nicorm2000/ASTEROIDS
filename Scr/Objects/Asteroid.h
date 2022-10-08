@@ -17,7 +17,6 @@ struct Asteroid
 	Vector2 asteroidDirection{};
 	float rotation;
 	float radius;
-	int variants;
 	Color color;
 	Rectangle source;
 	Rectangle dest;

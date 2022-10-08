@@ -12,7 +12,7 @@
 using namespace std;
 
 const int maxShipBullets = 20;
-ShipBullets shipBullet;
+ShipBullets shipBullets;
 ShipBullets maximumShipBullets[maxShipBullets];
 int currentBullet = 0;
 
@@ -122,15 +122,15 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 
 			if (asteroidMediumCount < asteroidMediumAmount)
 			{
-				asteroidMediumArray[asteroidMediumCount].speed.x = GetRandomValue(-100, 100);
-				asteroidMediumArray[asteroidMediumCount].speed.y = GetRandomValue(-100, 100);
+				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
 				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
 				asteroidMediumArray[asteroidMediumCount].isActive = true;
 				asteroidMediumCount++;
 
-				asteroidMediumArray[asteroidMediumCount].speed.x = GetRandomValue(-100, 100);
-				asteroidMediumArray[asteroidMediumCount].speed.y = GetRandomValue(-100, 100);
+				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
 				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
 				asteroidMediumArray[asteroidMediumCount].isActive = true;
@@ -145,15 +145,15 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 
 			if (asteroidSmallCount < asteroidSmallAmount)
 			{
-				asteroidSmallArray[asteroidSmallCount].speed.x = GetRandomValue(-100, 100);
-				asteroidSmallArray[asteroidSmallCount].speed.y = GetRandomValue(-100, 100);
+				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
 				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
 				asteroidSmallArray[asteroidSmallCount].isActive = true;
 				asteroidSmallCount++;
 
-				asteroidSmallArray[asteroidSmallCount].speed.x = GetRandomValue(-100, 100);
-				asteroidSmallArray[asteroidSmallCount].speed.y = GetRandomValue(-100, 100);
+				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
 				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
 				asteroidSmallArray[asteroidSmallCount].isActive = true;
@@ -167,7 +167,6 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 		}
 	}
 }
-
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 {
@@ -328,7 +327,7 @@ void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
 		angle += 180;
 	}
 
-	float vectorModule = sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2));
+	float vectorModule = static_cast<float>(sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2)));
 
 	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
 
@@ -519,7 +518,7 @@ void RunGame()
 			{
 				if (maximumShipBullets[i].isActive)
 				{
-					DrawShipBullet(maximumShipBullets[i], spaceShip);
+					DrawShipBullet(maximumShipBullets[i]);
 				}
 			}
 			if (spaceShip.isActive)
@@ -571,7 +570,7 @@ void RunGame()
 			}
 
 			DrawTexture(menuBackGround, 0, 0, WHITE);
-			DrawTextureEx(exitButton, { -10, 20 }, 0, 0.1, WHITE);
+			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
 
 			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
 
@@ -590,7 +589,7 @@ void RunGame()
 			}
 
 			DrawTexture(menuBackGround, 0, 0, WHITE);
-			DrawTextureEx(exitButton, { -10, 20 }, 0, 0.1, WHITE);
+			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
 
 			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
 

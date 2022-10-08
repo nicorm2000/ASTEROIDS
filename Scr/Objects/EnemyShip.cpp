@@ -4,17 +4,17 @@ EnemyShip CreateEnemyShip(EnemyShip& enemyShip)
 {
 	enemyShip.size.x = 100;
 	enemyShip.size.y = 50;
-	enemyShip.position.x = GetRandomValue(0, 1024);
-	enemyShip.position.y = GetRandomValue(150, 650);
+	enemyShip.position.x = static_cast<float>(GetRandomValue(0, 1024));
+	enemyShip.position.y = static_cast<float>(GetRandomValue(150, 650));
 	if (enemyShip.position.y <= GetScreenHeight() / 2.0f && enemyShip.position.y >= 284)
 	{
-		enemyShip.position.y = GetRandomValue(150, 283);
+		enemyShip.position.y = static_cast<float>(GetRandomValue(150, 283));
 	}
 	else if (enemyShip.position.y >= GetScreenHeight() / 2.0f && enemyShip.position.y <= 484)
 	{
-		enemyShip.position.y = GetRandomValue(485, 650);
+		enemyShip.position.y = static_cast<float>(GetRandomValue(485, 650));
 	}
-	enemyShip.speed.x = GetRandomValue(-150, 150);
+	enemyShip.speed.x = static_cast<float>(GetRandomValue(-150, 150));
 	enemyShip.rotation = 0;
 	enemyShip.isActive = true;
 	enemyShip.enemyTexture = LoadTexture("../resources/enemyship1.png");
