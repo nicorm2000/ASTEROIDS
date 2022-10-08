@@ -17,6 +17,6 @@ ShipBullets CreateShipBullet(ShipBullets& shipBullets)
 
 void DrawShipBullet(ShipBullets shipBullet, Ship spaceShip)
 {
-	DrawCircle(shipBullet.position.x + 10, shipBullet.position.y + 7, shipBullet.radius, RED);
-	//DrawTexture(shipBullet.bulletTexture, shipBullet.position.x + 3, shipBullet.position.y, WHITE);
+	//DrawCircle(shipBullet.position.x + 10, shipBullet.position.y + 7, shipBullet.radius, RED);
+	DrawTexture(shipBullet.bulletTexture, shipBullet.position.x + 3, shipBullet.position.y, WHITE);
 }
