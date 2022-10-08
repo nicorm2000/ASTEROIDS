@@ -10,13 +10,13 @@ ShipBullets CreateShipBullet(ShipBullets& shipBullets)
 	shipBullets.radius = 7.0f;
 	shipBullets.speed = 300.0f;
 	shipBullets.isMoving = false;
-	shipBullets.isActive = true;
+	shipBullets.isActive = false;
 	shipBullets.bulletTexture = LoadTexture("../resources/shipBullet.png");
 	return shipBullets;
 }
 
 void DrawShipBullet(ShipBullets shipBullet, Ship spaceShip)
 {
-	//DrawCircle(shipBullet.position.x + 10, shipBullet.position.y + 7, shipBullet.radius, RED);
-	DrawTexture(shipBullet.bulletTexture, shipBullet.position.x + 3, shipBullet.position.y, WHITE);
+	DrawCircle(shipBullet.position.x + 10, shipBullet.position.y + 7, shipBullet.radius, RED);
+	//DrawTexture(shipBullet.bulletTexture, shipBullet.position.x + 3, shipBullet.position.y, WHITE);
 }

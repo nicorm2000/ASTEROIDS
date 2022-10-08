@@ -9,14 +9,17 @@
 #include "Objects/ShipBullet.h"
 #include "Objects/EnemyShip.h"
 
-const int maxShipBullets = 100;
+using namespace std;
+
+const int maxShipBullets = 20;
 ShipBullets shipBullet;
 ShipBullets maximumShipBullets[maxShipBullets];
-const int asteroidAmount = 35;
-const int asteroidBigAmount = 5;
-const int asteroidMediumAmount = 10;
-const int asteroidSmallAmount = 20;
-Asteroid asteroidArray[asteroidAmount];
+int currentBullet = 0;
+
+const int asteroidBigAmount = 1;
+const int asteroidMediumAmount = 2;
+const int asteroidSmallAmount = 3;
+
 Asteroid asteroidBigArray[asteroidBigAmount];
 Asteroid asteroidMediumArray[asteroidMediumAmount];
 Asteroid asteroidSmallArray[asteroidSmallAmount];
@@ -105,20 +108,21 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 {
-	for (int i = 0; i < asteroidAmount; i++)
+	if (asteroid1.isActive)
 	{
 		for (int j = 0; j < maxShipBullets; j++)
 		{
 			if (maximumShipBullets[j].isActive)
 			{
-				if (CollisionCircleCircleBullet(maximumShipBullets[j], asteroidArray[i]))
+				if (CollisionCircleCircleBullet(maximumShipBullets[j], asteroid1))
 				{
-					asteroidArray[i].isActive = false;
+					asteroid1.isActive = false;
+					maximumShipBullets[j].isActive = false;
 				}
 			}
 		}
 	}
-
+	
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		//asteroid1.isActive = false;
@@ -159,19 +163,20 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 
 	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 	{
-		for (int i = 0; i < maxShipBullets; i++)
+		maximumShipBullets[currentBullet].isActive = true;
+		
+		maximumShipBullets[currentBullet].isMoving = true;
+
+		maximumShipBullets[currentBullet].direction.x = mousePosition.x - maximumShipBullets[currentBullet].position.x;
+		maximumShipBullets[currentBullet].direction.y = mousePosition.y - maximumShipBullets[currentBullet].position.y;
+
+		maximumShipBullets[currentBullet].direction = Vector2Normalize(maximumShipBullets[currentBullet].direction);
+
+		currentBullet++;
+
+		if (currentBullet >= maxShipBullets)
 		{
-			if (!maximumShipBullets[i].isMoving)
-			{
-				maximumShipBullets[i].isMoving = true;
-
-				maximumShipBullets[i].direction.x = mousePosition.x - maximumShipBullets[i].position.x;
-				maximumShipBullets[i].direction.y = mousePosition.y - maximumShipBullets[i].position.y;
-
-				maximumShipBullets[i].direction = Vector2Normalize(maximumShipBullets[i].direction);
-
-				break;
-			}
+			currentBullet = 0;
 		}
 	}
 }
@@ -300,6 +305,9 @@ void RunGame()
 	Texture2D creditsTitle = LoadTexture("../resources/creditsbutton.png");
 	Texture2D exitTitle = LoadTexture("../resources/exitbutton.png");
 	Texture2D button1 = LoadTexture("../resources/button.png");
+	Texture2D asteroidBig = LoadTexture("../resources/enemy1.png");
+	Texture2D asteroidMedium = LoadTexture("../resources/enemy2.png");
+	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	//GenTextureMipmaps(&titleFont.texture);
 	//SetTextureFilter(titleFont.texture, TEXTURE_FILTER_ANISOTROPIC_16X);
@@ -307,23 +315,21 @@ void RunGame()
 	Ship spaceShip;
 	EnemyShip enemyShip;
 
-	for (int i = 0; i < asteroidAmount; i++)
+	for (int i = 0; i < asteroidBigAmount; i++)
 	{
-		if (i < asteroidBigAmount)
-		{
-			asteroidArray[i].asteroidSize = Size::BIG;
-			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
-		}
-		else if (i >= asteroidBigAmount && i < asteroidMediumAmount)
-		{
-			asteroidArray[i].asteroidSize = Size::MEDIUM;
-			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
-		}
-		else if (i >= asteroidSmallAmount)
-		{
-			asteroidArray[i].asteroidSize = Size::SMALL;
-			CreateAsteroid(asteroidArray[i], asteroidArray[i].asteroidSize);
-		}
+		asteroidBigArray[i].asteroidSize = Size::BIG;
+		CreateAsteroid(asteroidBigArray[i], asteroidBigArray[i].asteroidSize, asteroidBig);
+	}
+	for (int i = 0; i < asteroidMediumAmount; i++)
+	{
+		asteroidMediumArray[i].asteroidSize = Size::MEDIUM;
+		CreateAsteroid(asteroidMediumArray[i], asteroidMediumArray[i].asteroidSize, asteroidMedium);
+
+	}
+	for (int i = 0; i < asteroidSmallAmount; i++)
+	{
+		asteroidSmallArray[i].asteroidSize = Size::SMALL;
+		CreateAsteroid(asteroidSmallArray[i], asteroidSmallArray[i].asteroidSize, asteroidSmall);
 	}
 
 	for (int i = 0; i < maxShipBullets - 1; i++)
@@ -400,22 +406,34 @@ void RunGame()
 			enemyShip.origin = { (float)enemyShip.position.x / 2.0f, (float)enemyShip.position.y / 2.0f };
 			enemyShip.position.x += enemyShip.speed.x * GetFrameTime();
 
-			for (int i = 0; i < asteroidAmount; i++)
+			for (int i = 0; i < asteroidBigAmount; i++)
 			{
-				GameCollisions(spaceShip, asteroidArray[i], enemyShip);
-				windowTp(spaceShip, asteroidArray[i], enemyShip);
-				if (asteroidArray[i].speed.x != 0 && asteroidArray[i].speed.y != 0)
+				GameCollisions(spaceShip, asteroidBigArray[i], enemyShip);
+				windowTp(spaceShip, asteroidBigArray[i], enemyShip);
+				if (asteroidBigArray[i].speed.x != 0 && asteroidBigArray[i].speed.y != 0)
 				{
-					asteroidArray[i].position.x += asteroidArray[i].speed.x * GetFrameTime();
-					asteroidArray[i].position.y += asteroidArray[i].speed.y * GetFrameTime();
+					asteroidBigArray[i].position.x += asteroidBigArray[i].speed.x * GetFrameTime();
+					asteroidBigArray[i].position.y += asteroidBigArray[i].speed.y * GetFrameTime();
 				}
-				else
+			}
+			for (int i = 0; i < asteroidMediumAmount; i++)
+			{
+				GameCollisions(spaceShip, asteroidMediumArray[i], enemyShip);
+				windowTp(spaceShip, asteroidMediumArray[i], enemyShip);
+				if (asteroidMediumArray[i].speed.x != 0 && asteroidMediumArray[i].speed.y != 0)
 				{
-					asteroidArray[i].speed.x = static_cast<float>(GetRandomValue(-100, 100));
-					asteroidArray[i].speed.y = static_cast<float>(GetRandomValue(-100, 100));
-
-					asteroidArray[i].position.x += asteroidArray[i].speed.x * GetFrameTime();
-					asteroidArray[i].position.y += asteroidArray[i].speed.y * GetFrameTime();
+					asteroidMediumArray[i].position.x += asteroidMediumArray[i].speed.x * GetFrameTime();
+					asteroidMediumArray[i].position.y += asteroidMediumArray[i].speed.y * GetFrameTime();
+				}
+			}
+			for (int i = 0; i < asteroidSmallAmount; i++)
+			{
+				GameCollisions(spaceShip, asteroidSmallArray[i], enemyShip);
+				windowTp(spaceShip, asteroidSmallArray[i], enemyShip);
+				if (asteroidSmallArray[i].speed.x != 0 && asteroidSmallArray[i].speed.y != 0)
+				{
+					asteroidSmallArray[i].position.x += asteroidSmallArray[i].speed.x * GetFrameTime();
+					asteroidSmallArray[i].position.y += asteroidSmallArray[i].speed.y * GetFrameTime();
 				}
 			}
 
@@ -457,23 +475,23 @@ void RunGame()
 
 			for (int i = 0; i < asteroidBigAmount; i++)
 			{
-				if (asteroidArray[i].isActive)
+				if (asteroidBigArray[i].isActive)
 				{
-					DrawAsteroid(asteroidArray[i], Size::BIG);
+					DrawAsteroid(asteroidBigArray[i]);
 				}
 			}
 			for (int i = 0; i < asteroidMediumAmount; i++)
 			{
-				if (asteroidArray[i].isActive)
+				if (asteroidMediumArray[i].isActive)
 				{
-					DrawAsteroid(asteroidArray[i], Size::MEDIUM);
+					DrawAsteroid(asteroidMediumArray[i]);
 				}
 			}
 			for (int i = 0; i < asteroidSmallAmount; i++)
 			{
-				if (asteroidArray[i].isActive)
+				if (asteroidSmallArray[i].isActive)
 				{
-					DrawAsteroid(asteroidArray[i], Size::SMALL);
+					DrawAsteroid(asteroidSmallArray[i]);
 				}
 			}
 
@@ -532,10 +550,9 @@ void RunGame()
 	UnloadTexture(backGround);
 	UnloadTexture(spaceShip.shipTexture);
 	UnloadTexture(button1);
-	for (int i = 0; i < asteroidAmount; i++)
-	{
-		UnloadTexture(asteroidArray[i].asteroidTexture);
-	}
+	UnloadTexture(asteroidBig);
+	UnloadTexture(asteroidMedium);
+	UnloadTexture(asteroidSmall);
 
 	Close();
 }
