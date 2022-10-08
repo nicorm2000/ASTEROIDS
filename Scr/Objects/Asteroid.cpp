@@ -55,17 +55,17 @@ void DrawAsteroid(Asteroid& asteroid, Size asteroidSize)
 	//hitbox
 	if (asteroid.asteroidSize == Size::SMALL)
 	{
-		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
-		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, WHITE);
+		//DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
 	else if (asteroid.asteroidSize == Size::MEDIUM)
 	{
-		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
-		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, WHITE);
+		//(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
 	else if (asteroid.asteroidSize == Size::BIG)
 	{
-		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
-		DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
+		DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, WHITE);
+		//DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 	}
 }

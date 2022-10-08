@@ -14,9 +14,9 @@ ShipBullets shipBullet;
 ShipBullets maximumShipBullets[maxShipBullets];
 
 const int asteroidAmount = 35;
-const int asteroidBigAmount = 5;
-const int asteroidMediumAmount = 10;
-const int asteroidSmallAmount = 20;
+const int asteroidBigAmount = 8;
+const int asteroidMediumAmount = 16;
+const int asteroidSmallAmount = 32;
 Asteroid asteroidArray[asteroidAmount];
 Asteroid asteroidBigArray[asteroidBigAmount];
 Asteroid asteroidMediumArray[asteroidMediumAmount];
@@ -105,98 +105,7 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 }
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
-{
-	/*for (int i = 0; i < asteroidAmount; i++)
-	{
-		for (int j = 0; j < maxShipBullets; j++)
-		{
-			if (maximumShipBullets[j].isActive)
-			{
-				if (CollisionCircleCircleBullet(maximumShipBullets[j], asteroidArray[i]))
-				{
-					asteroidArray[i].isActive = false;
-				}
-			}
-		}
-	}*/
-
-	for (int i = 0; i < asteroidAmount; i++)
-	{
-		for (int j = 0; j < maxShipBullets; j++)
-		{
-			float distX = maximumShipBullets[j].position.x - asteroidArray[i].position.x;
-			float distY = maximumShipBullets[j].position.y - asteroidArray[i].position.y;
-			float distance = sqrt((distX * distX) + (distY * distY));
-
-			if (distance <= maximumShipBullets[j].radius + asteroidArray[i].radius)
-			{
-				asteroidArray[i].isActive = true;
-				maximumShipBullets[j].isActive = false;
-
-
-				if (asteroidArray[i].isActive && asteroidArray[i].asteroidSize == Size::BIG)
-				{
-					asteroidMediumCount += 2;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount].position = asteroidArray[i].position;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].position = asteroidArray[i].position;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount].isActive = false;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].isActive = false;
-
-					/*do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x < 100);
-
-					do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.y < 100);
-
-					do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.x = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x < 100);
-
-					do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.y = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.y < 100);*/
-
-				}
-				else if (asteroidArray[i].isActive && asteroidArray[i].asteroidSize == Size::MEDIUM)
-				{
-					asteroidSmallCount += 2;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].position = asteroidArray[i].position;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].position = asteroidArray[i].position;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].isActive = false;
-					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].isActive = false;
-				
-					/*do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x < 100);
-
-					do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.y = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.y < 100);
-
-					do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.x = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x < 100);
-
-					do
-					{
-						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.y = static_cast<float>(GetRandomValue(-200, 200));
-					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.y < 100);*/
-
-				}
-				j = maxShipBullets;
-			}
-		}
-	}
-	
+{	
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		//asteroid1.isActive = false;
@@ -220,6 +129,86 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		for (int i = 0; i < maxShipBullets; i++)
 		{
 			maximumShipBullets[i].isActive = false;
+		}
+	}
+}
+
+void AsteroidDestruction(Asteroid asteroid1)
+{
+	for (int i = 0; i < asteroidAmount; i++)
+	{
+		for (int j = 0; j < maxShipBullets; j++)
+		{
+			float distX = maximumShipBullets[j].position.x - asteroidArray[i].position.x;
+			float distY = maximumShipBullets[j].position.y - asteroidArray[i].position.y;
+			float distance = sqrt((distX * distX) + (distY * distY));
+
+			if (distance <= maximumShipBullets[j].radius + asteroidArray[i].radius)
+			{
+				asteroidArray[i].isActive = true;
+				maximumShipBullets[j].isActive = false;
+
+
+				if (asteroidArray[i].isActive && asteroidArray[i].asteroidSize == Size::BIG)
+				{
+					asteroidMediumCount += 2;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount].position = asteroidArray[i].position;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].position = asteroidArray[i].position;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount].isActive = false;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].isActive = false;
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x < 100);
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.y < 100);
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.x = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x < 100);
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.y = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount - 1].speed.y < 100);
+
+				}
+				else if (asteroidArray[i].isActive && asteroidArray[i].asteroidSize == Size::MEDIUM)
+				{
+					asteroidSmallCount += 2;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].position = asteroidArray[i].position;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].position = asteroidArray[i].position;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].isActive = false;
+					asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].isActive = false;
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x < 100);
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.y = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.y < 100);
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.x = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount].speed.x > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount].speed.x < 100);
+
+					do
+					{
+						asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.y = static_cast<float>(GetRandomValue(-200, 200));
+					} while (asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.y > -100 && asteroidArray[asteroidBigAmount + asteroidMediumCount + asteroidSmallAmount - 1].speed.y < 100);
+
+				}
+				j = maxShipBullets;
+			}
 		}
 	}
 }
@@ -476,6 +465,7 @@ void RunGame()
 			for (int i = 0; i < asteroidAmount; i++)
 			{
 				GameCollisions(spaceShip, asteroidArray[i], enemyShip);
+				//AsteroidDestruction(asteroidArray[i]);
 				windowTp(spaceShip, asteroidArray[i], enemyShip);
 				if (asteroidArray[i].speed.x != 0 && asteroidArray[i].speed.y != 0)
 				{
