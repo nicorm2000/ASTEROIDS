@@ -16,9 +16,10 @@ ShipBullets shipBullets;
 ShipBullets maximumShipBullets[maxShipBullets];
 int currentBullet = 0;
 
+int asteroidTotalAmount = 0;
 const int asteroidBigAmount = 6;
-const int asteroidMediumAmount = 12;
-const int asteroidSmallAmount = 24;
+const int asteroidMediumAmount = asteroidBigAmount * 2;
+const int asteroidSmallAmount = asteroidMediumAmount * 2;
 
 Asteroid asteroidBigArray[asteroidBigAmount];
 Asteroid asteroidMediumArray[asteroidMediumAmount];
@@ -168,6 +169,11 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 	}
 }
 
+void RespawnAsteroids()
+{
+	
+}
+
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 {
 	if (asteroid1.isActive)
@@ -183,8 +189,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 	
 	if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
-		//asteroid1.isActive = false;
-		/*spaceShip.lifes--;
+		spaceShip.lifes--;
 		if (spaceShip.lifes > 0)
 		{
 			spaceShip.position.x = GetScreenWidth() / 2;
@@ -195,7 +200,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		else if(spaceShip.lifes <= 0)
 		{
 			spaceShip.isActive = false;
-		}*/
+		}
 	}
 
 	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))
@@ -493,6 +498,11 @@ void RunGame()
 					asteroidSmallArray[i].position.x += asteroidSmallArray[i].speed.x * GetFrameTime();
 					asteroidSmallArray[i].position.y += asteroidSmallArray[i].speed.y * GetFrameTime();
 				}
+			}
+
+			if (asteroidBigAmount <= 0 && asteroidMediumAmount <= 0 && asteroidSmallAmount <= 0)
+			{
+				RespawnAsteroids();
 			}
 
 			for (int i = 0; i < maxShipBullets; i++)

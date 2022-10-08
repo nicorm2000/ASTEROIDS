@@ -3,9 +3,28 @@
 
 Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize, Texture2D texture)
 {
+	int aboveThePlayerX = 0;
+	int aboveThePlayerY = 0;
 	asteroid.size.x = 20;
 	asteroid.size.y = 20;
-	asteroid.position.x = static_cast<float>(GetRandomValue(0, 1024));
+	aboveThePlayerX = static_cast<float>(GetRandomValue(0, 10));
+	if (aboveThePlayerX > 5)
+	{
+		asteroid.position.x = static_cast<float>(GetRandomValue(0, 450));
+	}
+	else
+	{
+		asteroid.position.x = static_cast<float>(GetRandomValue(700, 1024));
+	}
+	aboveThePlayerY = static_cast<float>(GetRandomValue(0, 10));
+	if (aboveThePlayerY > 5)
+	{
+		asteroid.position.y = static_cast<float>(GetRandomValue(0, 250));
+	}
+	else
+	{
+		asteroid.position.y = static_cast<float>(GetRandomValue(650, 768));
+	}
 	asteroid.position.y = static_cast<float>(GetRandomValue(0, 768));
 	asteroid.speed.x = static_cast<float>(GetRandomValue(-100, 100));
 	asteroid.speed.y = static_cast<float>(GetRandomValue(-100, 100));
@@ -13,10 +32,6 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize, Texture2D texture
 	asteroid.isActive = true;
 	asteroid.asteroidTexture = texture;
 	asteroid.asteroidDirection = { asteroid.position.x, asteroid.position.y };
-	asteroid.origin = { 0,0 };
-	asteroid.rotation = 0;
-	asteroid.source = { 0,0,0,0 };
-	asteroid.dest = { 0,0,0,0 };
 
 	switch (asteroidSize)
 	{
