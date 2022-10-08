@@ -35,5 +35,5 @@ void DrawAsteroid(Asteroid& asteroid)
 {
 	//hitbox
 	DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
-	//DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
+	DrawTexture(asteroid.asteroidTexture, asteroid.position.x - asteroid.radius, asteroid.position.y - asteroid.radius, asteroid.color);
 }
