@@ -408,7 +408,7 @@ void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
 	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
 }
 
-void RestartGame(Ship& spaceShip, EnemyShip& enemyShip, bool isPaused, bool exitWindow, bool gameFinished)
+void RestartGame(Ship& spaceShip, EnemyShip& enemyShip)
 {
 	const int maxShipBullets = 20;
 	ShipBullets shipBullets;
@@ -428,10 +428,6 @@ void RestartGame(Ship& spaceShip, EnemyShip& enemyShip, bool isPaused, bool exit
 
 	CreateShip(spaceShip);
 	CreateEnemyShip(enemyShip);
-
-	isPaused = false;
-	exitWindow = false;
-	gameFinished = false;
 }
 
 void RunGame()
@@ -511,7 +507,7 @@ void RunGame()
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
-					RestartGame(spaceShip, enemyShip, isPaused, exitWindow, gameFinished);
+					RestartGame(spaceShip, enemyShip);
 					gameState = GameScreen::GAME;
 				}
 			}
@@ -624,6 +620,8 @@ void RunGame()
 					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
 					{
 						gameState = GameScreen::GAMETITLE;
+						exitWindow = false;
+						isPaused = !isPaused;
 					}
 				}
 				if (CheckCollisionPointRec(mousePosition, { 570, 245, 60, 30 }))
