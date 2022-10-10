@@ -304,8 +304,8 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 			currentBullet = 0;
 		}
 
-		PlaySound(pewSound);
 		SetSoundVolume(pewSound, 0.35f);
+		PlaySound(pewSound);
 	}
 }
 
@@ -408,27 +408,27 @@ void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
 	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
 }
 
-void RestartGame(Ship& spaceShip, EnemyShip& enemyShip)
-{
-	const int maxShipBullets = 20;
-	ShipBullets shipBullets;
-	ShipBullets maximumShipBullets[maxShipBullets];
-	int currentBullet = 0;
-
-	const int asteroidBigAmount = 6;
-	const int asteroidMediumAmount = asteroidBigAmount * 2;
-	const int asteroidSmallAmount = asteroidMediumAmount * 2;
-
-	Asteroid asteroidBigArray[asteroidBigAmount];
-	Asteroid asteroidMediumArray[asteroidMediumAmount];
-	Asteroid asteroidSmallArray[asteroidSmallAmount];
-	int asteroidBigCount = 0;
-	int asteroidMediumCount = 0;
-	int asteroidSmallCount = 0;
-
-	CreateShip(spaceShip);
-	CreateEnemyShip(enemyShip);
-}
+//void RestartGame(Ship& spaceShip, EnemyShip& enemyShip)
+//{
+//	const int maxShipBullets = 20;
+//	ShipBullets shipBullets;
+//	ShipBullets maximumShipBullets[maxShipBullets];
+//	int currentBullet = 0;
+//
+//	const int asteroidBigAmount = 6;
+//	const int asteroidMediumAmount = asteroidBigAmount * 2;
+//	const int asteroidSmallAmount = asteroidMediumAmount * 2;
+//
+//	Asteroid asteroidBigArray[asteroidBigAmount];
+//	Asteroid asteroidMediumArray[asteroidMediumAmount];
+//	Asteroid asteroidSmallArray[asteroidSmallAmount];
+//	int asteroidBigCount = 0;
+//	int asteroidMediumCount = 0;
+//	int asteroidSmallCount = 0;
+//
+//	CreateShip(spaceShip);
+//	CreateEnemyShip(enemyShip);
+//}
 
 void RunGame()
 {
@@ -462,7 +462,7 @@ void RunGame()
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
-	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.wav");
+	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.mp3");
 
 	Ship spaceShip;
 	EnemyShip enemyShip;
@@ -476,7 +476,6 @@ void RunGame()
 	{
 		asteroidMediumArray[i].asteroidSize = Size::MEDIUM;
 		CreateAsteroid(asteroidMediumArray[i], asteroidMediumArray[i].asteroidSize, asteroidMedium);
-
 	}
 	for (int i = 0; i < asteroidSmallAmount; i++)
 	{
@@ -489,17 +488,20 @@ void RunGame()
 		CreateShipBullet(maximumShipBullets[i]);
 	}	
 
+	PlayMusicStream(bgMusic);
+	SetMusicVolume(bgMusic, 0.5f);
+
 	while (playingGame && !WindowShouldClose())
 	{
 		BeginDrawing();
 
 		ClearBackground(BLACK);
 
+		UpdateMusicStream(bgMusic);
+
 		switch (gameState)
 		{
 		case GameScreen::GAMETITLE:
-
-			PlayMusicStream(bgMusic);
 
 			mousePosition = GetMousePosition();
 
@@ -507,7 +509,6 @@ void RunGame()
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
-					RestartGame(spaceShip, enemyShip);
 					gameState = GameScreen::GAME;
 				}
 			}
