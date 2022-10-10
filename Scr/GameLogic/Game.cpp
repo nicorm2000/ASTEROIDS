@@ -187,7 +187,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		}
 	}
 	
-	if (CollisionCircleCircle(spaceShip, asteroid1))
+	/*if (CollisionCircleCircle(spaceShip, asteroid1))
 	{
 		spaceShip.lifes--;
 		if (spaceShip.lifes > 0)
@@ -201,7 +201,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		{
 			spaceShip.isActive = false;
 		}
-	}
+	}*/
 
 	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))
 	{
@@ -362,6 +362,7 @@ void RunGame()
 	Texture2D backGround = LoadTexture("../resources/backgroundtiled.png");
 	Texture2D exitButton = LoadTexture("../resources/xbutton.png");
 	Texture2D menuBackGround = LoadTexture("../resources/menubgbig.png");
+	Texture2D howToPlayMenu = LoadTexture("../resources/howtoplay.png");
 	Texture2D gameTitle = LoadTexture("../resources/gametitle.png");
 	Texture2D playTitle = LoadTexture("../resources/playbutton.png");
 	Texture2D howToPlayTitle = LoadTexture("../resources/howtoplaybutton.png");
@@ -579,7 +580,7 @@ void RunGame()
 				}
 			}
 
-			DrawTexture(menuBackGround, 0, 0, WHITE);
+			DrawTexture(howToPlayMenu, 0, 0, WHITE);
 			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
 
 			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
