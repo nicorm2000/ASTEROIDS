@@ -16,6 +16,8 @@ struct Ship
 	Color color;
 	bool isActive;
 	Texture2D shipTexture;
+	Texture2D shipOriginalTexture;
+	Texture2D shipTextureMovement;
 };
 
 Ship CreateShip(Ship& spaceShip);

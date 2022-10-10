@@ -28,8 +28,6 @@ int asteroidBigCount = 0;
 int asteroidMediumCount = 0;
 int asteroidSmallCount = 0;
 
-Sound pewSound = LoadSound("../resources/Music/pew.wav");
-
 static void Initialize()
 {
 	InitWindow(1024, 768, "ASTEROIDS");
@@ -128,14 +126,34 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 			if (asteroidMediumCount < asteroidMediumAmount)
 			{
 				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do 
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
+
 				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do 
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
+
 				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
 				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
 				asteroidMediumArray[asteroidMediumCount].isActive = true;
 				asteroidMediumCount++;
 
 				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
+
 				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
+
 				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
 				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
 				asteroidMediumArray[asteroidMediumCount].isActive = true;
@@ -151,14 +169,34 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 			if (asteroidSmallCount < asteroidSmallAmount)
 			{
 				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
+
 				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
+
 				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
 				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
 				asteroidSmallArray[asteroidSmallCount].isActive = true;
 				asteroidSmallCount++;
 
 				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
+
 				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
+
 				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
 				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
 				asteroidSmallArray[asteroidSmallCount].isActive = true;
@@ -236,8 +274,14 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 {
 	if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 	{
-		spaceShip.speed.x += normalizedDirection.x * 100 * GetFrameTime();
-		spaceShip.speed.y += normalizedDirection.y * 100 * GetFrameTime();
+		spaceShip.speed.x += normalizedDirection.x * 150 * GetFrameTime();
+		spaceShip.speed.y += normalizedDirection.y * 150 * GetFrameTime();
+		
+		spaceShip.shipTexture = spaceShip.shipTextureMovement;
+	}
+	else
+	{
+		spaceShip.shipTexture = spaceShip.shipOriginalTexture;
 	}
 
 	spaceShip.position.x += spaceShip.speed.x * GetFrameTime();
@@ -262,6 +306,7 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 		}
 
 		PlaySound(pewSound);
+		SetSoundVolume(pewSound, 0.35f);
 	}
 }
 
@@ -395,6 +440,7 @@ void RunGame()
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
+	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.wav");
 
 	Ship spaceShip;
 	EnemyShip enemyShip;
@@ -433,6 +479,8 @@ void RunGame()
 		switch (gameState)
 		{
 		case GameScreen::GAMETITLE:
+
+			PlayMusicStream(bgMusic);
 
 			mousePosition = GetMousePosition();
 
@@ -633,11 +681,20 @@ void RunGame()
 
 
 	UnloadTexture(backGround);
-	UnloadTexture(spaceShip.shipTexture);
+	UnloadTexture(exitButton);
+	UnloadTexture(menuBackGround);
+	UnloadTexture(howToPlayMenu);
+	UnloadTexture(gameTitle);
+	UnloadTexture(playTitle);
+	UnloadTexture(howToPlayTitle);
+	UnloadTexture(creditsTitle);
+	UnloadTexture(exitTitle);
 	UnloadTexture(button1);
 	UnloadTexture(asteroidBig);
 	UnloadTexture(asteroidMedium);
 	UnloadTexture(asteroidSmall);
+	UnloadFont(titleFont);
+	UnloadSound(pewSound);
 
 	Close();
 }
