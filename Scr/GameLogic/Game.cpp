@@ -420,6 +420,7 @@ void RunGame()
 	bool playingGame = true;
 	bool exitWindow = false;
 	bool isPaused = false;
+	bool gameFinished = false;
 	
 	Vector2 mousePosition = GetMousePosition();
 
@@ -531,60 +532,86 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
-			ShipMovement(mousePosition, spaceShip);
-
-			enemyShip.source = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width, (float)enemyShip.enemyTexture.height };
-			enemyShip.dest = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width,  (float)enemyShip.enemyTexture.height };
-			enemyShip.origin = { (float)enemyShip.position.x / 2.0f, (float)enemyShip.position.y / 2.0f };
-			enemyShip.position.x += enemyShip.speed.x * GetFrameTime();
-
-			for (int i = 0; i < asteroidBigAmount; i++)
+			if (!isPaused)
 			{
-				GameCollisions(spaceShip, asteroidBigArray[i], enemyShip);
-				windowTp(spaceShip, asteroidBigArray[i], enemyShip);
-				if (asteroidBigArray[i].speed.x != 0 && asteroidBigArray[i].speed.y != 0)
+				ShipMovement(mousePosition, spaceShip);
+				CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition, pewSound);
+				enemyShip.source = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width, (float)enemyShip.enemyTexture.height };
+				enemyShip.dest = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width,  (float)enemyShip.enemyTexture.height };
+				enemyShip.origin = { (float)enemyShip.position.x / 2.0f, (float)enemyShip.position.y / 2.0f };
+				enemyShip.position.x += enemyShip.speed.x * GetFrameTime();
+
+				for (int i = 0; i < asteroidBigAmount; i++)
 				{
-					asteroidBigArray[i].position.x += asteroidBigArray[i].speed.x * GetFrameTime();
-					asteroidBigArray[i].position.y += asteroidBigArray[i].speed.y * GetFrameTime();
+					GameCollisions(spaceShip, asteroidBigArray[i], enemyShip);
+					windowTp(spaceShip, asteroidBigArray[i], enemyShip);
+					if (asteroidBigArray[i].speed.x != 0 && asteroidBigArray[i].speed.y != 0)
+					{
+						asteroidBigArray[i].position.x += asteroidBigArray[i].speed.x * GetFrameTime();
+						asteroidBigArray[i].position.y += asteroidBigArray[i].speed.y * GetFrameTime();
+					}
+				}
+				for (int i = 0; i < asteroidMediumAmount; i++)
+				{
+					GameCollisions(spaceShip, asteroidMediumArray[i], enemyShip);
+					windowTp(spaceShip, asteroidMediumArray[i], enemyShip);
+					if (asteroidMediumArray[i].speed.x != 0 && asteroidMediumArray[i].speed.y != 0)
+					{
+						asteroidMediumArray[i].position.x += asteroidMediumArray[i].speed.x * GetFrameTime();
+						asteroidMediumArray[i].position.y += asteroidMediumArray[i].speed.y * GetFrameTime();
+					}
+				}
+				for (int i = 0; i < asteroidSmallAmount; i++)
+				{
+					GameCollisions(spaceShip, asteroidSmallArray[i], enemyShip);
+					windowTp(spaceShip, asteroidSmallArray[i], enemyShip);
+					if (asteroidSmallArray[i].speed.x != 0 && asteroidSmallArray[i].speed.y != 0)
+					{
+						asteroidSmallArray[i].position.x += asteroidSmallArray[i].speed.x * GetFrameTime();
+						asteroidSmallArray[i].position.y += asteroidSmallArray[i].speed.y * GetFrameTime();
+					}
+				}
+
+				for (int i = 0; i < maxShipBullets; i++)
+				{
+					if (maximumShipBullets[i].isMoving == false)
+					{
+						maximumShipBullets[i].position.x = spaceShip.position.x - spaceShip.size.x / 2;
+						maximumShipBullets[i].position.y = spaceShip.position.y - spaceShip.size.y / 2;
+					}
+
+					if (maximumShipBullets[i].isMoving)
+					{
+						maximumShipBullets[i].position.x += maximumShipBullets[i].direction.x * maximumShipBullets[i].speed * GetFrameTime();
+						maximumShipBullets[i].position.y += maximumShipBullets[i].direction.y * maximumShipBullets[i].speed * GetFrameTime();
+					}
 				}
 			}
-			for (int i = 0; i < asteroidMediumAmount; i++)
+
+			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished)
 			{
-				GameCollisions(spaceShip, asteroidMediumArray[i], enemyShip);
-				windowTp(spaceShip, asteroidMediumArray[i], enemyShip);
-				if (asteroidMediumArray[i].speed.x != 0 && asteroidMediumArray[i].speed.y != 0)
-				{
-					asteroidMediumArray[i].position.x += asteroidMediumArray[i].speed.x * GetFrameTime();
-					asteroidMediumArray[i].position.y += asteroidMediumArray[i].speed.y * GetFrameTime();
-				}
-			}
-			for (int i = 0; i < asteroidSmallAmount; i++)
-			{
-				GameCollisions(spaceShip, asteroidSmallArray[i], enemyShip);
-				windowTp(spaceShip, asteroidSmallArray[i], enemyShip);
-				if (asteroidSmallArray[i].speed.x != 0 && asteroidSmallArray[i].speed.y != 0)
-				{
-					asteroidSmallArray[i].position.x += asteroidSmallArray[i].speed.x * GetFrameTime();
-					asteroidSmallArray[i].position.y += asteroidSmallArray[i].speed.y * GetFrameTime();
-				}
+				isPaused = true;
+				exitWindow = true;
 			}
 
-			for (int i = 0; i < maxShipBullets; i++)
+			if (exitWindow)
 			{
-				if (maximumShipBullets[i].isMoving == false)
+				if (CheckCollisionPointRec(mousePosition, { 420, 245, 60, 30 }))
 				{
-					maximumShipBullets[i].position.x = spaceShip.position.x - spaceShip.size.x / 2;
-					maximumShipBullets[i].position.y = spaceShip.position.y - spaceShip.size.y / 2;
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						gameState = GameScreen::GAMETITLE;
+					}
 				}
-
-				if (maximumShipBullets[i].isMoving)
+				if (CheckCollisionPointRec(mousePosition, { 570, 245, 60, 30 }))
 				{
-					maximumShipBullets[i].position.x += maximumShipBullets[i].direction.x * maximumShipBullets[i].speed * GetFrameTime();
-					maximumShipBullets[i].position.y += maximumShipBullets[i].direction.y * maximumShipBullets[i].speed * GetFrameTime();
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						exitWindow = false;
+						isPaused = !isPaused;
+					}
 				}
 			}
-
-			CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition, pewSound);
 
 			DrawTexture(menuBackGround, 0, 0, WHITE);
 			
@@ -625,6 +652,17 @@ void RunGame()
 				{
 					DrawAsteroid(asteroidSmallArray[i]);
 				}
+			}
+
+			if (exitWindow)
+			{
+				DrawText("Pause", GetScreenWidth()/ 2 - 50, 30, 30, RED);
+				DrawRectangle(315, 150, 400, 150, WHITE);
+				DrawText("Do you want to keep playing?", GetScreenWidth() / 2 - 150, 180, 20, BLACK);
+				DrawRectangle(420, 245, 60, 30, GREEN);
+				DrawText("Yes", 430, 250, 20, BLACK);
+				DrawRectangle(570, 245, 60, 30, RED);
+				DrawText("No", 585, 250, 20, BLACK);
 			}
 
 			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
