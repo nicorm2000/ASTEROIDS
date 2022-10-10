@@ -16,7 +16,6 @@ ShipBullets shipBullets;
 ShipBullets maximumShipBullets[maxShipBullets];
 int currentBullet = 0;
 
-int asteroidTotalAmount = 0;
 const int asteroidBigAmount = 6;
 const int asteroidMediumAmount = asteroidBigAmount * 2;
 const int asteroidSmallAmount = asteroidMediumAmount * 2;
@@ -409,6 +408,32 @@ void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
 	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
 }
 
+void RestartGame(Ship& spaceShip, EnemyShip& enemyShip, bool isPaused, bool exitWindow, bool gameFinished)
+{
+	const int maxShipBullets = 20;
+	ShipBullets shipBullets;
+	ShipBullets maximumShipBullets[maxShipBullets];
+	int currentBullet = 0;
+
+	const int asteroidBigAmount = 6;
+	const int asteroidMediumAmount = asteroidBigAmount * 2;
+	const int asteroidSmallAmount = asteroidMediumAmount * 2;
+
+	Asteroid asteroidBigArray[asteroidBigAmount];
+	Asteroid asteroidMediumArray[asteroidMediumAmount];
+	Asteroid asteroidSmallArray[asteroidSmallAmount];
+	int asteroidBigCount = 0;
+	int asteroidMediumCount = 0;
+	int asteroidSmallCount = 0;
+
+	CreateShip(spaceShip);
+	CreateEnemyShip(enemyShip);
+
+	isPaused = false;
+	exitWindow = false;
+	gameFinished = false;
+}
+
 void RunGame()
 {
 	Initialize();
@@ -466,10 +491,7 @@ void RunGame()
 	for (int i = 0; i < maxShipBullets - 1; i++)
 	{
 		CreateShipBullet(maximumShipBullets[i]);
-	}
-
-	CreateShip(spaceShip);
-	CreateEnemyShip(enemyShip);
+	}	
 
 	while (playingGame && !WindowShouldClose())
 	{
@@ -489,6 +511,7 @@ void RunGame()
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
+					RestartGame(spaceShip, enemyShip, isPaused, exitWindow, gameFinished);
 					gameState = GameScreen::GAME;
 				}
 			}
@@ -716,7 +739,6 @@ void RunGame()
 
 		EndDrawing();
 	}
-
 
 	UnloadTexture(backGround);
 	UnloadTexture(exitButton);
