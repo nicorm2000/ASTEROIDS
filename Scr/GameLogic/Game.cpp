@@ -28,13 +28,17 @@ int asteroidBigCount = 0;
 int asteroidMediumCount = 0;
 int asteroidSmallCount = 0;
 
+Sound pewSound = LoadSound("../resources/Music/pew.wav");
+
 static void Initialize()
 {
 	InitWindow(1024, 768, "ASTEROIDS");
+	InitAudioDevice();
 }
 
 static void Close()
 {
+	CloseAudioDevice();
 	CloseWindow();
 }
 
@@ -171,7 +175,22 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 
 void RespawnAsteroids()
 {
-	
+	/*int asteroidsSpawn = 6;
+
+	for (int i = 0; i < asteroidBigAmount; i++)
+	{
+		if (!asteroidBigArray[i].isActive)
+		{
+			asteroidBigArray[i].asteroidSize = Size::BIG;
+			asteroidBigArray[i] = CreateAsteroid(asteroidBigArray[i], asteroidBigArray[i].asteroidSize, asteroidBig);
+			asteroidsSpawn--;
+
+			if (asteroidsSpawn <= 0)
+			{
+				break;
+			}
+		}
+	}*/
 }
 
 void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
@@ -213,7 +232,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 	}
 }
 
-void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition)
+void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition, Sound pewSound)
 {
 	if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
 	{
@@ -241,6 +260,8 @@ void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosit
 		{
 			currentBullet = 0;
 		}
+
+		PlaySound(pewSound);
 	}
 }
 
@@ -373,8 +394,7 @@ void RunGame()
 	Texture2D asteroidMedium = LoadTexture("../resources/enemy2.png");
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
-	//GenTextureMipmaps(&titleFont.texture);
-	//SetTextureFilter(titleFont.texture, TEXTURE_FILTER_ANISOTROPIC_16X);
+	Sound pewSound = LoadSound("../resources/Music/pew.wav");
 
 	Ship spaceShip;
 	EnemyShip enemyShip;
@@ -501,11 +521,6 @@ void RunGame()
 				}
 			}
 
-			if (asteroidBigAmount <= 0 && asteroidMediumAmount <= 0 && asteroidSmallAmount <= 0)
-			{
-				RespawnAsteroids();
-			}
-
 			for (int i = 0; i < maxShipBullets; i++)
 			{
 				if (maximumShipBullets[i].isMoving == false)
@@ -521,7 +536,7 @@ void RunGame()
 				}
 			}
 
-			CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition);
+			CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition, pewSound);
 
 			DrawTexture(menuBackGround, 0, 0, WHITE);
 			
