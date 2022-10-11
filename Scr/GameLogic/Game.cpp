@@ -235,7 +235,7 @@ void RunGame()
 				}
 			}
 
-			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished)
+			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished && !spaceShip.lifes <= 0)
 			{
 				isPaused = true;
 				exitWindow = true;
@@ -316,6 +316,8 @@ void RunGame()
 			}
 			
 			DrawText(TextFormat("Lifes: %i", spaceShip.lifes), 20, 20, 20, BLACK);
+
+			DrawText(TextFormat("Score: %i", spaceShip.score), GetScreenWidth() - 200, 20, 20, BLACK);
 
 			if (!spaceShip.isAlive && spaceShip.lifes != 0)
 			{
@@ -465,7 +467,7 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 	}
 }
 
-void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
+void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1, Ship& spaceShip)
 {
 	float distX = shipBullet.position.x - asteroid1.position.x;
 	float distY = shipBullet.position.y - asteroid1.position.y;
@@ -564,6 +566,8 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 			shipBullet.isActive = false;
 			break;
 		}
+
+		spaceShip.score++;
 	}
 }
 
@@ -575,7 +579,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		{
 			if (maximumShipBullets[j].isActive)
 			{
-				AsteroidDestruction(maximumShipBullets[j], asteroid1);
+				AsteroidDestruction(maximumShipBullets[j], asteroid1, spaceShip);
 			}
 		}
 	}

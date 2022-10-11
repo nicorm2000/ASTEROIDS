@@ -8,6 +8,7 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.position.y = GetScreenHeight() / 2.0f;
 	spaceShip.radius = 13;
 	spaceShip.isAlive = true;
+	spaceShip.score = 0;
 	spaceShip.speed.x = 5;
 	spaceShip.speed.y = 5;
 	spaceShip.rotation = 0;
