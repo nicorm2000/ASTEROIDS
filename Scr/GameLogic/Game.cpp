@@ -359,6 +359,54 @@ void RunGame()
 
 			mousePosition = GetMousePosition();
 
+			if (CheckCollisionPointRec(mousePosition, { 90, 600, 175, 60 }))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					OpenURL("https://freesound.org/people/Migfus20/sounds/560446/");
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, { 270, 675, 175, 60 }))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					OpenURL("https://freesound.org/people/0ne_one111yt/sounds/478215/");
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, { 550, 675, 175, 60 }))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					OpenURL("https://freesound.org/people/Jofae/sounds/364929/");
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, { 770, 600, 175, 60 }))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					OpenURL("https://freesound.org/people/pomeroyjoshua/sounds/513455/");
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, { 630, 250, 150, 50 }))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					OpenURL("https://nicorm.itch.io/");
+				}
+			}
+
+			if (CheckCollisionPointRec(mousePosition, { 770, 600, 175, 60 }))
+			{
+				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+				{
+					OpenURL("https://nicorm.itch.io/");
+				}
+			}
+
 			if (CheckCollisionPointRec(mousePosition, { 20, 23, 70, 65 }))
 			{
 				if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
@@ -366,10 +414,21 @@ void RunGame()
 					gameState = GameScreen::GAMETITLE;
 				}
 			}
-
+			
 			DrawTexture(creditsBg, 0, 0, WHITE);
 			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
-
+			DrawRectangle(630, 250, 150, 50, RED);
+			DrawText("itch.io", 635, 255, 50, WHITE);
+			DrawRectangle(630, 400, 150, 50, RED);
+			DrawText("itch.io", 635, 405, 50, WHITE);
+			DrawRectangleRounded({ 90, 600, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawRectangleRounded({ 270, 675, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawRectangleRounded({ 550, 675, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawRectangleRounded({ 770, 600, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawText("Migfus20", 130, 618, 20, BLACK);
+			DrawText("0ne_one111yt", 295, 695, 20, BLACK);
+			DrawText("Jofae", 605, 695, 20, BLACK);
+			DrawText("pomeroyjoshua", 783, 618, 20, BLACK);
 			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
 
 			break;
