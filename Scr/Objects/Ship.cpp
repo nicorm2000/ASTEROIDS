@@ -7,7 +7,7 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.position.x = GetScreenWidth() / 2.0f;
 	spaceShip.position.y = GetScreenHeight() / 2.0f;
 	spaceShip.radius = 13;
-	spaceShip.invincibilty = false;
+	spaceShip.isAlive = true;
 	spaceShip.speed.x = 5;
 	spaceShip.speed.y = 5;
 	spaceShip.rotation = 0;

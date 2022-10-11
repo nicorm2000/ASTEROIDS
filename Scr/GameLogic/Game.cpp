@@ -182,6 +182,7 @@ void RunGame()
 				RespawnAsteroids(asteroidBig);
 				ShipMovement(mousePosition, spaceShip);
 				CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition, pewSound);
+
 				enemyShip.source = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width, (float)enemyShip.enemyTexture.height };
 				enemyShip.dest = { enemyShip.position.x, enemyShip.position.y, (float)enemyShip.enemyTexture.width,  (float)enemyShip.enemyTexture.height };
 				enemyShip.origin = { (float)enemyShip.position.x / 2.0f, (float)enemyShip.position.y / 2.0f };
@@ -312,6 +313,18 @@ void RunGame()
 				DrawText("Yes", 430, 250, 20, BLACK);
 				DrawRectangle(570, 245, 60, 30, RED);
 				DrawText("No", 585, 250, 20, BLACK);
+			}
+			
+			DrawText(TextFormat("Lifes: %i", spaceShip.lifes), 20, 20, 20, BLACK);
+
+			if (!spaceShip.isAlive && spaceShip.lifes != 0)
+			{
+				DrawText("Press 'SPACE' to respawn", GetScreenWidth() / 2 - 250, GetScreenHeight() / 2, 40, BLACK);
+			}
+
+			if (spaceShip.lifes <= 0)
+			{
+				DrawRectangle(GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 200, 500, 400, WHITE);
 			}
 
 			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
@@ -572,22 +585,24 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		if (CollisionCircleCircle(spaceShip.position, spaceShip.radius, asteroid1.position, asteroid1.radius))
 		{
 			spaceShip.lifes--;
+			spaceShip.isActive = false;
+			spaceShip.isAlive = false;
 			asteroid1.isActive = false;
-			if (spaceShip.lifes > 0)
-			{
-				if (spaceShip.invincibilty)
-				{
-					spaceShip.position.x = static_cast<float>(GetScreenWidth() / 2);
-					spaceShip.position.y = static_cast<float>(GetScreenHeight() / 2);
-					spaceShip.speed.x = 0;
-					spaceShip.speed.y = 0;
-				}
-			}
-			else if (spaceShip.lifes <= 0)
-			{
-				spaceShip.isActive = false;
-			}
 		}
+	}
+
+	if (spaceShip.lifes > 0 && IsKeyPressed(KEY_SPACE))
+	{
+		spaceShip.isActive = true;
+		spaceShip.isAlive = true;
+		spaceShip.position.x = static_cast<float>(GetScreenWidth() / 2);
+		spaceShip.position.y = static_cast<float>(GetScreenHeight() / 2);
+		spaceShip.speed.x = 0;
+		spaceShip.speed.y = 0;
+	}
+	else if (spaceShip.lifes <= 0)
+	{
+		spaceShip.isActive = false;
 	}
 
 	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))

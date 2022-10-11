@@ -10,7 +10,7 @@ struct Ship
 	Vector2 normalizeDir{};
 	float rotation;
 	float radius;
-	bool invincibilty;
+	bool isAlive;
 	int lifes;
 	Rectangle source;
 	Rectangle dest;
