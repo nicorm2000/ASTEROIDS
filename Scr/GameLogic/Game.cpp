@@ -36,11 +36,11 @@ bool CollisionCircleCircle(Vector2 positionA, float radiusA, Vector2 positionB, 
 
 bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip);
 
-void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1);
+void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1, Ship& spaceShip, Sound crashAsteroid);
 
 void RespawnAsteroids(Texture2D asteroidBig);
 
-void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip);
+void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, Sound crashAsteroid, Sound deathSoundEffect);
 
 void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition, Sound pewSound);
 
@@ -81,6 +81,8 @@ void RunGame()
 	Texture2D cursorLollipop = LoadTexture("../resources/cursor.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
+	Sound deathSoundEffect = LoadSound("../resources/Music/deathsoundeffect.wav");
+	Sound crashAsteroid = LoadSound("../resources/Music/crashasteroids.wav");
 	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.mp3");
 
 	Ship spaceShip;
@@ -179,7 +181,6 @@ void RunGame()
 
 			if (!isPaused)
 			{
-				RespawnAsteroids(asteroidBig);
 				ShipMovement(mousePosition, spaceShip);
 				CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition, pewSound);
 
@@ -190,7 +191,7 @@ void RunGame()
 
 				for (int i = 0; i < asteroidBigAmount; i++)
 				{
-					GameCollisions(spaceShip, asteroidBigArray[i], enemyShip);
+					GameCollisions(spaceShip, asteroidBigArray[i], enemyShip, crashAsteroid, deathSoundEffect);
 					windowTp(spaceShip, asteroidBigArray[i], enemyShip);
 					if (asteroidBigArray[i].speed.x != 0 && asteroidBigArray[i].speed.y != 0)
 					{
@@ -200,7 +201,7 @@ void RunGame()
 				}
 				for (int i = 0; i < asteroidMediumAmount; i++)
 				{
-					GameCollisions(spaceShip, asteroidMediumArray[i], enemyShip);
+					GameCollisions(spaceShip, asteroidMediumArray[i], enemyShip, crashAsteroid, deathSoundEffect);
 					windowTp(spaceShip, asteroidMediumArray[i], enemyShip);
 					if (asteroidMediumArray[i].speed.x != 0 && asteroidMediumArray[i].speed.y != 0)
 					{
@@ -210,7 +211,7 @@ void RunGame()
 				}
 				for (int i = 0; i < asteroidSmallAmount; i++)
 				{
-					GameCollisions(spaceShip, asteroidSmallArray[i], enemyShip);
+					GameCollisions(spaceShip, asteroidSmallArray[i], enemyShip, crashAsteroid, deathSoundEffect);
 					windowTp(spaceShip, asteroidSmallArray[i], enemyShip);
 					if (asteroidSmallArray[i].speed.x != 0 && asteroidSmallArray[i].speed.y != 0)
 					{
@@ -218,6 +219,8 @@ void RunGame()
 						asteroidSmallArray[i].position.y += asteroidSmallArray[i].speed.y * GetFrameTime();
 					}
 				}
+
+				RespawnAsteroids(asteroidBig);
 
 				for (int i = 0; i < maxShipBullets; i++)
 				{
@@ -397,6 +400,8 @@ void RunGame()
 	UnloadTexture(cursorLollipop);
 	UnloadFont(titleFont);
 	UnloadSound(pewSound);
+	UnloadSound(deathSoundEffect);
+	UnloadSound(crashAsteroid);
 	UnloadMusicStream(bgMusic);
 
 	Close();
@@ -467,7 +472,7 @@ bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
 	}
 }
 
-void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1, Ship& spaceShip)
+void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1, Ship& spaceShip, Sound crashAsteroid)
 {
 	float distX = shipBullet.position.x - asteroid1.position.x;
 	float distY = shipBullet.position.y - asteroid1.position.y;
@@ -567,11 +572,15 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1, Ship& spa
 			break;
 		}
 
+		PlaySound(crashAsteroid);
+
+		SetSoundVolume(crashAsteroid, 0.5f);
+
 		spaceShip.score++;
 	}
 }
 
-void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
+void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, Sound crashAsteroid, Sound deathSoundEffect)
 {
 	if (asteroid1.isActive)
 	{
@@ -579,7 +588,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 		{
 			if (maximumShipBullets[j].isActive)
 			{
-				AsteroidDestruction(maximumShipBullets[j], asteroid1, spaceShip);
+				AsteroidDestruction(maximumShipBullets[j], asteroid1, spaceShip, crashAsteroid);
 			}
 		}
 	}
@@ -592,6 +601,10 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
 			spaceShip.isActive = false;
 			spaceShip.isAlive = false;
 			asteroid1.isActive = false;
+
+			PlaySound(deathSoundEffect);
+
+			SetSoundVolume(deathSoundEffect, 0.5f);
 		}
 	}
 
