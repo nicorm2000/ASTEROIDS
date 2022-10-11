@@ -79,6 +79,7 @@ void RunGame()
 	Texture2D asteroidMedium = LoadTexture("../resources/enemy2.png");
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Texture2D cursorLollipop = LoadTexture("../resources/cursor.png");
+	Texture2D creditsBg = LoadTexture("../resources/Credits.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
 	Sound deathSoundEffect = LoadSound("../resources/Music/deathsoundeffect.wav");
@@ -191,6 +192,7 @@ void RunGame()
 
 				for (int i = 0; i < asteroidBigAmount; i++)
 				{
+					RespawnAsteroids(asteroidBig);
 					GameCollisions(spaceShip, asteroidBigArray[i], enemyShip, crashAsteroid, deathSoundEffect);
 					windowTp(spaceShip, asteroidBigArray[i], enemyShip);
 					if (asteroidBigArray[i].speed.x != 0 && asteroidBigArray[i].speed.y != 0)
@@ -219,8 +221,6 @@ void RunGame()
 						asteroidSmallArray[i].position.y += asteroidSmallArray[i].speed.y * GetFrameTime();
 					}
 				}
-
-				RespawnAsteroids(asteroidBig);
 
 				for (int i = 0; i < maxShipBullets; i++)
 				{
@@ -367,7 +367,7 @@ void RunGame()
 				}
 			}
 
-			DrawTexture(menuBackGround, 0, 0, WHITE);
+			DrawTexture(creditsBg, 0, 0, WHITE);
 			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
 
 			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
@@ -398,6 +398,7 @@ void RunGame()
 	UnloadTexture(asteroidMedium);
 	UnloadTexture(asteroidSmall);
 	UnloadTexture(cursorLollipop);
+	UnloadTexture(creditsBg);
 	UnloadFont(titleFont);
 	UnloadSound(pewSound);
 	UnloadSound(deathSoundEffect);
