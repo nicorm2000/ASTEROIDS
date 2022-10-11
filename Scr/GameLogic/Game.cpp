@@ -489,6 +489,7 @@ void RunGame()
 	}	
 
 	PlayMusicStream(bgMusic);
+
 	SetMusicVolume(bgMusic, 0.5f);
 
 	while (playingGame && !WindowShouldClose())
