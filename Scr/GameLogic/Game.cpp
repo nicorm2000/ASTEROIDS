@@ -78,6 +78,7 @@ void RunGame()
 	Texture2D asteroidBig = LoadTexture("../resources/enemy1.png");
 	Texture2D asteroidMedium = LoadTexture("../resources/enemy2.png");
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
+	Texture2D cursorLollipop = LoadTexture("../resources/cursor.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
 	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.mp3");
@@ -133,7 +134,6 @@ void RunGame()
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
-
 					gameState = GameScreen::GAME;
 				}
 			}
@@ -169,7 +169,7 @@ void RunGame()
 			DrawTextureEx(creditsTitle, { 400, 500 }, 0, 0.2f, WHITE);
 			DrawTextureEx(exitTitle, { 420, 650 }, 0, 0.15f, WHITE);
 
-			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
+			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
 
 			break;
 
@@ -314,7 +314,7 @@ void RunGame()
 				DrawText("No", 585, 250, 20, BLACK);
 			}
 
-			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
+			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
 
 			break;
 
@@ -333,7 +333,7 @@ void RunGame()
 			DrawTexture(howToPlayMenu, 0, 0, WHITE);
 			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
 
-			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
+			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
 
 			break;
 
@@ -352,7 +352,7 @@ void RunGame()
 			DrawTexture(menuBackGround, 0, 0, WHITE);
 			DrawTextureEx(exitButton, { -10, 20 }, 0.0f, 0.1f, WHITE);
 
-			DrawCircle(static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), 5, GREEN);
+			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
 
 			break;
 
@@ -379,6 +379,7 @@ void RunGame()
 	UnloadTexture(asteroidBig);
 	UnloadTexture(asteroidMedium);
 	UnloadTexture(asteroidSmall);
+	UnloadTexture(cursorLollipop);
 	UnloadFont(titleFont);
 	UnloadSound(pewSound);
 	UnloadMusicStream(bgMusic);
@@ -470,13 +471,13 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
 
 				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
 
 				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
@@ -487,13 +488,13 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
 
 				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
 
 				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
@@ -513,13 +514,13 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
 
 				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
 
 				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
@@ -530,13 +531,13 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
 				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
 
 				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				do
 				{
-					static_cast<float>(GetRandomValue(-100, 100));
+					asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
 				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
 
 				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;

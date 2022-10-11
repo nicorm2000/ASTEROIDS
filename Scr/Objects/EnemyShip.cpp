@@ -14,7 +14,11 @@ EnemyShip CreateEnemyShip(EnemyShip& enemyShip)
 	{
 		enemyShip.position.y = static_cast<float>(GetRandomValue(485, 650));
 	}
-	enemyShip.speed.x = static_cast<float>(GetRandomValue(-150, 150));
+	enemyShip.speed.x = static_cast<float>(GetRandomValue(-300, 300));
+	do
+	{
+		enemyShip.speed.x = static_cast<float>(GetRandomValue(-300, 300));
+	} while (enemyShip.speed.x == 0);
 	enemyShip.rotation = 0;
 	enemyShip.isActive = true;
 	enemyShip.enemyTexture = LoadTexture("../resources/enemyship1.png");
