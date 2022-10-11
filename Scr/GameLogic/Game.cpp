@@ -421,9 +421,13 @@ void RunGame()
 			DrawText("itch.io", 635, 255, 50, WHITE);
 			DrawRectangle(630, 400, 150, 50, RED);
 			DrawText("itch.io", 635, 405, 50, WHITE);
+			DrawRectangleRounded({ 85, 595, 185, 70 }, 0.5f, 1, BLACK);
 			DrawRectangleRounded({ 90, 600, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawRectangleRounded({ 265, 670, 185, 70 }, 0.5f, 1, BLACK);
 			DrawRectangleRounded({ 270, 675, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawRectangleRounded({ 545, 670, 185, 70 }, 0.5f, 1, BLACK);
 			DrawRectangleRounded({ 550, 675, 175, 60 }, 0.5f, 1, ORANGE);
+			DrawRectangleRounded({ 765, 595, 185, 70 }, 0.5f, 1, BLACK);
 			DrawRectangleRounded({ 770, 600, 175, 60 }, 0.5f, 1, ORANGE);
 			DrawText("Migfus20", 130, 618, 20, BLACK);
 			DrawText("0ne_one111yt", 295, 695, 20, BLACK);
