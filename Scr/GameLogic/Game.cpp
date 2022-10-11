@@ -630,6 +630,11 @@ void RunGame()
 				{
 					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
 					{
+<<<<<<< Updated upstream
+=======
+						gameState = GameScreen::GAMETITLE;
+
+>>>>>>> Stashed changes
 						exitWindow = false;
 						isPaused = !isPaused;
 					}
