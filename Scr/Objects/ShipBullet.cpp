@@ -3,8 +3,8 @@
 
 ShipBullets CreateShipBullet(ShipBullets& shipBullets)
 {
-	shipBullets.position.x = 0;
-	shipBullets.position.y = 0;
+	shipBullets.position.x = 5000;
+	shipBullets.position.y = 5000;
 	shipBullets.direction.x = 0;
 	shipBullets.direction.y = 0;
 	shipBullets.radius = 7.0f;

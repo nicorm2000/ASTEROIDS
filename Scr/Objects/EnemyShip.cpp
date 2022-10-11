@@ -23,6 +23,6 @@ EnemyShip CreateEnemyShip(EnemyShip& enemyShip)
 
 void DrawEnemyShip(EnemyShip& enemyShip)
 {
-	//DrawRectangleLines(enemyShip.position.x, enemyShip.position.y, enemyShip.size.x * 2, enemyShip.size.y * 2, RED);
+	DrawRectangleLines(enemyShip.position.x, enemyShip.position.y, enemyShip.size.x * 2, enemyShip.size.y * 2, RED);
 	DrawTextureEx(enemyShip.enemyTexture, { enemyShip.position.x, enemyShip.position.y }, enemyShip.rotation, 2, WHITE);
 }
