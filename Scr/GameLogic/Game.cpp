@@ -28,363 +28,25 @@ int asteroidBigCount = 0;
 int asteroidMediumCount = 0;
 int asteroidSmallCount = 0;
 
-static void Initialize()
-{
-	InitWindow(1024, 768, "ASTEROIDS");
-	InitAudioDevice();
-}
+static void Initialize();
 
-static void Close()
-{
-	CloseAudioDevice();
-	CloseWindow();
-}
+static void Close();
 
-bool CollisionCircleCircle(Vector2 positionA, float radiusA, Vector2 positionB, float radiusB)
-{
-	float distX = positionA.x - positionB.x;
-	float distY = positionA.y - positionB.y;
-	float distance = sqrt((distX * distX) + (distY * distY));
+bool CollisionCircleCircle(Vector2 positionA, float radiusA, Vector2 positionB, float radiusB);
 
-	if (distance <= radiusA + radiusB)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
+bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip);
 
-bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
-{
-	float testX = spaceShip.position.x;
-	float testY = spaceShip.position.y;
-
-	if (spaceShip.position.x < enemyShip.position.x)
-	{
-		testX = enemyShip.position.x;
-	}
-	else if (spaceShip.position.x > enemyShip.position.x + enemyShip.size.x)
-	{
-		testX = enemyShip.position.x + enemyShip.size.x;
-	}
-
-	if (spaceShip.position.y < enemyShip.position.y)
-	{
-		testY = enemyShip.position.y;
-	}
-	else if (spaceShip.position.y > enemyShip.position.y + enemyShip.size.y)
-	{
-		testY = enemyShip.position.y + enemyShip.size.y;
-	}
-
-	float distX = spaceShip.position.x - testX;
-	float distY = spaceShip.position.y - testY;
-	float distance = sqrt((distX * distX) + (distY * distY));
-
-	if (distance <= spaceShip.radius)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
-}
-
-void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
-{
-	float distX = shipBullet.position.x - asteroid1.position.x;
-	float distY = shipBullet.position.y - asteroid1.position.y;
-	float distance = sqrt((distX * distX) + (distY * distY));
-
-	if (distance <= shipBullet.radius + asteroid1.radius)
-	{
-		switch (asteroid1.asteroidSize)
-		{
-		case Size::BIG:
-			asteroid1.isActive = false;
-			shipBullet.isActive = false;
-
-			if (asteroidMediumCount < asteroidMediumAmount)
-			{
-				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
-
-				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
-
-				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
-				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
-				asteroidMediumArray[asteroidMediumCount].isActive = true;
-				asteroidMediumCount++;
-
-				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
-
-				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
-
-				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
-				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
-				asteroidMediumArray[asteroidMediumCount].isActive = true;
-				asteroidMediumCount++;
-
-				asteroidBigCount++;
-			}
-			break;
-		case Size::MEDIUM:
-			asteroid1.isActive = false;
-			shipBullet.isActive = false;
-
-			if (asteroidSmallCount < asteroidSmallAmount)
-			{
-				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
-
-				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
-
-				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
-				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
-				asteroidSmallArray[asteroidSmallCount].isActive = true;
-				asteroidSmallCount++;
-
-				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
-
-				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
-				do
-				{
-					static_cast<float>(GetRandomValue(-100, 100));
-				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
-
-				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
-				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
-				asteroidSmallArray[asteroidSmallCount].isActive = true;
-				asteroidSmallCount++;
-			}
-			break;
-		case Size::SMALL:
-			asteroid1.isActive = false;
-			shipBullet.isActive = false;
-			break;
-		}
-	}
-}
+void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1);
 
 void RespawnAsteroids(Texture2D asteroidBig);
 
-void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
-{
-	if (asteroid1.isActive)
-	{
-		for (int j = 0; j < maxShipBullets; j++)
-		{
-			if (maximumShipBullets[j].isActive)
-			{
-				AsteroidDestruction(maximumShipBullets[j], asteroid1);
-			}
-		}
-	}
+void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip);
 
-	if (spaceShip.isActive && asteroid1.isActive)
-	{
-		if (CollisionCircleCircle(spaceShip.position, spaceShip.radius, asteroid1.position, asteroid1.radius))
-		{
-			spaceShip.lifes--;
-			asteroid1.isActive = false;
-			if (spaceShip.lifes > 0)
-			{
-				if (spaceShip.invincibilty)
-				{
-					spaceShip.position.x = static_cast<float>(GetScreenWidth() / 2);
-					spaceShip.position.y = static_cast<float>(GetScreenHeight() / 2);
-					spaceShip.speed.x = 0;
-					spaceShip.speed.y = 0;
-				}
-			}
-			else if (spaceShip.lifes <= 0)
-			{
-				spaceShip.isActive = false;
-			}
-		}
-	}
+void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition, Sound pewSound);
 
-	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))
-	{
-		spaceShip.isActive = false;
-		for (int i = 0; i < maxShipBullets; i++)
-		{
-			maximumShipBullets[i].isActive = false;
-		}
-	}
-}
+void windowTp(Ship& spaceShip, Asteroid& asteroid1, EnemyShip& enemyShip);
 
-void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition, Sound pewSound)
-{
-	if (spaceShip.isActive)
-	{
-		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
-		{
-			spaceShip.speed.x += normalizedDirection.x * 150 * GetFrameTime();
-			spaceShip.speed.y += normalizedDirection.y * 150 * GetFrameTime();
-
-			spaceShip.shipTexture = spaceShip.shipTextureMovement;
-		}
-		else
-		{
-			spaceShip.shipTexture = spaceShip.shipOriginalTexture;
-		}
-
-		spaceShip.position.x += spaceShip.speed.x * GetFrameTime();
-		spaceShip.position.y += spaceShip.speed.y * GetFrameTime();
-
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-		{
-			maximumShipBullets[currentBullet].isActive = true;
-
-			maximumShipBullets[currentBullet].isMoving = true;
-
-			maximumShipBullets[currentBullet].direction.x = mousePosition.x - maximumShipBullets[currentBullet].position.x;
-			maximumShipBullets[currentBullet].direction.y = mousePosition.y - maximumShipBullets[currentBullet].position.y;
-
-			maximumShipBullets[currentBullet].direction = Vector2Normalize(maximumShipBullets[currentBullet].direction);
-
-			currentBullet++;
-
-			if (currentBullet >= maxShipBullets)
-			{
-				currentBullet = 0;
-			}
-
-			PlaySound(pewSound);
-
-			SetSoundVolume(pewSound, 0.35f);
-		}
-	}
-}
-
-void windowTp(Ship& spaceShip, Asteroid& asteroid1, EnemyShip& enemyShip)
-{
-	//ship teleports to other side
-	if (spaceShip.position.x > GetScreenWidth() + spaceShip.shipTexture.width)
-	{
-		spaceShip.position.x = -5;
-	}
-	if (spaceShip.position.x < 0 - spaceShip.shipTexture.width)
-	{
-		spaceShip.position.x = static_cast<float>(GetScreenWidth() + 5);
-	}
-
-	if (spaceShip.position.y > GetScreenHeight() + spaceShip.shipTexture.height)
-	{
-		spaceShip.position.y = -5;
-	}
-	if (spaceShip.position.y < 0 - spaceShip.shipTexture.height)
-	{
-		spaceShip.position.y = static_cast<float>(GetScreenHeight() + 5);
-	}
-
-	//asteroid teleports to other side
-	if (asteroid1.position.x > GetScreenWidth() + asteroid1.size.x)
-	{
-		asteroid1.position.x = -5;
-	}
-	if (asteroid1.position.x < 0 - asteroid1.size.x)
-	{
-		asteroid1.position.x = static_cast<float>(GetScreenWidth() + 5);
-	}
-
-	if (asteroid1.position.y > GetScreenHeight() + asteroid1.size.y)
-	{
-		asteroid1.position.y = -5;
-	}
-	if (asteroid1.position.y < 0 - asteroid1.size.y)
-	{
-		asteroid1.position.y = static_cast<float>(GetScreenHeight() + 5);
-	}
-
-	for (int i = 0; i < maxShipBullets; i++)
-	{
-		if (maximumShipBullets[i].isMoving)
-		{
-			if (maximumShipBullets[i].position.x < 0)
-			{
-				maximumShipBullets[i].isMoving = false;
-			}
-			if (maximumShipBullets[i].position.x >= GetScreenWidth())
-			{
-				maximumShipBullets[i].isMoving = false;
-			}
-			if (maximumShipBullets[i].position.y < 0)
-			{
-				maximumShipBullets[i].isMoving = false;
-			}
-			if (maximumShipBullets[i].position.y >= GetScreenHeight())
-			{
-				maximumShipBullets[i].isMoving = false;
-			}
-		}
-	}
-
-	//enemyShip teleports to other side
-	if (enemyShip.position.x > GetScreenWidth())
-	{
-		enemyShip.position.x = -199;
-	}
-	if (enemyShip.position.x < -199)
-	{
-		enemyShip.position.x = static_cast<float>(GetScreenWidth());
-	}
-}
-
-void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
-{
-	//ship update values
-	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
-
-	float arcTan = atan(vectorDirection.y / vectorDirection.x);
-
-	float angle = arcTan * 180 / PI;
-
-	if (vectorDirection.x < 0)
-	{
-		angle += 180;
-	}
-
-	float vectorModule = static_cast<float>(sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2)));
-
-	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
-
-	spaceShip.normalizeDir = normalizedDirection;
-	spaceShip.rotation = angle;
-	spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
-	spaceShip.source = { 0, 0, (float)spaceShip.shipTexture.width, (float)spaceShip.shipTexture.height };
-	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
-}
+void ShipMovement(Vector2 mousePosition, Ship& spaceShip);
 
 void RunGame()
 {
@@ -722,6 +384,362 @@ void RunGame()
 	UnloadMusicStream(bgMusic);
 
 	Close();
+}
+
+static void Initialize()
+{
+	InitWindow(1024, 768, "ASTEROIDS");
+	InitAudioDevice();
+}
+
+static void Close()
+{
+	CloseAudioDevice();
+	CloseWindow();
+}
+
+bool CollisionCircleCircle(Vector2 positionA, float radiusA, Vector2 positionB, float radiusB)
+{
+	float distX = positionA.x - positionB.x;
+	float distY = positionA.y - positionB.y;
+	float distance = sqrt((distX * distX) + (distY * distY));
+
+	if (distance <= radiusA + radiusB)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool CollisionCircleRectangleEnemyShip(Ship& spaceShip, EnemyShip& enemyShip)
+{
+	float testX = spaceShip.position.x;
+	float testY = spaceShip.position.y;
+
+	if (spaceShip.position.x < enemyShip.position.x)
+	{
+		testX = enemyShip.position.x;
+	}
+	else if (spaceShip.position.x > enemyShip.position.x + enemyShip.size.x)
+	{
+		testX = enemyShip.position.x + enemyShip.size.x;
+	}
+
+	if (spaceShip.position.y < enemyShip.position.y)
+	{
+		testY = enemyShip.position.y;
+	}
+	else if (spaceShip.position.y > enemyShip.position.y + enemyShip.size.y)
+	{
+		testY = enemyShip.position.y + enemyShip.size.y;
+	}
+
+	float distX = spaceShip.position.x - testX;
+	float distY = spaceShip.position.y - testY;
+	float distance = sqrt((distX * distX) + (distY * distY));
+
+	if (distance <= spaceShip.radius)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1)
+{
+	float distX = shipBullet.position.x - asteroid1.position.x;
+	float distY = shipBullet.position.y - asteroid1.position.y;
+	float distance = sqrt((distX * distX) + (distY * distY));
+
+	if (distance <= shipBullet.radius + asteroid1.radius)
+	{
+		switch (asteroid1.asteroidSize)
+		{
+		case Size::BIG:
+			asteroid1.isActive = false;
+			shipBullet.isActive = false;
+
+			if (asteroidMediumCount < asteroidMediumAmount)
+			{
+				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
+
+				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
+
+				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
+				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
+				asteroidMediumArray[asteroidMediumCount].isActive = true;
+				asteroidMediumCount++;
+
+				asteroidMediumArray[asteroidMediumCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.x == 0);
+
+				asteroidMediumArray[asteroidMediumCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidMediumArray[asteroidMediumCount].speed.y == 0);
+
+				asteroidMediumArray[asteroidMediumCount].position.x = asteroid1.position.x;
+				asteroidMediumArray[asteroidMediumCount].position.y = asteroid1.position.y;
+				asteroidMediumArray[asteroidMediumCount].isActive = true;
+				asteroidMediumCount++;
+
+				asteroidBigCount++;
+			}
+			break;
+		case Size::MEDIUM:
+			asteroid1.isActive = false;
+			shipBullet.isActive = false;
+
+			if (asteroidSmallCount < asteroidSmallAmount)
+			{
+				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
+
+				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
+
+				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
+				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
+				asteroidSmallArray[asteroidSmallCount].isActive = true;
+				asteroidSmallCount++;
+
+				asteroidSmallArray[asteroidSmallCount].speed.x = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.x == 0);
+
+				asteroidSmallArray[asteroidSmallCount].speed.y = static_cast<float>(GetRandomValue(-100, 100));
+				do
+				{
+					static_cast<float>(GetRandomValue(-100, 100));
+				} while (asteroidSmallArray[asteroidSmallCount].speed.y == 0);
+
+				asteroidSmallArray[asteroidSmallCount].position.x = asteroid1.position.x;
+				asteroidSmallArray[asteroidSmallCount].position.y = asteroid1.position.y;
+				asteroidSmallArray[asteroidSmallCount].isActive = true;
+				asteroidSmallCount++;
+			}
+			break;
+		case Size::SMALL:
+			asteroid1.isActive = false;
+			shipBullet.isActive = false;
+			break;
+		}
+	}
+}
+
+void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip)
+{
+	if (asteroid1.isActive)
+	{
+		for (int j = 0; j < maxShipBullets; j++)
+		{
+			if (maximumShipBullets[j].isActive)
+			{
+				AsteroidDestruction(maximumShipBullets[j], asteroid1);
+			}
+		}
+	}
+
+	if (spaceShip.isActive && asteroid1.isActive)
+	{
+		if (CollisionCircleCircle(spaceShip.position, spaceShip.radius, asteroid1.position, asteroid1.radius))
+		{
+			spaceShip.lifes--;
+			asteroid1.isActive = false;
+			if (spaceShip.lifes > 0)
+			{
+				if (spaceShip.invincibilty)
+				{
+					spaceShip.position.x = static_cast<float>(GetScreenWidth() / 2);
+					spaceShip.position.y = static_cast<float>(GetScreenHeight() / 2);
+					spaceShip.speed.x = 0;
+					spaceShip.speed.y = 0;
+				}
+			}
+			else if (spaceShip.lifes <= 0)
+			{
+				spaceShip.isActive = false;
+			}
+		}
+	}
+
+	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))
+	{
+		spaceShip.isActive = false;
+		for (int i = 0; i < maxShipBullets; i++)
+		{
+			maximumShipBullets[i].isActive = false;
+		}
+	}
+}
+
+void CheckInput(Ship& spaceShip, Vector2 normalizedDirection, Vector2 mousePosition, Sound pewSound)
+{
+	if (spaceShip.isActive)
+	{
+		if (IsMouseButtonDown(MOUSE_BUTTON_RIGHT))
+		{
+			spaceShip.speed.x += normalizedDirection.x * 150 * GetFrameTime();
+			spaceShip.speed.y += normalizedDirection.y * 150 * GetFrameTime();
+
+			spaceShip.shipTexture = spaceShip.shipTextureMovement;
+		}
+		else
+		{
+			spaceShip.shipTexture = spaceShip.shipOriginalTexture;
+		}
+
+		spaceShip.position.x += spaceShip.speed.x * GetFrameTime();
+		spaceShip.position.y += spaceShip.speed.y * GetFrameTime();
+
+		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+		{
+			maximumShipBullets[currentBullet].isActive = true;
+
+			maximumShipBullets[currentBullet].isMoving = true;
+
+			maximumShipBullets[currentBullet].direction.x = mousePosition.x - maximumShipBullets[currentBullet].position.x;
+			maximumShipBullets[currentBullet].direction.y = mousePosition.y - maximumShipBullets[currentBullet].position.y;
+
+			maximumShipBullets[currentBullet].direction = Vector2Normalize(maximumShipBullets[currentBullet].direction);
+
+			currentBullet++;
+
+			if (currentBullet >= maxShipBullets)
+			{
+				currentBullet = 0;
+			}
+
+			PlaySound(pewSound);
+
+			SetSoundVolume(pewSound, 0.35f);
+		}
+	}
+}
+
+void windowTp(Ship& spaceShip, Asteroid& asteroid1, EnemyShip& enemyShip)
+{
+	//ship teleports to other side
+	if (spaceShip.position.x > GetScreenWidth() + spaceShip.shipTexture.width)
+	{
+		spaceShip.position.x = -5;
+	}
+	if (spaceShip.position.x < 0 - spaceShip.shipTexture.width)
+	{
+		spaceShip.position.x = static_cast<float>(GetScreenWidth() + 5);
+	}
+
+	if (spaceShip.position.y > GetScreenHeight() + spaceShip.shipTexture.height)
+	{
+		spaceShip.position.y = -5;
+	}
+	if (spaceShip.position.y < 0 - spaceShip.shipTexture.height)
+	{
+		spaceShip.position.y = static_cast<float>(GetScreenHeight() + 5);
+	}
+
+	//asteroid teleports to other side
+	if (asteroid1.position.x > GetScreenWidth() + asteroid1.size.x)
+	{
+		asteroid1.position.x = -5;
+	}
+	if (asteroid1.position.x < 0 - asteroid1.size.x)
+	{
+		asteroid1.position.x = static_cast<float>(GetScreenWidth() + 5);
+	}
+
+	if (asteroid1.position.y > GetScreenHeight() + asteroid1.size.y)
+	{
+		asteroid1.position.y = -5;
+	}
+	if (asteroid1.position.y < 0 - asteroid1.size.y)
+	{
+		asteroid1.position.y = static_cast<float>(GetScreenHeight() + 5);
+	}
+
+	for (int i = 0; i < maxShipBullets; i++)
+	{
+		if (maximumShipBullets[i].isMoving)
+		{
+			if (maximumShipBullets[i].position.x < 0)
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+			if (maximumShipBullets[i].position.x >= GetScreenWidth())
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+			if (maximumShipBullets[i].position.y < 0)
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+			if (maximumShipBullets[i].position.y >= GetScreenHeight())
+			{
+				maximumShipBullets[i].isMoving = false;
+			}
+		}
+	}
+
+	//enemyShip teleports to other side
+	if (enemyShip.position.x > GetScreenWidth())
+	{
+		enemyShip.position.x = -199;
+	}
+	if (enemyShip.position.x < -199)
+	{
+		enemyShip.position.x = static_cast<float>(GetScreenWidth());
+	}
+}
+
+void ShipMovement(Vector2 mousePosition, Ship& spaceShip)
+{
+	//ship update values
+	Vector2 vectorDirection{ mousePosition.x - spaceShip.position.x, mousePosition.y - spaceShip.position.y };
+
+	float arcTan = atan(vectorDirection.y / vectorDirection.x);
+
+	float angle = arcTan * 180 / PI;
+
+	if (vectorDirection.x < 0)
+	{
+		angle += 180;
+	}
+
+	float vectorModule = static_cast<float>(sqrt(pow(vectorDirection.x, 2) + pow(vectorDirection.y, 2)));
+
+	Vector2 normalizedDirection = { vectorDirection.x / vectorModule, vectorDirection.y / vectorModule };
+
+	spaceShip.normalizeDir = normalizedDirection;
+	spaceShip.rotation = angle;
+	spaceShip.origin = { (float)spaceShip.size.x / 2, (float)spaceShip.size.y / 2 };
+	spaceShip.source = { 0, 0, (float)spaceShip.shipTexture.width, (float)spaceShip.shipTexture.height };
+	spaceShip.dest = { spaceShip.position.x, spaceShip.position.y, (float)spaceShip.shipTexture.width,  (float)spaceShip.shipTexture.height };
 }
 
 void RespawnAsteroids(Texture2D asteroidBig)
