@@ -440,7 +440,7 @@ void RunGame()
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
-	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.wav");
+	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.mp3");
 
 	Ship spaceShip;
 	EnemyShip enemyShip;
@@ -472,7 +472,7 @@ void RunGame()
 	CreateEnemyShip(enemyShip);
 
 	PlayMusicStream(bgMusic);
-	
+
 	SetMusicVolume(bgMusic, 0.35f);
 
 	while (playingGame && !WindowShouldClose())
