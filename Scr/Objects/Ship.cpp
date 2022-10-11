@@ -22,5 +22,5 @@ Ship CreateShip(Ship& spaceShip)
 void DrawShip(Ship& spaceShip, float angle)
 {
 	DrawTexturePro(spaceShip.shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
-	DrawCircleLines(spaceShip.position.x, spaceShip.position.y, spaceShip.radius, spaceShip.color);
+	//DrawCircleLines(spaceShip.position.x, spaceShip.position.y, spaceShip.radius, spaceShip.color);
 }
