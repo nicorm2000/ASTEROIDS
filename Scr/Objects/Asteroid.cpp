@@ -3,8 +3,8 @@
 
 Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize, Texture2D texture)
 {
-	int aboveThePlayerX = 0;
-	int aboveThePlayerY = 0;
+	float aboveThePlayerX = 0;
+	float aboveThePlayerY = 0;
 	asteroid.size.x = 20;
 	asteroid.size.y = 20;
 	aboveThePlayerX = static_cast<float>(GetRandomValue(0, 10));
@@ -37,17 +37,15 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize, Texture2D texture
 	{
 	case Size::BIG:
 		asteroid.radius = 50;
-		return asteroid;
 		break;
 	case Size::MEDIUM:
 		asteroid.radius = 35;
-		return asteroid;
 		break;
 	case Size::SMALL:
 		asteroid.radius = 20;
-		return asteroid;
 		break;
 	}
+	return asteroid;
 }
 
 void DrawAsteroid(Asteroid& asteroid)

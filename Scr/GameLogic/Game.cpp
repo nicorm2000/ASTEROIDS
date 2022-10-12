@@ -24,6 +24,7 @@ const int asteroidSmallAmount = asteroidMediumAmount * 2;
 Asteroid asteroidBigArray[asteroidBigAmount];
 Asteroid asteroidMediumArray[asteroidMediumAmount];
 Asteroid asteroidSmallArray[asteroidSmallAmount];
+
 int asteroidBigCount = 0;
 int asteroidMediumCount = 0;
 int asteroidSmallCount = 0;
@@ -80,10 +81,13 @@ void RunGame()
 	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
 	Texture2D cursorLollipop = LoadTexture("../resources/cursor.png");
 	Texture2D creditsBg = LoadTexture("../resources/Credits.png");
+
 	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
+
 	Sound pewSound = LoadSound("../resources/Music/pew.wav");
 	Sound deathSoundEffect = LoadSound("../resources/Music/deathsoundeffect.wav");
 	Sound crashAsteroid = LoadSound("../resources/Music/crashasteroids.wav");
+
 	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.mp3");
 
 	Ship spaceShip;
@@ -238,7 +242,7 @@ void RunGame()
 				}
 			}
 
-			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished && !spaceShip.lifes <= 0)
+			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished && !spaceShip.lifes == 0)
 			{
 				isPaused = true;
 				exitWindow = true;
@@ -318,9 +322,11 @@ void RunGame()
 				DrawText("No", 585, 250, 20, BLACK);
 			}
 			
-			DrawText(TextFormat("Lifes: %i", spaceShip.lifes), 20, 20, 20, BLACK);
+			DrawTextEx(titleFont, TextFormat("Lifes: %i", spaceShip.lifes), { 15, 15 }, 52.5f, 0.0f, BLACK);
+			DrawTextEx(titleFont, TextFormat("Lifes: %i", spaceShip.lifes), { 20, 20 }, 50.0f, 0.0f, ORANGE);
 
-			DrawText(TextFormat("Score: %i", spaceShip.score), GetScreenWidth() - 200, 20, 20, BLACK);
+			DrawTextEx(titleFont, TextFormat("Score: %i", spaceShip.score), { static_cast<float>(GetScreenWidth() - 210), 15 }, 52.5f, 0.0f, BLACK);
+			DrawTextEx(titleFont, TextFormat("Score: %i", spaceShip.score), { static_cast<float>(GetScreenWidth() - 205), 20 }, 50.0f, 0.0f, ORANGE);
 
 			if (!spaceShip.isAlive && spaceShip.lifes != 0)
 			{
@@ -638,7 +644,7 @@ void AsteroidDestruction(ShipBullets& shipBullet, Asteroid& asteroid1, Ship& spa
 
 		PlaySound(crashAsteroid);
 
-		SetSoundVolume(crashAsteroid, 0.5f);
+		SetSoundVolume(crashAsteroid, 0.15f);
 
 		spaceShip.score++;
 	}
@@ -689,10 +695,15 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, S
 	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))
 	{
 		spaceShip.isActive = false;
+		spaceShip.lifes = 0;
 		for (int i = 0; i < maxShipBullets; i++)
 		{
 			maximumShipBullets[i].isActive = false;
 		}
+
+		PlaySound(deathSoundEffect);
+
+		SetSoundVolume(deathSoundEffect, 0.5f);
 	}
 }
 
@@ -849,4 +860,8 @@ void RespawnAsteroids(Texture2D asteroidBig)
 			asteroidBigArray[i] = CreateAsteroid(asteroidBigArray[i], asteroidBigArray[i].asteroidSize, asteroidBig);
 		}
 	}
+
+	asteroidBigCount += 8;
+	asteroidMediumCount = 0;
+	asteroidSmallCount = 0;
 }
