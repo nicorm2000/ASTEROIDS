@@ -61,6 +61,7 @@ void RunGame()
 	bool exitWindow = false;
 	bool isPaused = false;
 	bool gameFinished = false;
+	bool restartGame = true;
 
 	Vector2 mousePosition = GetMousePosition();
 
@@ -141,6 +142,7 @@ void RunGame()
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
+					restartGame = true;
 					gameState = GameScreen::GAME;
 				}
 			}
@@ -186,6 +188,21 @@ void RunGame()
 
 			if (!isPaused)
 			{
+				if (restartGame)
+				{
+					spaceShip.score = 0;
+					spaceShip.lifes = 3;
+					spaceShip.isActive = true;
+					spaceShip.isAlive = true;
+					spaceShip.position.x = static_cast<float>(GetScreenWidth() / 2);
+					spaceShip.position.y = static_cast<float>(GetScreenHeight() / 2);
+					spaceShip.speed.x = 0;
+					spaceShip.speed.y = 0;
+					asteroidMediumCount = 0;
+					asteroidSmallCount = 0;
+					restartGame = false;
+				}
+
 				ShipMovement(mousePosition, spaceShip);
 				CheckInput(spaceShip, spaceShip.normalizeDir, mousePosition, pewSound);
 
@@ -250,7 +267,7 @@ void RunGame()
 
 			if (exitWindow)
 			{
-				if (CheckCollisionPointRec(mousePosition, { 420, 245, 60, 30 }))
+				if (CheckCollisionPointRec(mousePosition, { 350, 425, 150, 100 }))
 				{
 					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
 					{
@@ -258,7 +275,7 @@ void RunGame()
 						isPaused = !isPaused;
 					}
 				}
-				if (CheckCollisionPointRec(mousePosition, { 570, 245, 60, 30 }))
+				if (CheckCollisionPointRec(mousePosition, { 530, 425, 150, 100 }))
 				{
 					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
 					{
@@ -266,6 +283,24 @@ void RunGame()
 
 						exitWindow = false;
 						isPaused = !isPaused;
+					}
+				}
+			}
+
+			if (spaceShip.lifes <= 0)
+			{
+				if (CheckCollisionPointRec(mousePosition, { 350, 425, 150, 100 }))
+				{
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						gameState = GameScreen::GAMETITLE;
+					}
+				}
+				if (CheckCollisionPointRec(mousePosition, { 530, 425, 150, 100 }))
+				{
+					if (IsMouseButtonReleased(MOUSE_LEFT_BUTTON))
+					{
+						gameState = GameScreen::EXIT;
 					}
 				}
 			}
@@ -313,13 +348,23 @@ void RunGame()
 
 			if (exitWindow)
 			{
-				DrawText("Pause", GetScreenWidth() / 2 - 50, 30, 30, RED);
-				DrawRectangle(315, 150, 400, 150, WHITE);
-				DrawText("Do you want to keep playing?", GetScreenWidth() / 2 - 150, 180, 20, BLACK);
-				DrawRectangle(420, 245, 60, 30, GREEN);
-				DrawText("Yes", 430, 250, 20, BLACK);
-				DrawRectangle(570, 245, 60, 30, RED);
-				DrawText("No", 585, 250, 20, BLACK);
+				DrawRectangleRounded({ static_cast<float>(GetScreenWidth() / 2) - 250, static_cast<float>(GetScreenHeight() / 2) - 200, 500, 400 }, 0.5f, 1, BLACK);
+				DrawRectangleRounded({ static_cast<float>(GetScreenWidth() / 2) - 245, static_cast<float>(GetScreenHeight() / 2) - 195, 490, 390 }, 0.5f, 1, ORANGE);
+
+				DrawTextEx(titleFont, "Do you want to", { static_cast<float>(GetScreenWidth() - 680), static_cast<float>(GetScreenHeight() / 2) - 150 }, 51.5f, 0.0f, BLACK);
+				DrawTextEx(titleFont, "Do you want to", { static_cast<float>(GetScreenWidth() - 675), static_cast<float>(GetScreenHeight() / 2) - 145 }, 50.0f, 0.0f, RED);
+				DrawTextEx(titleFont, "keep playing?", { static_cast<float>(GetScreenWidth() - 650), static_cast<float>(GetScreenHeight() / 2) - 80 }, 51.5f, 0.0f, BLACK);
+				DrawTextEx(titleFont, "keep playing?", { static_cast<float>(GetScreenWidth() - 645), static_cast<float>(GetScreenHeight() / 2) - 75 }, 50.0f, 0.0f, RED);
+
+				DrawRectangleRounded({ 350, 425, 150, 100 }, 0.5f, 1, BLACK);
+				DrawRectangleRounded({ 355, 430, 140, 90 }, 0.5f, 1, PINK);
+
+				DrawTextEx(titleFont, "YES", { 390, 460 }, 35, 0, BLACK);
+
+				DrawRectangleRounded({ 530, 425, 150, 100 }, 0.5f, 1, BLACK);
+				DrawRectangleRounded({ 535, 430, 140, 90 }, 0.5f, 1, PINK);
+
+				DrawTextEx(titleFont, "NO", { 580, 460 }, 35, 0, BLACK);
 			}
 			
 			DrawTextEx(titleFont, TextFormat("Lifes: %i", spaceShip.lifes), { 15, 15 }, 52.5f, 0.0f, BLACK);
@@ -335,7 +380,26 @@ void RunGame()
 
 			if (spaceShip.lifes <= 0)
 			{
-				DrawRectangle(GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 200, 500, 400, WHITE);
+				DrawRectangleRounded({ static_cast<float>(GetScreenWidth() / 2) - 250, static_cast<float>(GetScreenHeight() / 2) - 200, 500, 400 }, 0.5f, 1, BLACK);
+				DrawRectangleRounded({ static_cast<float>(GetScreenWidth() / 2) - 245, static_cast<float>(GetScreenHeight() / 2) - 195, 490, 390 }, 0.5f, 1, ORANGE);
+
+				DrawTextEx(titleFont, "You Lost!", { static_cast<float>(GetScreenWidth() - 720), static_cast<float>(GetScreenHeight() / 2) - 150 }, 102.5f, 0.0f, BLACK);
+				DrawTextEx(titleFont, "You Lost!", { static_cast<float>(GetScreenWidth() - 715), static_cast<float>(GetScreenHeight() / 2) - 145 }, 100.0f, 0.0f, RED);
+
+				DrawTextEx(titleFont, TextFormat("Score: %i", spaceShip.score), { static_cast<float>(GetScreenWidth() - 600), static_cast<float>(GetScreenHeight() / 2) - 35 }, 52.5f, 0.0f, BLACK);
+				DrawTextEx(titleFont, TextFormat("Score: %i", spaceShip.score), { static_cast<float>(GetScreenWidth() - 595), static_cast<float>(GetScreenHeight() / 2) - 30 }, 50.0f, 0.0f, PINK);
+
+				DrawRectangleRounded({ 350, 425, 150, 100 }, 0.5f, 1, BLACK);
+				DrawRectangleRounded({ 355, 430, 140, 90 }, 0.5f, 1, PINK);
+
+				DrawTextEx(titleFont, "Main", { 390, 440 }, 35, 0, BLACK);
+				DrawTextEx(titleFont, "Menu", { 390, 480 }, 35, 0, BLACK);
+
+				DrawRectangleRounded({ 530, 425, 150, 100 }, 0.5f, 1, BLACK);
+				DrawRectangleRounded({ 535, 430, 140, 90 }, 0.5f, 1, PINK);
+
+				DrawTextEx(titleFont, "Exit", { 570, 440 }, 35, 0, BLACK);
+				DrawTextEx(titleFont, "Game", { 570, 480 }, 35, 0, BLACK);
 			}
 
 			DrawTexture(cursorLollipop, static_cast<int>(mousePosition.x), static_cast<int>(mousePosition.y), WHITE);
@@ -678,7 +742,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, S
 		}
 	}
 
-	if (spaceShip.lifes > 0 && IsKeyPressed(KEY_SPACE))
+	if (spaceShip.lifes <= 2 && spaceShip.lifes > 0 && IsKeyPressed(KEY_SPACE))
 	{
 		spaceShip.isActive = true;
 		spaceShip.isAlive = true;
