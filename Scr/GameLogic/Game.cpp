@@ -307,6 +307,8 @@ void RunGame()
 
 			DrawTexture(menuBackGround, 0, 0, WHITE);
 
+			DrawTextEx(titleFont, "Press 'ESC' to pause the game", { static_cast<float>(GetScreenWidth() / 2) - 175, 30 }, 35, 0, RED);
+
 			for (int i = 0; i < maxShipBullets; i++)
 			{
 				if (maximumShipBullets[i].isActive)
