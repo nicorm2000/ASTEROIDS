@@ -83,13 +83,13 @@ void RunGame()
 	Texture2D cursorLollipop = LoadTexture("../resources/cursor.png");
 	Texture2D creditsBg = LoadTexture("../resources/Credits.png");
 
-	Font titleFont = LoadFont("../resources/Fonts/MilkyCoffee.otf");
+	Font titleFont = LoadFont("../resources/MilkyCoffee.otf");
 
-	Sound pewSound = LoadSound("../resources/Music/pew.wav");
-	Sound deathSoundEffect = LoadSound("../resources/Music/deathsoundeffect.wav");
-	Sound crashAsteroid = LoadSound("../resources/Music/crashasteroids.wav");
+	Sound pewSound = LoadSound("../resources/pew.wav");
+	Sound deathSoundEffect = LoadSound("../resources/deathsoundeffect.wav");
+	Sound crashAsteroid = LoadSound("../resources/crashasteroids.wav");
 
-	Music bgMusic = LoadMusicStream("../resources/Music/bgMusic.mp3");
+	Music bgMusic = LoadMusicStream("../resources/bgMusic.mp3");
 
 	Ship spaceShip;
 	EnemyShip enemyShip;

@@ -1,0 +1,51 @@
+﻿  Generating code
+  Previous IPDB not found, fall back to full compilation.
+  All 36 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Finished generating code
+raylib.lib(raudio.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(raudio.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+raylib.lib(rcore.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(rcore.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+raylib.lib(rglfw.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(rglfw.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+raylib.lib(rshapes.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(rshapes.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+raylib.lib(rtext.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(rtext.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+raylib.lib(rtextures.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(rtextures.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+raylib.lib(utils.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(utils.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
+  ASTEROIDS_RAMOSMARIN.vcxproj -> C:\Users\Nico\Asteroids\bin\Win32\Release\ASTEROIDS_RAMOSMARIN.exe
+  C:\Users\Nico\Asteroids\\resources\bgMusic.mp3
+  C:\Users\Nico\Asteroids\\resources\bgmusic.txt
+  C:\Users\Nico\Asteroids\\resources\candyship.png
+  C:\Users\Nico\Asteroids\\resources\candyshipmovement.png
+  C:\Users\Nico\Asteroids\\resources\crashasteroids.txt
+  C:\Users\Nico\Asteroids\\resources\crashasteroids.wav
+  C:\Users\Nico\Asteroids\\resources\Credits.png
+  C:\Users\Nico\Asteroids\\resources\creditsbutton.png
+  C:\Users\Nico\Asteroids\\resources\cursor.png
+  C:\Users\Nico\Asteroids\\resources\deathsoundeffect.txt
+  C:\Users\Nico\Asteroids\\resources\deathsoundeffect.wav
+  C:\Users\Nico\Asteroids\\resources\enemy1.png
+  C:\Users\Nico\Asteroids\\resources\enemy2.png
+  C:\Users\Nico\Asteroids\\resources\enemy3.png
+  C:\Users\Nico\Asteroids\\resources\enemyship1.png
+  C:\Users\Nico\Asteroids\\resources\exitbutton.png
+  C:\Users\Nico\Asteroids\\resources\explosion1.png
+  C:\Users\Nico\Asteroids\\resources\explosion2.png
+  C:\Users\Nico\Asteroids\\resources\explosion3.png
+  C:\Users\Nico\Asteroids\\resources\explosion4.png
+  C:\Users\Nico\Asteroids\\resources\explosion5.png
+  C:\Users\Nico\Asteroids\\resources\explosion6.png
+  C:\Users\Nico\Asteroids\\resources\explosion7.png
+  C:\Users\Nico\Asteroids\\resources\explosion8.png
+  C:\Users\Nico\Asteroids\\resources\gametitle.png
+  C:\Users\Nico\Asteroids\\resources\howtoplay.png
+  C:\Users\Nico\Asteroids\\resources\howtoplaybutton.png
+  C:\Users\Nico\Asteroids\\resources\menubg.png
+  C:\Users\Nico\Asteroids\\resources\menubgbig.png
+  C:\Users\Nico\Asteroids\\resources\MilkyCoffee.otf
+  C:\Users\Nico\Asteroids\\resources\MilkyCoffee.txt
+  C:\Users\Nico\Asteroids\\resources\pew.wav
+  C:\Users\Nico\Asteroids\\resources\pewsoundeffect.txt
+  C:\Users\Nico\Asteroids\\resources\playbutton.png
+  C:\Users\Nico\Asteroids\\resources\shipBullet.png
+  C:\Users\Nico\Asteroids\\resources\spriteSheetExplosion.png
+  C:\Users\Nico\Asteroids\\resources\whereIgotIt.txt
+  C:\Users\Nico\Asteroids\\resources\xbutton.png
+  38 File(s) copied
