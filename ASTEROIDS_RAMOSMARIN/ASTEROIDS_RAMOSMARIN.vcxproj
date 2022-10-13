@@ -108,7 +108,7 @@ MKDIR res
 
 CD res
 
-XCOPY "$(SolutionDir)\res"  "$(TargetDir)res"
+XCOPY "$(SolutionDir)\ASTEROIDS_RAMOSMARIN\res"  "$(TargetDir)res"
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -139,7 +139,7 @@ MKDIR res
 
 CD res
 
-XCOPY "$(SolutionDir)\res"  "$(TargetDir)res"
+XCOPY "$(SolutionDir)\ASTEROIDS_RAMOSMARIN\res"  "$(TargetDir)res"
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
