@@ -21,7 +21,7 @@ EnemyShip CreateEnemyShip(EnemyShip& enemyShip)
 	} while (enemyShip.speed.x == 0);
 	enemyShip.rotation = 0;
 	enemyShip.isActive = true;
-	enemyShip.enemyTexture = LoadTexture("../res/enemyship1.png");
+	enemyShip.enemyTexture = LoadTexture("res/enemyship1.png");
 	return enemyShip;
 }
 
