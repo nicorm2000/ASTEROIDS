@@ -133,13 +133,13 @@ XCOPY "$(SolutionDir)\resources"  "$(TargetDir)resources"
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>IF NOT EXIST "$(TargetDir)resources" (
+      <Command>IF NOT EXIST "$(TargetDir)res" (
 CD $(TargetDir)
-MKDIR resources
+MKDIR res
 
-CD resources
+CD res
 
-XCOPY "$(SolutionDir)\resources"  "$(TargetDir)resources"
+XCOPY "$(SolutionDir)\res"  "$(TargetDir)res"
 )</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

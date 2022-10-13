@@ -1,4 +1,10 @@
-﻿  Generating code
+﻿  Game.cpp
+  main.cpp
+  Asteroid.cpp
+  EnemyShip.cpp
+  Ship.cpp
+  ShipBullet.cpp
+  Generating code
   Previous IPDB not found, fall back to full compilation.
   All 36 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Finished generating code
@@ -10,42 +16,33 @@ raylib.lib(rtext.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'ra
 raylib.lib(rtextures.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(rtextures.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
 raylib.lib(utils.obj) : warning LNK4099: PDB 'raylib.pdb' was not found with 'raylib.lib(utils.obj)' or at 'C:\Users\Nico\Asteroids\bin\Win32\Release\raylib.pdb'; linking object as if no debug info
   ASTEROIDS_RAMOSMARIN.vcxproj -> C:\Users\Nico\Asteroids\bin\Win32\Release\ASTEROIDS_RAMOSMARIN.exe
-  C:\Users\Nico\Asteroids\\resources\bgMusic.mp3
-  C:\Users\Nico\Asteroids\\resources\bgmusic.txt
-  C:\Users\Nico\Asteroids\\resources\candyship.png
-  C:\Users\Nico\Asteroids\\resources\candyshipmovement.png
-  C:\Users\Nico\Asteroids\\resources\crashasteroids.txt
-  C:\Users\Nico\Asteroids\\resources\crashasteroids.wav
-  C:\Users\Nico\Asteroids\\resources\Credits.png
-  C:\Users\Nico\Asteroids\\resources\creditsbutton.png
-  C:\Users\Nico\Asteroids\\resources\cursor.png
-  C:\Users\Nico\Asteroids\\resources\deathsoundeffect.txt
-  C:\Users\Nico\Asteroids\\resources\deathsoundeffect.wav
-  C:\Users\Nico\Asteroids\\resources\enemy1.png
-  C:\Users\Nico\Asteroids\\resources\enemy2.png
-  C:\Users\Nico\Asteroids\\resources\enemy3.png
-  C:\Users\Nico\Asteroids\\resources\enemyship1.png
-  C:\Users\Nico\Asteroids\\resources\exitbutton.png
-  C:\Users\Nico\Asteroids\\resources\explosion1.png
-  C:\Users\Nico\Asteroids\\resources\explosion2.png
-  C:\Users\Nico\Asteroids\\resources\explosion3.png
-  C:\Users\Nico\Asteroids\\resources\explosion4.png
-  C:\Users\Nico\Asteroids\\resources\explosion5.png
-  C:\Users\Nico\Asteroids\\resources\explosion6.png
-  C:\Users\Nico\Asteroids\\resources\explosion7.png
-  C:\Users\Nico\Asteroids\\resources\explosion8.png
-  C:\Users\Nico\Asteroids\\resources\gametitle.png
-  C:\Users\Nico\Asteroids\\resources\howtoplay.png
-  C:\Users\Nico\Asteroids\\resources\howtoplaybutton.png
-  C:\Users\Nico\Asteroids\\resources\menubg.png
-  C:\Users\Nico\Asteroids\\resources\menubgbig.png
-  C:\Users\Nico\Asteroids\\resources\MilkyCoffee.otf
-  C:\Users\Nico\Asteroids\\resources\MilkyCoffee.txt
-  C:\Users\Nico\Asteroids\\resources\pew.wav
-  C:\Users\Nico\Asteroids\\resources\pewsoundeffect.txt
-  C:\Users\Nico\Asteroids\\resources\playbutton.png
-  C:\Users\Nico\Asteroids\\resources\shipBullet.png
-  C:\Users\Nico\Asteroids\\resources\spriteSheetExplosion.png
-  C:\Users\Nico\Asteroids\\resources\whereIgotIt.txt
-  C:\Users\Nico\Asteroids\\resources\xbutton.png
-  38 File(s) copied
+  C:\Users\Nico\Asteroids\\res\bgMusic.mp3
+  C:\Users\Nico\Asteroids\\res\bgmusic.txt
+  C:\Users\Nico\Asteroids\\res\candyship.png
+  C:\Users\Nico\Asteroids\\res\candyshipmovement.png
+  C:\Users\Nico\Asteroids\\res\crashasteroids.txt
+  C:\Users\Nico\Asteroids\\res\crashasteroids.wav
+  C:\Users\Nico\Asteroids\\res\Credits.png
+  C:\Users\Nico\Asteroids\\res\creditsbutton.png
+  C:\Users\Nico\Asteroids\\res\cursor.png
+  C:\Users\Nico\Asteroids\\res\deathsoundeffect.txt
+  C:\Users\Nico\Asteroids\\res\deathsoundeffect.wav
+  C:\Users\Nico\Asteroids\\res\enemy1.png
+  C:\Users\Nico\Asteroids\\res\enemy2.png
+  C:\Users\Nico\Asteroids\\res\enemy3.png
+  C:\Users\Nico\Asteroids\\res\enemyship1.png
+  C:\Users\Nico\Asteroids\\res\exitbutton.png
+  C:\Users\Nico\Asteroids\\res\gametitle.png
+  C:\Users\Nico\Asteroids\\res\howtoplay.png
+  C:\Users\Nico\Asteroids\\res\howtoplaybutton.png
+  C:\Users\Nico\Asteroids\\res\menubg.png
+  C:\Users\Nico\Asteroids\\res\menubgbig.png
+  C:\Users\Nico\Asteroids\\res\MilkyCoffee.otf
+  C:\Users\Nico\Asteroids\\res\MilkyCoffee.txt
+  C:\Users\Nico\Asteroids\\res\pew.wav
+  C:\Users\Nico\Asteroids\\res\pewsoundeffect.txt
+  C:\Users\Nico\Asteroids\\res\playbutton.png
+  C:\Users\Nico\Asteroids\\res\shipBullet.png
+  C:\Users\Nico\Asteroids\\res\whereIgotIt.txt
+  C:\Users\Nico\Asteroids\\res\xbutton.png
+  29 File(s) copied

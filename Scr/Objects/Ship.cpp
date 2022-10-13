@@ -15,9 +15,9 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.color = RED;
 	spaceShip.lifes = 3;
 	spaceShip.isActive = true;
-	spaceShip.shipTexture = LoadTexture("../resources/candyship.png");
-	spaceShip.shipOriginalTexture = LoadTexture("../resources/candyship.png");
-	spaceShip.shipTextureMovement = LoadTexture("../resources/candyshipmovement.png");
+	spaceShip.shipTexture = LoadTexture("../res/candyship.png");
+	spaceShip.shipOriginalTexture = LoadTexture("../res/candyship.png");
+	spaceShip.shipTextureMovement = LoadTexture("../res/candyshipmovement.png");
 	return spaceShip;
 }
 

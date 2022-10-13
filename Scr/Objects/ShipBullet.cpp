@@ -12,7 +12,7 @@ ShipBullets CreateShipBullet(ShipBullets& shipBullets)
 	shipBullets.speed = 300.0f;
 	shipBullets.isMoving = false;
 	shipBullets.isActive = false;
-	shipBullets.bulletTexture = LoadTexture("../resources/shipBullet.png");
+	shipBullets.bulletTexture = LoadTexture("../res/shipBullet.png");
 	return shipBullets;
 }
 

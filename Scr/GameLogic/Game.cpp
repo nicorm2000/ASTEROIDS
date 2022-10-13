@@ -66,29 +66,29 @@ void RunGame()
 
 	GameScreen gameState = GameScreen::GAMETITLE;
 
-	Texture2D backGround = LoadTexture("../resources/backgroundtiled.png");
-	Texture2D exitButton = LoadTexture("../resources/xbutton.png");
-	Texture2D menuBackGround = LoadTexture("../resources/menubgbig.png");
-	Texture2D howToPlayMenu = LoadTexture("../resources/howtoplay.png");
-	Texture2D gameTitle = LoadTexture("../resources/gametitle.png");
-	Texture2D playTitle = LoadTexture("../resources/playbutton.png");
-	Texture2D howToPlayTitle = LoadTexture("../resources/howtoplaybutton.png");
-	Texture2D creditsTitle = LoadTexture("../resources/creditsbutton.png");
-	Texture2D exitTitle = LoadTexture("../resources/exitbutton.png");
-	Texture2D button1 = LoadTexture("../resources/button.png");
-	Texture2D asteroidBig = LoadTexture("../resources/enemy1.png");
-	Texture2D asteroidMedium = LoadTexture("../resources/enemy2.png");
-	Texture2D asteroidSmall = LoadTexture("../resources/enemy3.png");
-	Texture2D cursorLollipop = LoadTexture("../resources/cursor.png");
-	Texture2D creditsBg = LoadTexture("../resources/Credits.png");
+	Texture2D backGround = LoadTexture("../res/backgroundtiled.png");
+	Texture2D exitButton = LoadTexture("../res/xbutton.png");
+	Texture2D menuBackGround = LoadTexture("../res/menubgbig.png");
+	Texture2D howToPlayMenu = LoadTexture("../res/howtoplay.png");
+	Texture2D gameTitle = LoadTexture("../res/gametitle.png");
+	Texture2D playTitle = LoadTexture("../res/playbutton.png");
+	Texture2D howToPlayTitle = LoadTexture("../res/howtoplaybutton.png");
+	Texture2D creditsTitle = LoadTexture("../res/creditsbutton.png");
+	Texture2D exitTitle = LoadTexture("../res/exitbutton.png");
+	Texture2D button1 = LoadTexture("../res/button.png");
+	Texture2D asteroidBig = LoadTexture("../res/enemy1.png");
+	Texture2D asteroidMedium = LoadTexture("../res/enemy2.png");
+	Texture2D asteroidSmall = LoadTexture("../res/enemy3.png");
+	Texture2D cursorLollipop = LoadTexture("../res/cursor.png");
+	Texture2D creditsBg = LoadTexture("../res/Credits.png");
 
-	Font titleFont = LoadFont("../resources/MilkyCoffee.otf");
+	Font titleFont = LoadFont("../res/MilkyCoffee.otf");
 
-	Sound pewSound = LoadSound("../resources/pew.wav");
-	Sound deathSoundEffect = LoadSound("../resources/deathsoundeffect.wav");
-	Sound crashAsteroid = LoadSound("../resources/crashasteroids.wav");
+	Sound pewSound = LoadSound("../res/pew.wav");
+	Sound deathSoundEffect = LoadSound("../res/deathsoundeffect.wav");
+	Sound crashAsteroid = LoadSound("../res/crashasteroids.wav");
 
-	Music bgMusic = LoadMusicStream("../resources/bgMusic.mp3");
+	Music bgMusic = LoadMusicStream("../res/bgMusic.mp3");
 
 	Ship spaceShip;
 
