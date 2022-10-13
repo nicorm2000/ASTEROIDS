@@ -1,16 +1,15 @@
 #include "Game.h"
-#include "raylib.h"
-#include <ctime>
-#include "raymath.h"
+
 #include <iostream>
-#include <Vector>
+#include <ctime>
+
+#include "raylib.h"
+#include "raymath.h"
 
 #include "Objects/Ship.h"
 #include "Objects/Asteroid.h"
 #include "Objects/ShipBullet.h"
 #include "Objects/EnemyShip.h"
-
-using namespace std;
 
 const int maxShipBullets = 20;
 ShipBullets shipBullets;
@@ -92,6 +91,7 @@ void RunGame()
 	Music bgMusic = LoadMusicStream("../resources/bgMusic.mp3");
 
 	Ship spaceShip;
+
 	EnemyShip enemyShip;
 
 	for (int i = 0; i < asteroidBigAmount; i++)
@@ -927,7 +927,7 @@ void RespawnAsteroids(Texture2D asteroidBig)
 		}
 	}
 
-	asteroidBigCount += 8;
+	asteroidBigCount += asteroidBigAmount;
 	asteroidMediumCount = 0;
 	asteroidSmallCount = 0;
 }

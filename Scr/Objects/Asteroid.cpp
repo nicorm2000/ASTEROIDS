@@ -1,4 +1,5 @@
 #include "Asteroid.h"
+
 #include "raylib.h"
 
 Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize, Texture2D texture)

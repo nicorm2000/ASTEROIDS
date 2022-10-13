@@ -4,9 +4,6 @@
     <Filter Include="Objects">
       <UniqueIdentifier>{027d4bdc-6e85-41c9-9c97-45eebff35f43}</UniqueIdentifier>
     </Filter>
-    <Filter Include="UI">
-      <UniqueIdentifier>{6bcf6708-d09e-42ae-8686-c3c3e5cdffa9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameLogic">
       <UniqueIdentifier>{1cefe60c-061e-41ec-89cd-96977c27b142}</UniqueIdentifier>
     </Filter>

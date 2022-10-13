@@ -1,5 +1,6 @@
-#include "raylib.h"
 #include "Objects/ShipBullet.h"
+
+#include "raylib.h"
 
 ShipBullets CreateShipBullet(ShipBullets& shipBullets)
 {

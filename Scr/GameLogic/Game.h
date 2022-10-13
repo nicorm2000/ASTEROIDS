@@ -9,10 +9,4 @@ enum class GameScreen
 	EXIT
 };
 
-//struct Buttons
-//{
-//	Rectangle RectBut{};
-//	Texture2D TextureButton;
-//};
-
 void RunGame();
