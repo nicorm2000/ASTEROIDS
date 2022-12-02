@@ -471,7 +471,7 @@ void RunGame()
 				}
 			}
 
-			if (CheckCollisionPointRec(mousePosition, { 770, 600, 175, 60 }))
+			if (CheckCollisionPointRec(mousePosition, { 630, 400, 175, 60 }))
 			{
 				if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
 				{
