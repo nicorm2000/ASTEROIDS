@@ -12,7 +12,7 @@ struct Ship
 	float rotation;
 	float radius;
 	bool isAlive;
-	int lifes;
+	int lives;
 	int score;
 	Rectangle source;
 	Rectangle dest;

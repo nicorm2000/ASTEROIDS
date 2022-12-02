@@ -191,7 +191,7 @@ void RunGame()
 				if (restartGame)
 				{
 					spaceShip.score = 0;
-					spaceShip.lifes = 3;
+					spaceShip.lives = 3;
 					spaceShip.isActive = true;
 					spaceShip.isAlive = true;
 					spaceShip.position.x = static_cast<float>(GetScreenWidth() / 2);
@@ -259,7 +259,7 @@ void RunGame()
 				}
 			}
 
-			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished && !spaceShip.lifes == 0)
+			if (IsKeyPressed(KEY_ESCAPE) && !gameFinished && !spaceShip.lives == 0)
 			{
 				isPaused = true;
 				exitWindow = true;
@@ -287,7 +287,7 @@ void RunGame()
 				}
 			}
 
-			if (spaceShip.lifes <= 0)
+			if (spaceShip.lives <= 0)
 			{
 				if (CheckCollisionPointRec(mousePosition, { 350, 425, 150, 100 }))
 				{
@@ -369,18 +369,18 @@ void RunGame()
 				DrawTextEx(titleFont, "NO", { 580, 460 }, 35, 0, BLACK);
 			}
 			
-			DrawTextEx(titleFont, TextFormat("Lifes: %i", spaceShip.lifes), { 15, 15 }, 52.5f, 0.0f, BLACK);
-			DrawTextEx(titleFont, TextFormat("Lifes: %i", spaceShip.lifes), { 20, 20 }, 50.0f, 0.0f, ORANGE);
+			DrawTextEx(titleFont, TextFormat("Lives: %i", spaceShip.lives), { 15, 15 }, 52.5f, 0.0f, BLACK);
+			DrawTextEx(titleFont, TextFormat("Lives: %i", spaceShip.lives), { 20, 20 }, 50.0f, 0.0f, ORANGE);
 
 			DrawTextEx(titleFont, TextFormat("Score: %i", spaceShip.score), { static_cast<float>(GetScreenWidth() - 210), 15 }, 52.5f, 0.0f, BLACK);
 			DrawTextEx(titleFont, TextFormat("Score: %i", spaceShip.score), { static_cast<float>(GetScreenWidth() - 205), 20 }, 50.0f, 0.0f, ORANGE);
 
-			if (!spaceShip.isAlive && spaceShip.lifes != 0)
+			if (!spaceShip.isAlive && spaceShip.lives != 0)
 			{
 				DrawText("Press 'SPACE' to respawn", GetScreenWidth() / 2 - 250, GetScreenHeight() / 2, 40, BLACK);
 			}
 
-			if (spaceShip.lifes <= 0)
+			if (spaceShip.lives <= 0)
 			{
 				DrawRectangleRounded({ static_cast<float>(GetScreenWidth() / 2) - 250, static_cast<float>(GetScreenHeight() / 2) - 200, 500, 400 }, 0.5f, 1, BLACK);
 				DrawRectangleRounded({ static_cast<float>(GetScreenWidth() / 2) - 245, static_cast<float>(GetScreenHeight() / 2) - 195, 490, 390 }, 0.5f, 1, ORANGE);
@@ -733,7 +733,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, S
 	{
 		if (CollisionCircleCircle(spaceShip.position, spaceShip.radius, asteroid1.position, asteroid1.radius))
 		{
-			spaceShip.lifes--;
+			spaceShip.lives--;
 			spaceShip.isActive = false;
 			spaceShip.isAlive = false;
 			asteroid1.isActive = false;
@@ -744,7 +744,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, S
 		}
 	}
 
-	if (spaceShip.lifes <= 2 && spaceShip.lifes > 0 && IsKeyPressed(KEY_SPACE))
+	if (spaceShip.lives <= 2 && spaceShip.lives > 0 && IsKeyPressed(KEY_SPACE))
 	{
 		spaceShip.isActive = true;
 		spaceShip.isAlive = true;
@@ -753,7 +753,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, S
 		spaceShip.speed.x = 0;
 		spaceShip.speed.y = 0;
 	}
-	else if (spaceShip.lifes <= 0)
+	else if (spaceShip.lives <= 0)
 	{
 		spaceShip.isActive = false;
 	}
@@ -761,7 +761,7 @@ void GameCollisions(Ship& spaceShip, Asteroid& asteroid1, EnemyShip enemyShip, S
 	if (CollisionCircleRectangleEnemyShip(spaceShip, enemyShip))
 	{
 		spaceShip.isActive = false;
-		spaceShip.lifes = 0;
+		spaceShip.lives = 0;
 		for (int i = 0; i < maxShipBullets; i++)
 		{
 			maximumShipBullets[i].isActive = false;

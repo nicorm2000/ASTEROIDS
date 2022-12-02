@@ -13,7 +13,7 @@ Ship CreateShip(Ship& spaceShip)
 	spaceShip.speed.y = 5;
 	spaceShip.rotation = 0;
 	spaceShip.color = RED;
-	spaceShip.lifes = 3;
+	spaceShip.lives = 3;
 	spaceShip.isActive = true;
 	spaceShip.shipTexture = LoadTexture("res/candyship.png");
 	spaceShip.shipOriginalTexture = LoadTexture("res/candyship.png");
