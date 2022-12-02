@@ -51,7 +51,6 @@ Asteroid CreateAsteroid(Asteroid& asteroid, Size asteroidSize, Texture2D texture
 
 void DrawAsteroid(Asteroid& asteroid)
 {
-	//hitbox
 	//DrawCircle(asteroid.position.x, asteroid.position.y, asteroid.radius, RED);
 	DrawTexture(asteroid.asteroidTexture, static_cast<int>(asteroid.position.x) - static_cast<int>(asteroid.radius), static_cast<int>(asteroid.position.y) - static_cast<int>(asteroid.radius), asteroid.color);
 }

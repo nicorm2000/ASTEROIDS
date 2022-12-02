@@ -2,8 +2,8 @@
 
 EnemyShip CreateEnemyShip(EnemyShip& enemyShip)
 {
-	enemyShip.size.x = 100;
-	enemyShip.size.y = 50;
+	enemyShip.size.x = 200;
+	enemyShip.size.y = 100;
 	enemyShip.position.x = static_cast<float>(GetRandomValue(0, 1024));
 	enemyShip.position.y = static_cast<float>(GetRandomValue(150, 650));
 	if (enemyShip.position.y <= GetScreenHeight() / 2.0f && enemyShip.position.y >= 284)

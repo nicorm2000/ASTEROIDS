@@ -23,6 +23,6 @@ Ship CreateShip(Ship& spaceShip)
 
 void DrawShip(Ship& spaceShip, float angle)
 {
-	DrawTexturePro(spaceShip.shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
 	//DrawCircleLines(static_cast<int>(spaceShip.position.x), static_cast<int>(spaceShip.position.y), spaceShip.radius, spaceShip.color);
+	DrawTexturePro(spaceShip.shipTexture, spaceShip.source, spaceShip.dest, spaceShip.origin, angle, WHITE);
 }
